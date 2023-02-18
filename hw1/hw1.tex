@@ -1,0 +1,351 @@
+\documentclass[letterpaper, 11pt]{article}
+\usepackage{nopageno} % For removing page numbers
+\usepackage[utf8]{inputenc}
+\usepackage{color, colortbl} % For table coloring
+\usepackage{titling} % For positioning of title preamble
+\usepackage[margin=0.75in]{geometry} % For margin width setting
+\usepackage{comment} % For block commenting
+\usepackage{float} % For table positioning
+% For math equation formatting
+\usepackage{amsmath, amssymb, amsfonts}
+\newcommand{\PMod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+\usepackage{parskip} % For automatic paragraph spacing/formatting
+\usepackage{relsize} % For increased math mode font sizing
+% For code blocks
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{listings, minted}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keepspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color{blue},
+    commentstyle=\sffamily\itshape\color{Green}\scriptsize,
+    stringstyle = \color{red},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2
+}
+\tcbset{
+    colback=gray!5!white,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colframe=gray!75!black,
+}
+\setlength{\extrarowheight}{2pt}
+\usepackage{titlesec} % Custom styling for section titles
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont}{\thesection}{1em}{}
+% For side by side figures
+\usepackage{multicol}
+\usepackage{makecell}
+% For horizontal lists
+\usepackage{enumitem, tasks, varwidth}
+% For custom page numbers
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\usepackage{times}
+\usepackage[skip=2pt]{caption}
+\usepackage{graphicx}
+\graphicspath{{../Images/}}
+
+% Move title area to the top of the page
+\setlength{\droptitle}{-4em}
+\addtolength{\droptitle}{-4pt} 
+\renewcommand{\arraystretch}{1.25}
+% Disable paragraph indenting
+\setlength{\parindent}{0pt}
+
+\usepackage[none]{hyphenat}
+
+\title{CS430 Homework 1}
+\author{Brendan Nguyen (\#01763771)}
+\date{Due: Wednesday, Feb. 15, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1 (30 points)}
+
+Consider a database schema with three relations:
+\begin{itemize}
+    \item Books (\underline{\texttt{bid}:integer}, \texttt{bname}:string, \texttt{author}:string, \texttt{pubyear}:integer, \texttt{pubcompany}:string)
+    \item Students (\underline{\texttt{sid}:integer}, \texttt{sname}:string, \texttt{age}:real, \texttt{state}:string)
+    \item Reads (\underline{\texttt{sid}:integer, \texttt{bid}:integer}, \texttt{year}:integer)
+\end{itemize}
+
+(The primary keys are underlined in each relation. A book is uniquely identified by \texttt{bid}. A student is uniquely identified by \texttt{sid}. If a student reads a book, a record will be present in the Reads relation, with that \texttt{sid} and \texttt{bid} and the year the book was read.)
+
+and the following relations instances:
+
+\begin{table}[H]
+    \centering
+    \caption*{Students}
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+        \cellcolor[HTML]{b4c6e7} sid & \cellcolor[HTML]{b4c6e7} sname & \cellcolor[HTML]{b4c6e7} age & \cellcolor[HTML]{b4c6e7} state \\
+        \hline
+        20 & mary & 21 & MA \\
+        \hline
+        10 & anne & 20 & NY \\
+        \hline
+        30 & joe & 21 & MA \\
+        \hline
+        40 & mary & 21 & VT \\
+        \hline
+        60 & linda & 23 & MA \\
+        \hline
+    \end{tabular}
+\end{table}
+\vspace{-2em}
+\begin{minipage}[t]{0.7\textwidth}
+\begin{table}[H]
+    \centering
+    \caption*{Books}
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+        \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} bname & \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear & \cellcolor[HTML]{b4c6e7} pubcompany \\
+        \hline
+        102 & ulysses & joyce & 1920 & simon \\
+        \hline
+        101 & lord of the rings & tolkien & 1954 & alien \\
+        \hline
+        103 & other book & joyce & 1920 & penguin \\
+        \hline
+    \end{tabular}
+\end{table}
+\end{minipage}
+\begin{minipage}[t]{0.2\textwidth}
+\begin{table}[H]
+    \centering
+    \caption*{Reads}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \cellcolor[HTML]{b4c6e7} sid & \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} year \\
+        \hline
+        20 & 101 & 2020 \\
+        \hline
+        20 & 102 & 2021 \\
+        \hline
+        30 & 103 & 2020 \\
+        \hline
+    \end{tabular}
+\end{table}
+\end{minipage}
+\vspace{1em}
+
+Notes:
+\begin{itemize}
+    \item For CS430 students, each problem (a through e) carries 6 points possible.
+    \item For CS630 students, each problem (a through f) carries 5 points possible. 
+\end{itemize}
+
+Using the relation instances from above, show the resulted relation for each of the following relational algebra expressions:
+\begin{enumerate}[label={\alph*})]
+    \item $\sigma_{\textit{author='joyce'}}\textit{Books}$
+    \begin{table}[H]
+        \centering
+        \caption*{$\sigma_{\textit{author='joyce'}}\textit{Books}$}
+        \begin{tabular}{|l|l|l|l|l|}
+        \hline
+            \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} bname & \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear & \cellcolor[HTML]{b4c6e7} pubcompany \\
+            \hline
+            102 & ulysses & joyce & 1920 & simon \\
+            \hline
+            103 & other book & joyce & 1920 & penguin \\
+            \hline
+        \end{tabular}
+    \end{table}
+    
+    \item $\pi_{\textit{author,pubyear}}(\sigma_{\textit{author='joyce'}}\textit{Books})$
+    \begin{table}[H]
+        \centering
+        \caption*{$\pi_{\textit{author,pubyear}}(\sigma_{\textit{author='joyce'}}\textit{Books})$}
+        \begin{tabular}{|l|l|}
+        \hline
+            \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear \\
+            \hline
+            ulysses & joyce \\
+            \hline
+            other book & joyce \\
+            \hline
+        \end{tabular}
+    \end{table}
+    
+    \item $(\sigma_{\textit{sname='mary'}}\textit{Students}) \bowtie \textit{Reads}$
+    \begin{table}[H]
+        \centering
+        \caption*{$(\sigma_{\textit{sname='mary'}}\textit{Students}) \bowtie \textit{Reads}$}
+        \begin{tabular}{|l|l|l|l|l|l|}
+            \hline
+            \cellcolor[HTML]{b4c6e7} sid & \cellcolor[HTML]{b4c6e7} sname & \cellcolor[HTML]{b4c6e7} age & \cellcolor[HTML]{b4c6e7} state & \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} year \\
+            \hline
+            20 & mary & 21 & MA & 101 & 2020 \\
+            \hline
+            20 & mary & 21 & VT & 102 & 2021 \\
+            \hline
+        \end{tabular}
+    \end{table}
+    \item $(\sigma_{\textit{state='MA'}}\textit{Students}) \times (\sigma_{\textit{year=2020}}\textit{Reads})$
+    \begin{table}[H]
+        \centering
+        \caption*{$(\sigma_{\textit{state='MA'}}\textit{Students}) \times (\sigma_{\textit{year=2020}}\textit{Reads})$}
+        \begin{tabular}{|l|l|l|l|l|l|l|}
+        \hline
+            \cellcolor[HTML]{b4c6e7} (sid) & \cellcolor[HTML]{b4c6e7} sname & \cellcolor[HTML]{b4c6e7} age & \cellcolor[HTML]{b4c6e7} state & \cellcolor[HTML]{b4c6e7} (sid) & \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} year \\
+            \hline
+            20 & mary & 21 & MA & 20 & 101 & 2020 \\
+            \hline
+            20 & mary & 21 & MA & 30 & 103 & 2020 \\
+            \hline
+            30 & joe & 21 & MA & 20 & 101 & 2020 \\
+            \hline
+            30 & joe & 21 & MA & 30 & 103 & 2020 \\
+            \hline
+            60 & linda & 23 & MA & 20 & 101 & 2020 \\
+            \hline
+            60 & linda & 23 & MA & 30 & 103 & 2020 \\
+            \hline
+        \end{tabular}
+    \end{table}
+    \item $\rho(A(\textit{bname} \to \textit{name}), \sigma_{(\textit{pubcompany='simon})\vee (\textit{pubcompany='alien'})} \textit{Books})$
+    \begin{table}[H]
+        \centering
+        \caption*{$\rho(A(\textit{bname} \to \textit{name}), \sigma_{(\textit{pubcompany='simon})\vee (\textit{pubcompany='alien'})} \textit{Books})$}
+        \begin{tabular}{|l|l|l|l|l|}
+        \hline
+            \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} name & \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear & \cellcolor[HTML]{b4c6e7} pubcompany \\
+            \hline
+            102 & ulysses & joyce & 1920 & simon \\
+            \hline
+            101 & lord of the rings & tolkien & 1954 & alien \\
+            \hline
+        \end{tabular}
+    \end{table}
+    \item $\left[\text{CS630 only}\right]$ $\textit{Students} \bowtie \textit{Reads} \bowtie (\sigma_{\textit{pubyear \textless 1950}}\textit{Books})$
+    \begin{table}[H]
+        \centering
+        \caption*{$\left[\text{CS630 only}\right]$ $\textit{Students} \bowtie \textit{Reads} \bowtie (\sigma_{\textit{pubyear \textless 1950}}\textit{Books})$}
+        \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+            \hline
+            \cellcolor[HTML]{b4c6e7} sid & \cellcolor[HTML]{b4c6e7} sname & \cellcolor[HTML]{b4c6e7} age & \cellcolor[HTML]{b4c6e7} state & \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} year & \cellcolor[HTML]{b4c6e7} bname & \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear & \cellcolor[HTML]{b4c6e7} pubcompany \\
+            \hline
+            30 & joe & 21 & MA & 103 & 2020 & other book & joyce & 1920 & penguin \\
+            \hline
+            40 & mary & 21 & VT & 102 & 2021 & ulysses & joyce & 1920 & simon \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{enumerate}
+
+\textbf{Note:} for each resulted relation, you must show both the header with the column names, in the expected order, as well as the records.
+
+\section*{Question 2 (40 points)}
+
+Consider a database schema with three relations:
+\begin{itemize}
+    \item Actors (\underline{\texttt{aid}:integer}, \texttt{aname}:string, \texttt{age}:real, \texttt{city}:string, \texttt{state}:string)
+    \item Playsin (\underline{\texttt{aid}:integer, \texttt{mid}:integer}, \texttt{character}:string)
+    \item Movies (\underline{\texttt{mid}:integer}, \texttt{mname}:string, \texttt{year}:integer, \texttt{studio}:string)
+\end{itemize}
+
+Primary keys are underlined in each relation. Attribute aid uniquely identifies an actor in Actors relation. An actor has an id (\texttt{aid}), a name (attr. \texttt{aname}), an age (attr. \texttt{age}), and a city and state(attributes \texttt{city} and \texttt{state}). Attribute \texttt{mid} uniquely identifies a movie in relation Movies. A movie has an id(\texttt{mid}), a name(attr. \texttt{mname}), a year (attr. \texttt{year}) and a studio that produced it (attr. \texttt{studio}). Relation Playsin contains information about actors who played in movies. Attribute \texttt{character} = the character name of the actor with \texttt{aid} when playing in \texttt{mid}.
+
+Notes:
+\begin{itemize}
+    \item For CS430 students, each problem (a through h) carries 5 points possible.
+    \item For CS630 students, each problem (a through j) carries 4 points possible.
+\end{itemize}
+
+Write relational algebra queries for the following queries:
+\begin{enumerate}[label={\alph*})]
+    \item Find the information about movies produced by `WB' or `Universal' studios
+    
+    $\sigma_{(\textit{studio=`WB'}) \vee (\textit{studio=`Universal'})}\textit{Movies}$
+    
+    \item Find the names of actors who are older than 25 and are from state VT.
+
+    $\pi_{\textit{aname}}(\sigma_{(\textit{age \textgreater 25}) \wedge (\textit{state = `VT'})}\textit{Actors})$
+    
+    \item Find the names and ages of the actors who played only in movies only in 2015.
+
+    $\pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{year=2015}}\textit{Movies}))$
+    
+    \item Find the names, age and city of actors who are from Boston MA and played some movies produced by `Universal' studio.
+
+    $\pi_{\textit{aname,age,city}}((\sigma_{\textit{city=`Boston'}\wedge \textit{state=`MA'}}\textit{Actors}) \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{studio=`Universal'}}\textit{Movies}))$
+    
+    \item Find the name and age of the actors who played in movies both in 2012 and 2018.
+
+    $\pi_{\textit{aname,age}}((\sigma_{\textit{year=2012}}\textit{Movies} \bowtie \textit{Playsin}) \cap (\sigma_{\textit{year=2018}}\textit{Movies} \bowtie \textit{Playsin})) \bowtie \textit{Actors}$
+    
+    \item Find the names of the actors older than 30 who played in a movie produced by `WB' studio in 2018.
+
+    $\pi_{\textit{aname}}((\sigma_{\textit{age \textgreater 30}}\textit{Actors}) \bowtie (\textit{Playsin} \bowtie (\sigma_{(studio=`WB') \wedge (\textit{year=2018})}\textit{Movies})))$
+    
+    \item Find the information about actors and movies they played in. The result should contain the name and age of actors and the name of movies.
+
+    $\pi_{\textit{aname,age,mname}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie \textit{Movies})$
+    
+    \item Find the names and ages of actors from MA who played as character `Batman'.
+
+    $\pi_{\textit{aname,age}}(\sigma_{(\textit{city=`MA'})\wedge (\textit{character=`Batman'})}(\textit{Actors} \bowtie \textit{Playsin}))$
+    
+    \item $\left[\text{CS630 only}\right]$ Find the name and age of actors who played in movies produced by `Paramount' (in any year) and never played in any movie produced by `WB' in year 2020.
+    \item $\left[\text{CS630 only}\right]$ Find names of movies in which actors from both MA and NY states played.
+\end{enumerate}
+
+\section*{Question 3 (30 points)}
+
+Consider a database schema with three relations:
+\begin{itemize}
+    \item Books (\underline{\texttt{bid}:integer}, \texttt{bname}:string, \texttt{author}:string, \texttt{pubyear}:integer,\texttt{pubcompany}:string)
+    \item Students (\underline{\texttt{sid}:integer}, \texttt{sname}:string, \texttt{age}:real, \texttt{state}:string)
+    \item Reads(\underline{\texttt{sid}:integer, \texttt{bid}:integer}, \texttt{year}:integer)
+\end{itemize}
+
+Primary keys are underlined  in each relation. A book is uniquely identified by \texttt{bid}. A book has an id (\texttt{bid}), a name (\texttt{bname}), one author (attribute \texttt{author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). A student is uniquely identified by \texttt{sid}. A student has an id (\texttt{sid}), a name (attr. \texttt{sname}), age (attr. \texttt{age}) and a state (attr. \texttt{state}). If a student reads a book, a record will be present in the Reads relation, with that \texttt{sid} and \texttt{bid} and the \texttt{year} the book was read.
+
+Write the relational algebra expressions for the following queries:
+\begin{enumerate}[label={\alph*})]
+    \item Find the information about the youngest students.
+    
+    $\rho(S1, \textit{Students})$\\
+    $\rho(S2, \textit{Students})$\\
+    $\rho(\textit{Temp}(1 \to \textit{fsid}, 2 \to \textit{fsname}, 3 \to \textit{fage}, 4 \to \textit{fstate}), S1 \bowtie_{\textit{S1.age \textgreater S2.age}}S2)$\\
+    $\rho(\textit{TempLeft}, \pi_{\textit{fsid,fsname,fage,fstate}}\textit{Temp})$\\
+    $\textit{Students} - \textit{TempLeft}$
+    
+    \item Find the information about the books that are either published in 2010 or 2020.
+
+    $\sigma_{\textit{year=2010} \wedge \textit{year=2020}}\textit{Books}$
+    
+    \item Find the names, pub year and pub company of the oldest books.
+
+    $\rho(B1, \textit{Books})$\\
+    $\rho(B2, \textit{Books})$\\
+    $\rho(\textit{Temp}(1 \to \textit{fbid}, 2 \to \textit{fbname}, 3 \to \textit{fauthor}, 4 \to \textit{fpubyear}, 5 \to \textit{fpubcompany}), B1 \bowtie_{\textit{B1.pubyear \textgreater B2.pubyear}} B2)$\\
+    $\rho(\textit{TempLeft}, \pi_{\textit{fbname,fpubye\textit{}ar,fpubcompany}}\textit{Temp})$\\
+    $\textit{Books} - \textit{TempLeft}$
+    
+    \item Find the names of the students from MA who read some books both in 2015 and 2018.
+
+    $\pi_{\textit{sname}}(((\sigma_{\textit{year=2015}}\textit{Reads}) \bowtie (\sigma_{\textit{state=`MA'}}\textit{Students})) \cap ((\sigma_{\textit{year=2018}}\textit{Reads}) \bowtie (\sigma_{\textit{state=`MA'}}\textit{Students})))$
+    
+    \item Find the names of the books that were read by all students.
+
+    $\pi_{\textit{bname}}((\pi_{\textit{bid,sid}}\textit{Reads} / \pi_{\textit{sid}}\textit{Students}) \bowtie \textit{Books})$
+    
+    \item $\left[\text{CS630 only}\right]$ Find the names, pubyear and pubcompany of the books that were read by all students from MA.
+\end{enumerate}
+
+\end{document}
