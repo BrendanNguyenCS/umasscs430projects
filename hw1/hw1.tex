@@ -15,6 +15,8 @@
 % For code blocks
 \usepackage[dvipsnames,table]{xcolor}
 \usepackage[most]{tcolorbox}
+\usepackage{lmodern}
+\renewcommand{\ttdefault}{lmtt}
 \usepackage{listings, minted}
 \lstset{
     basicstyle=\ttfamily\footnotesize,
@@ -52,7 +54,6 @@
 \fancyhead{}
 \fancyfoot{}
 \renewcommand{\headrulewidth}{0pt}
-\usepackage{times}
 \usepackage[skip=2pt]{caption}
 \usepackage{graphicx}
 \graphicspath{{../Images/}}
@@ -65,6 +66,7 @@
 \setlength{\parindent}{0pt}
 
 \usepackage[none]{hyphenat}
+\usepackage{times}
 
 \title{CS430 Homework 1}
 \author{Brendan Nguyen (\#01763771)}
@@ -78,12 +80,12 @@
 
 Consider a database schema with three relations:
 \begin{itemize}
-    \item Books (\underline{\texttt{bid}:integer}, \texttt{bname}:string, \texttt{author}:string, \texttt{pubyear}:integer, \texttt{pubcompany}:string)
-    \item Students (\underline{\texttt{sid}:integer}, \texttt{sname}:string, \texttt{age}:real, \texttt{state}:string)
-    \item Reads (\underline{\texttt{sid}:integer, \texttt{bid}:integer}, \texttt{year}:integer)
+    \item \textit{Books} (\underline{\texttt{bid}: integer}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: integer, \texttt{pubcompany}: string)
+    \item \textit{Students} (\underline{\texttt{sid}: integer}, \texttt{sname}: string, \texttt{age}: real, \texttt{state}: string)
+    \item \textit{Reads} (\underline{\texttt{sid}: integer, \texttt{bid}: integer}, \texttt{year}: integer)
 \end{itemize}
 
-(The primary keys are underlined in each relation. A book is uniquely identified by \texttt{bid}. A student is uniquely identified by \texttt{sid}. If a student reads a book, a record will be present in the Reads relation, with that \texttt{sid} and \texttt{bid} and the year the book was read.)
+(The primary keys are underlined in each relation. A book is uniquely identified by \texttt{bid}. A student is uniquely identified by \texttt{sid}. If a student reads a book, a record will be present in the \textit{Reads} relation, with that \texttt{sid} and \texttt{bid} and the year the book was read.)
 
 and the following relations instances:
 
@@ -142,12 +144,6 @@ and the following relations instances:
 \end{table}
 \end{minipage}
 \vspace{1em}
-
-Notes:
-\begin{itemize}
-    \item For CS430 students, each problem (a through e) carries 6 points possible.
-    \item For CS630 students, each problem (a through f) carries 5 points possible. 
-\end{itemize}
 
 Using the relation instances from above, show the resulted relation for each of the following relational algebra expressions:
 \begin{enumerate}[label={\alph*})]
@@ -253,18 +249,12 @@ Using the relation instances from above, show the resulted relation for each of 
 
 Consider a database schema with three relations:
 \begin{itemize}
-    \item Actors (\underline{\texttt{aid}:integer}, \texttt{aname}:string, \texttt{age}:real, \texttt{city}:string, \texttt{state}:string)
-    \item Playsin (\underline{\texttt{aid}:integer, \texttt{mid}:integer}, \texttt{character}:string)
-    \item Movies (\underline{\texttt{mid}:integer}, \texttt{mname}:string, \texttt{year}:integer, \texttt{studio}:string)
+    \item \textit{Actors} (\underline{\texttt{aid}: integer}, \texttt{aname}: string, \texttt{age}: real, \texttt{city}: string, \texttt{state}: string)
+    \item \textit{Playsin} (\underline{\texttt{aid}: integer, \texttt{mid}: integer}, \texttt{character}: string)
+    \item \textit{Movies} (\underline{\texttt{mid}: integer}, \texttt{mname}: string, \texttt{year}: integer, \texttt{studio}: string)
 \end{itemize}
 
 Primary keys are underlined in each relation. Attribute aid uniquely identifies an actor in Actors relation. An actor has an id (\texttt{aid}), a name (attr. \texttt{aname}), an age (attr. \texttt{age}), and a city and state(attributes \texttt{city} and \texttt{state}). Attribute \texttt{mid} uniquely identifies a movie in relation Movies. A movie has an id(\texttt{mid}), a name(attr. \texttt{mname}), a year (attr. \texttt{year}) and a studio that produced it (attr. \texttt{studio}). Relation Playsin contains information about actors who played in movies. Attribute \texttt{character} = the character name of the actor with \texttt{aid} when playing in \texttt{mid}.
-
-Notes:
-\begin{itemize}
-    \item For CS430 students, each problem (a through h) carries 5 points possible.
-    \item For CS630 students, each problem (a through j) carries 4 points possible.
-\end{itemize}
 
 Write relational algebra queries for the following queries:
 \begin{enumerate}[label={\alph*})]
@@ -282,7 +272,7 @@ Write relational algebra queries for the following queries:
     
     \item Find the names, age and city of actors who are from Boston MA and played some movies produced by `Universal' studio.
 
-    $\pi_{\textit{aname,age,city}}((\sigma_{\textit{city=`Boston'}\wedge \textit{state=`MA'}}\textit{Actors}) \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{studio=`Universal'}}\textit{Movies}))$
+    $\pi_{\textit{aname,age,city}}((\sigma_{(\textit{city=`Boston'})\wedge (\textit{state=`MA'})}\textit{Actors}) \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{studio=`Universal'}}\textit{Movies}))$
     
     \item Find the name and age of the actors who played in movies both in 2012 and 2018.
 
@@ -308,9 +298,9 @@ Write relational algebra queries for the following queries:
 
 Consider a database schema with three relations:
 \begin{itemize}
-    \item Books (\underline{\texttt{bid}:integer}, \texttt{bname}:string, \texttt{author}:string, \texttt{pubyear}:integer,\texttt{pubcompany}:string)
-    \item Students (\underline{\texttt{sid}:integer}, \texttt{sname}:string, \texttt{age}:real, \texttt{state}:string)
-    \item Reads(\underline{\texttt{sid}:integer, \texttt{bid}:integer}, \texttt{year}:integer)
+    \item \textit{Books} (\underline{\texttt{bid}: integer}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: integer,\texttt{pubcompany}: string)
+    \item \textit{Students} (\underline{\texttt{sid}: integer}, \texttt{sname}: string, \texttt{age}: real, \texttt{state}: string)
+    \item \textit{Reads} (\underline{\texttt{sid}: integer, \texttt{bid}: integer}, \texttt{year}: integer)
 \end{itemize}
 
 Primary keys are underlined  in each relation. A book is uniquely identified by \texttt{bid}. A book has an id (\texttt{bid}), a name (\texttt{bname}), one author (attribute \texttt{author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). A student is uniquely identified by \texttt{sid}. A student has an id (\texttt{sid}), a name (attr. \texttt{sname}), age (attr. \texttt{age}) and a state (attr. \texttt{state}). If a student reads a book, a record will be present in the Reads relation, with that \texttt{sid} and \texttt{bid} and the \texttt{year} the book was read.
@@ -327,7 +317,7 @@ Write the relational algebra expressions for the following queries:
     
     \item Find the information about the books that are either published in 2010 or 2020.
 
-    $\sigma_{\textit{year=2010} \wedge \textit{year=2020}}\textit{Books}$
+    $\sigma_{(\textit{year=2010}) \wedge (\textit{year=2020})}\textit{Books}$
     
     \item Find the names, pub year and pub company of the oldest books.
 
