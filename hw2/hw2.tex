@@ -96,11 +96,35 @@ NOTES:
 
 \begin{enumerate}[label={\alph*})]
     \item Draw the ER diagram of this database (as described in the Question 1 statement). Do not use any other constraints.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw2-1a.png}
+    \end{figure}
     \item Modify the diagram from a) further to add the constraint that each book must be written by at least one author.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw2-1b.png}
+    \end{figure}
     \item Modify the diagram from b) further to add the constraint that each author must write at most one book.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw2-1c.png}
+    \end{figure}
     \item Modify the diagram from c) further to add the constraint such that each book must be written by exactly one author.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw2-1d.png}
+    \end{figure}
     \item Modify the diagram from d) further such that each author can have multiple phone numbers.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw2-1e.png}
+    \end{figure}
     \item Modify the diagram from e) further such that each author must have at least one phone number.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw2-1f.png}
+    \end{figure}
 \end{enumerate}
 
 \section*{Question 2 (30 points)}
@@ -110,12 +134,23 @@ NOTES: the ER diagram should strictly follow the notations used in class. No oth
 
 \begin{enumerate}[label={\alph*})]
     \item Draw the ER diagram that describes this database. Do not add any additional constraints.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw2-2a.png}
+    \end{figure}
     \item Write the database schema for this ER diagram.
+
+    \begin{itemize}
+        \item \textit{Countries} (\underline{countryname: string}, capital: string, president: string, continent: string)
+        \item \textit{Persons} (\underline{id: int}, firstName: string, lastName: string, dob: date)
+        \item \textit{Visited} (\underline{id: int, countryname: string})
+    \end{itemize}
+    
     \item Write the SQL \texttt{CREATE TABLE} statements for all tables identified for this database.\\
     The create statements have to work when ran against the Oracle database.\\
     The create statements have to be written in an order such that if executed in that order will not cause any error.
 
-    \begin{lstlisting}[language=SQL]
+    \begin{lstlisting}[language=SQL,label={lst:hw2-2}]
 CREATE TABLE Countries (
     countryname VARCHAR(50) PRIMARY KEY,
     capital VARCHAR(50),
@@ -129,19 +164,31 @@ CREATE TABLE Persons (
     lastName VARCHAR(50),
     dob DATE
 );
-    \end{lstlisting}
+
+CREATE TABLE Visited (
+    id NUMBER(9),
+    countryname VARCHAR(50),
+    FOREIGN KEY (id) REFERENCES Persons,
+    FOREIGN KEY (countryname) REFERENCES Countries
+);
+ \end{lstlisting}
     
     \item Write the SQL statement to update the table \textit{Persons} to add two new columns: city and state.
 
     \begin{lstlisting}[language=SQL]
-ALTER TABLE Persons
-    ADD (
-        city VARCHAR(50),
-        state VARCHAR(50)
-    );
+ALTER TABLE Persons ADD (
+    city VARCHAR(50),
+    state VARCHAR(50)
+);
     \end{lstlisting}
-    
+
     \item Write the SQL statements to remove these three tables from the database. Write the statements in an order such that if executed in that order no error will occur.
+
+    \begin{lstlisting}[language=SQL]
+DROP TABLE Visited;
+DROP TABLE Persons;
+DROP TABLE Countries;
+    \end{lstlisting}
 \end{enumerate}
 
 \section*{Question 3 (40 points)}
@@ -171,7 +218,7 @@ Notes:
     \item Write the SQL query that extracts information about the singers and the songs they sing. Each record in the result should contain the name and age of the singer, the title of the song, and the release date of the song. Sort the result by the name of the singers in descending order.
     \item Write the SQL query that finds how many singers from Los Angeles, CA are in the database.
     \item Write the SQL that extracts information about singers whose name ends with the letter a. Sort the result by the state of the singers, in descending order.
-    \item Write the SQL that extracts the name and state for all singers who played in a song that has a title that contains the word happy. The query should be case insensitive with regard to the case of the letters from the title of the song.
+    \item Write the SQL that extracts the name and state for all singers who played in a song that has a title that contains the word happy. The query should be case-insensitive with regard to the case of the letters from the title of the song.
     \item Write an SQL query to extract the name, city, and state of singers that sang a song that was released after Aug 10, 2022.
     \item Write the SQL to extract the names of the oldest songs.
     \item Write the SQL to extract the number of unique singers that sang some songs between Jan 1\textsuperscript{st} 2022 and May 31\textsuperscript{st} 2022 (including these dates).
