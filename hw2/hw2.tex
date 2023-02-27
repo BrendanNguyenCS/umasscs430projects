@@ -141,37 +141,38 @@ NOTES: the ER diagram should strictly follow the notations used in class. No oth
     \item Write the database schema for this ER diagram.
 
     \begin{itemize}
-        \item \textit{Countries} (\underline{countryname: string}, capital: string, president: string, continent: string)
-        \item \textit{Persons} (\underline{id: int}, firstName: string, lastName: string, dob: date)
-        \item \textit{Visited} (\underline{id: int, countryname: string})
+        \item \textit{Countries} (\underline{\texttt{countryname}: string}, \texttt{capital}: string, \texttt{president}: string, \texttt{continent}: string)
+        \item \textit{Persons} (\underline{\texttt{id}: int}, \texttt{firstName}: string, \texttt{lastName}: string, \texttt{dob}: date)
+        \item \textit{Visited} (\underline{\texttt{id}: int, \texttt{countryname}: string})
     \end{itemize}
     
     \item Write the SQL \texttt{CREATE TABLE} statements for all tables identified for this database.\\
     The create statements have to work when ran against the Oracle database.\\
     The create statements have to be written in an order such that if executed in that order will not cause any error.
 
-    \begin{lstlisting}[language=SQL,label={lst:hw2-2}]
+    \begin{lstlisting}[language=SQL]
 CREATE TABLE Countries (
-    countryname VARCHAR(50) PRIMARY KEY,
-    capital VARCHAR(50),
-    president VARCHAR(50),
+    countryname VARCHAR(20) PRIMARY KEY,
+    capital VARCHAR(20),
+    president VARCHAR(20),
     continent VARCHAR(20)
 );
 
 CREATE TABLE Persons (
     id NUMBER(9) PRIMARY KEY,
-    firstName VARCHAR(50),
-    lastName VARCHAR(50),
+    firstName VARCHAR(20),
+    lastName VARCHAR(20),
     dob DATE
 );
 
 CREATE TABLE Visited (
     id NUMBER(9),
-    countryname VARCHAR(50),
-    FOREIGN KEY (id) REFERENCES Persons,
-    FOREIGN KEY (countryname) REFERENCES Countries
+    countryname VARCHAR(20),
+    PRIMARY KEY(id, countryname),
+    FOREIGN KEY(id) REFERENCES Persons,
+    FOREIGN KEY(countryname) REFERENCES Countries
 );
- \end{lstlisting}
+    \end{lstlisting}
     
     \item Write the SQL statement to update the table \textit{Persons} to add two new columns: city and state.
 
@@ -181,7 +182,7 @@ ALTER TABLE Persons ADD (
     state VARCHAR(50)
 );
     \end{lstlisting}
-
+    
     \item Write the SQL statements to remove these three tables from the database. Write the statements in an order such that if executed in that order no error will occur.
 
     \begin{lstlisting}[language=SQL]
@@ -217,8 +218,8 @@ Notes:
     \item Write the SQL query that extracts all the names of the singers from Boston. Sort the result by name in ascending order.
     \item Write the SQL query that extracts information about the singers and the songs they sing. Each record in the result should contain the name and age of the singer, the title of the song, and the release date of the song. Sort the result by the name of the singers in descending order.
     \item Write the SQL query that finds how many singers from Los Angeles, CA are in the database.
-    \item Write the SQL that extracts information about singers whose name ends with the letter a. Sort the result by the state of the singers, in descending order.
-    \item Write the SQL that extracts the name and state for all singers who played in a song that has a title that contains the word happy. The query should be case-insensitive with regard to the case of the letters from the title of the song.
+    \item Write the SQL that extracts information about singers whose name ends with the letter \texttt{a}. Sort the result by the state of the singers, in descending order.
+    \item Write the SQL that extracts the name and state for all singers who played in a song that has a title that contains the word happy. The query should be case insensitive with regard to the case of the letters from the title of the song.
     \item Write an SQL query to extract the name, city, and state of singers that sang a song that was released after Aug 10, 2022.
     \item Write the SQL to extract the names of the oldest songs.
     \item Write the SQL to extract the number of unique singers that sang some songs between Jan 1\textsuperscript{st} 2022 and May 31\textsuperscript{st} 2022 (including these dates).

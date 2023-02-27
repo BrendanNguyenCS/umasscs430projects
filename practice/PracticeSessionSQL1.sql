@@ -1,113 +1,95 @@
 -- NOTE: a comment line in SQL starts with --
 -- DROP TABLES (IF THEY EXIST ALREADY, UNCOMMENT THE NEXT THREE LINES TO DROP THE TABLES FIRST)
---drop table reserves;
---drop table boats;
---drop table sailors;
-
+--DROP TABLE reserves;
+--DROP TABLE boats;
+--DROP TABLE sailors;
 
 -- create table sailors
-create table sailors(
-        sid 	number(9) primary key,
-        sname	varchar(20),
-        rating  number(2),
-        age   	number(4,2)
+CREATE TABLE sailors (
+	sid 	NUMBER(9) PRIMARY KEY,
+	sname	VARCHAR(20),
+	rating  NUMBER(2),
+	age   	NUMBER(4,2)
 );
 
 -- create table boats
-create table boats(
-	bid 	number(9) primary key,
-	name	varchar(20),
-	color	varchar(20)
+CREATE TABLE boats (
+	bid 	NUMBER(9) PRIMARY KEY,
+	name	VARCHAR(20),
+	color	VARCHAR(20)
 );
 
 --create table reserves
-create table reserves(
-	sid 	number(9),
-	bid 	number(9),
-	day date,
-	primary key(sid,bid),
-	foreign key (sid) references sailors,
-	foreign key (bid) references boats
+CREATE TABLE reserves (
+	sid 	NUMBER(9) PRIMARY KEY,
+	bid 	NUMBER(9) PRIMARY KEY,
+	day 	DATE,
+	FOREIGN KEY (sid) REFERENCES sailors,
+	FOREIGN KEY (bid) REFERENCES boats
 );
 
 -- describe tables
-desc reserves;
-desc sailors;
-desc boats;
+DESC reserves;
+DESC sailors;
+DESC boats;
 
 -- alter table reserves by adding a column
-ALTER TABLE reserves
-       ADD invoiceday DATE;
+ALTER TABLE reserves ADD invoiceday DATE;
 
 -- modify existing column by changing the data type
- ALTER TABLE reserves
-       MODIFY invoiceday VARCHAR(30);
+ALTER TABLE reserves MODIFY invoiceday VARCHAR(30);
 
 -- describe table
-desc reserves;
+DESC reserves;
 
 -- alter table by renaming one column
-ALTER TABLE reserves
-      RENAME COLUMN invoiceday to invday;
+ALTER TABLE reserves RENAME COLUMN invoiceday to invday;
 
 -- describe table
-desc reserves;
+DESC reserves;
 
 -- rename table
-ALTER TABLE reserves
-      RENAME TO otherreserves;
-
+ALTER TABLE reserves RENAME TO otherreserves;
 
 -- rename table
-ALTER TABLE otherreserves
-      RENAME TO reserves;
+ALTER TABLE otherreserves RENAME TO reserves;
 
 -- alter table reserves by dropping one column
-ALTER TABLE reserves
-      DROP COLUMN invday;
+ALTER TABLE reserves DROP COLUMN invday;
 
 -- describe table
-desc reserves;
+DESC reserves;
 
 -- insert data into sailors table
-INSERT INTO SAILORS(sid, sname, rating, age)
-	VALUES (22, 'dustin', 7, 45.0);
-INSERT INTO SAILORS
-	VALUES (31, 'lubber', 8, 55.5);
-INSERT INTO SAILORS
-	VALUES (58, 'rusty', 10, 35.0);
-INSERT INTO SAILORS
-	VALUES (59, 'rusty', 10, 45.0);
+INSERT INTO sailors VALUES (22, 'dustin', 7, 45.0);
+INSERT INTO sailors VALUES (31, 'lubber', 8, 55.5);
+INSERT INTO sailors VALUES (58, 'rusty', 10, 35.0);
+INSERT INTO sailors VALUES (59, 'rusty', 10, 45.0);
 
 -- insert data into boats table
-insert into boats (name, bid, color)
-	values ('interlake', 101, 'red');
-insert into boats
-	values (102, 'clipper', 'green');
+INSERT INTO boats VALUES ('interlake', 101, 'red');
+INSERT INTO boats VALUES (102, 'clipper', 'green');
 
 -- insert data into reserves table
-insert into reserves values (22,101,TO_DATE('10/10/2022', 'mm/dd/yyyy'));
-insert into reserves values (58,101,TO_DATE('10/11/2022', 'mm/dd/yyyy'));
-insert into reserves values (22,102,TO_DATE('10/20/2022', 'mm/dd/yyyy'));
+INSERT INTO reserves VALUES (22, 101, TO_DATE('10/10/2022', 'MM/DD/YYYY'));
+INSERT INTO reserves VALUES (58, 101, TO_DATE('10/11/2022', 'MM/DD/YYYY'));
+INSERT INTO reserves VALUES (22, 102, TO_DATE('10/20/2022', 'MM/DD/YYYY'));
 
 -- SOME SELECT QUERIES USED TO EXTRACT DATA
+SELECT * FROM sailors;
+SELECT * FROM boats;
+SELECT * FROM reserves;
 
-select * from sailors;
-select * from boats;
-select * from reserves;
+SELECT rating, sname FROM sailors;
+SELECT DISTINCT rating, sname FROM sailors;
+SELECT * FROM sailors where rating = 10;
 
-select rating,sname from sailors;
-select distinct rating,sname from sailors;
-select * from sailors where rating=10;
+SELECT * FROM sailors, reserves WHERE sailors.sid = reserves.sid;
 
-select * from sailors, reserves where sailors.sid=reserves.sid;
+SELECT * FROM sailors s1, reserves r1 WHERE s1.sid = r1.sid;
 
-select * from sailors s1, reserves r1 where s1.sid=r1.sid;
+SELECT * FROM sailors, reserves WHERE sailors.sid = reserves.sid AND reserves.bid = 101;
 
-select * from sailors, reserves where sailors.sid=reserves.sid and reserves.bid=101;
+SELECT sailors.sname, boats.name, boats.color FROM sailors, reserves, boats WHERE sailors.sid = reserves.sid AND boats.bid = reserves.bid;
 
-select sailors.sname, boats.name, boats.color from sailors, reserves, boats where sailors.sid=reserves.sid and boats.bid=reserves.bid;
-
-select sname, name, color from sailors, reserves, boats where sailors.sid=reserves.sid and boats.bid=reserves.bid;
-
-
+SELECT sname, name, color FROM sailors, reserves, boats WHERE sailors.sid = reserves.sid AND boats.bid = reserves.bid;
