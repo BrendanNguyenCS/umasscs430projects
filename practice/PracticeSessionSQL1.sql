@@ -1,8 +1,8 @@
 -- NOTE: a comment line in SQL starts with --
 -- DROP TABLES (IF THEY EXIST ALREADY, UNCOMMENT THE NEXT THREE LINES TO DROP THE TABLES FIRST)
---DROP TABLE reserves;
---DROP TABLE boats;
---DROP TABLE sailors;
+-- DROP TABLE reserves;
+-- DROP TABLE boats;
+-- DROP TABLE sailors;
 
 -- create table sailors
 CREATE TABLE sailors (

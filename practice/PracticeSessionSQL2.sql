@@ -1,8 +1,8 @@
 -- NOTE: a comment line in SQL starts with --
 -- DROP TABLES (IF THEY EXIST ALREADY, UNCOMMENT THE NEXT THREE LINES TO DROP THE TABLES FIRST)
---DROP TABLE reserves;
---DROP TABLE boats;
---DROP TABLE sailors;
+-- DROP TABLE reserves;
+-- DROP TABLE boats;
+-- DROP TABLE sailors;
 
 
 -- create table sailors
@@ -50,7 +50,7 @@ INSERT INTO reserves VALUES (22,101,TO_DATE('10/10/2022', 'mm/dd/yyyy'));
 INSERT INTO reserves VALUES (58,101,TO_DATE('10/11/2022', 'mm/dd/yyyy'));
 INSERT INTO reserves VALUES (22,102,TO_DATE('10/20/2022', 'mm/dd/yyyy'));
 
-SELECT * FROM sailors,reserves WHERE sailors.sid=reserves.sid;
+SELECT * FROM sailors, reserves WHERE sailors.sid = reserves.sid;
 
 --sort by queries
 SELECT * FROM sailors;
@@ -62,7 +62,7 @@ SELECT * FROM sailors ORDER BY 4,rating DESC;
 
 --next commented out qyery will give an error if run
 --select * FROM sailors,reserves where sailors.sid=reserves.sid order by sid;
-SELECT * FROM sailors,reserves WHERE sailors.sid=reserves.sid ORDER BY 1;
+SELECT * FROM sailors,reserves WHERE sailors.sid = reserves.sid ORDER BY 1;
 
 --LIKE keyword
 SELECT * FROM sailors WHERE sname='dustin';

@@ -22,15 +22,15 @@ CREATE TABLE singsin (
 );
 
 -- Answer for b)
-SELECT name FROM singers WHERE city='Boston' ORDER BY name;
+SELECT name FROM singers WHERE city = 'Boston' ORDER BY name;
 
 -- Answer for c)
-SELECT s1.name, s1.age, s3.title, s3.release
+SELECT name, age, title, release
     FROM singers s1, singsin s2, songs s3
     -- Joining conditions
     WHERE s1.singerid = s2.singerid AND s2.songid = s3.songid
     -- sorted by name in descending order
-    ORDER BY 1 DESC;
+    ORDER BY name DESC;
 
 -- Answer for d)
 SELECT COUNT(*) FROM singers WHERE city = 'Los Angeles' AND state = 'CA';
@@ -39,7 +39,7 @@ SELECT COUNT(*) FROM singers WHERE city = 'Los Angeles' AND state = 'CA';
 SELECT * FROM singers WHERE name LIKE '%a' ORDER BY state DESC;
 
 -- Answer for f)
-SELECT s1.name, s1.state
+SELECT name, state
     FROM singers s1, singsin s2, songs s3
     -- Joining conditions
     WHERE s1.singerid = s2.singerid AND s2.songid = s3.songid
@@ -47,17 +47,17 @@ SELECT s1.name, s1.state
     AND LOWER(s3.title) LIKE '%happy%';
 
 -- Answer for g)
-SELECT s1.name, s1.city, s1.state
+SELECT name, city, state
     FROM singers s1, singsin s2, songs s3
     -- Joining conditions
     WHERE s1.singerid = s2.singerid AND s2.songid = s3.songid
     -- Date lies after given lower boundary date
-    AND s3.release > TO_DATE('08/21/2022', 'MM/DD/YYYY');
+    AND release > TO_DATE('08/21/2022', 'MM/DD/YYYY');
 
 -- Answer for h)
-SELECT title FROM songs s
-    WHERE s.release = (
-        SELECT MIN(s2.release) FROM songs s2
+SELECT title FROM songs
+    WHERE release = (
+        SELECT MIN(release) FROM songs
     );
 
 -- Answer for i)
@@ -66,8 +66,8 @@ SELECT COUNT(DISTINCT s1.singerid)
     -- Joining conditions
     WHERE s1.singerid = s2.singerid AND s2.songid = s3.songid
     -- Date lies between given boundary dates
-    AND s3.release >= TO_DATE('01/01/2022', 'MM/DD/YYYY')
-    AND s3.release <= TO_DATE('05/31/2022', 'MM/DD/YYYY');
+    AND release >= TO_DATE('01/01/2022', 'MM/DD/YYYY')
+    AND release <= TO_DATE('05/31/2022', 'MM/DD/YYYY');
 
 --Answer for j)
 SELECT COUNT(*) FROM songs WHERE EXTRACT(YEAR FROM release) = 2020;
