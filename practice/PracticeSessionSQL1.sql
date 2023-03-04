@@ -90,6 +90,10 @@ SELECT * FROM sailors s1, reserves r1 WHERE s1.sid = r1.sid;
 
 SELECT * FROM sailors, reserves WHERE sailors.sid = reserves.sid AND reserves.bid = 101;
 
-SELECT sailors.sname, boats.name, boats.color FROM sailors, reserves, boats WHERE sailors.sid = reserves.sid AND boats.bid = reserves.bid;
+SELECT sailors.sname, boats.name, boats.color
+	FROM sailors, reserves, boats
+	WHERE sailors.sid = reserves.sid AND boats.bid = reserves.bid;
 
-SELECT sname, name, color FROM sailors, reserves, boats WHERE sailors.sid = reserves.sid AND boats.bid = reserves.bid;
+SELECT sname, name, color
+	FROM sailors, reserves, boats
+	WHERE sailors.sid = reserves.sid AND boats.bid = reserves.bid;

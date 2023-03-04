@@ -1,52 +1,47 @@
 -- NOTE: a comment line in SQL starts with --
 -- DROP TABLES (IF THEY EXIST ALREADY, UNCOMMENT THE NEXT THREE LINES TO DROP THE TABLES FIRST)
-drop table reserves;
-drop table boats;
-drop table sailors;
-drop table sailors2;
-
-
+DROP TABLE reserves;
+DROP TABLE boats;
+DROP TABLE sailors;
+DROP TABLE sailors2;
 
 -- create table sailors
-create table sailors(
-        sid 	number(9) primary key,
-        sname	varchar(20),
-        rating  number(2),
-        age   	number(4,2)
+CREATE TABLE sailors(
+	sid 	NUMBER(9) PRIMARY KEY,
+	sname	VARCHAR(20),
+	rating  NUMBER(2),
+	age   	NUMBER(4,2)
 );
 
 -- create table boats
-create table boats(
-	bid 	number(9) primary key,
-	name	varchar(20),
-	color	varchar(20)
+CREATE TABLE boats(
+	bid 	NUMBER(9) PRIMARY KEY,
+	name	VARCHAR(20),
+	color	VARCHAR(20)
 );
 
 --create table reserves
-create table reserves(
-	sid 	number(9),
-	bid 	number(9),
-	day date,
-	primary key(sid,bid),
-	foreign key (sid) references sailors,
-	foreign key (bid) references boats
+CREATE TABLE reserves(
+	sid 	NUMBER(9),
+	bid 	NUMBER(9),
+	day 	DATE,
+	PRIMARY KEY(sid,bid),
+	FOREIGN KEY (sid) REFERENCES sailors,
+	FOREIGN KEY (bid) REFERENCES boats
 );
 
-create table sailors2(
-        sid 	number(9) primary key,
-        sname	varchar(20),
-        rating  number(2),
-        age   	number(4,2)
+CREATE TABLE sailors2(
+	sid 	NUMBER(9) PRIMARY KEY,
+	sname	VARCHAR(20),
+	rating  NUMBER(2),
+	age   	NUMBER(4,2)
 );
-
-
 
 -- describe tables
-desc reserves;
-desc sailors;
-desc boats;
-desc sailors2;
-
+DESC reserves;
+DESC sailors;
+DESC boats;
+DESC sailors2;
 
 -- insert data into sailors table
 INSERT INTO SAILORS(sid, sname, rating, age)
@@ -59,94 +54,93 @@ INSERT INTO SAILORS
 	VALUES (59, 'rusty', 10, 45.0);
 
 -- insert data into boats table
-insert into boats (name, bid, color)
-	values ('interlake', 101, 'red');
-insert into boats(bid,name,color)
-	values (102, 'clipper', 'green');
-insert into boats(bid,name,color)
-	values (103, 'transatlantic', 'red');
-insert into boats(bid,name,color)
-	values (104, 'vacation', 'white');
-insert into boats(bid,name,color)
-	values (105, 'hawaii', 'green');
-insert into boats(bid,name,color)
-	values (106, 'sea', 'green');
+INSERT INTO boats(name, bid, color)
+	VALUES ('interlake', 101, 'red');
+INSERT INTO boats(bid, name, color)
+	VALUES (102, 'clipper', 'green');
+INSERT INTO boats(bid, name, color)
+	VALUES (103, 'transatlantic', 'red');
+INSERT INTO boats(bid, name, color)
+	VALUES (104, 'vacation', 'white');
+INSERT INTO boats(bid, name, color)
+	VALUES (105, 'hawaii', 'green');
+INSERT INTO boats(bid, name, color)
+	VALUES (106, 'sea', 'green');
 
 -- insert data into reserves table
-insert into reserves values (22,101,TO_DATE('10/10/2022', 'mm/dd/yyyy'));
-insert into reserves values (58,101,TO_DATE('10/11/2022', 'mm/dd/yyyy'));
-insert into reserves values (22,102,TO_DATE('10/20/2022', 'mm/dd/yyyy'));
-insert into reserves values (59,103,TO_DATE('10/20/2022', 'mm/dd/yyyy'));
+INSERT INTO reserves VALUES (22, 101, TO_DATE('10/10/2022', 'MM/DD/YYYY'));
+INSERT INTO reserves VALUES (58, 101, TO_DATE('10/11/2022', 'MM/DD/YYYY'));
+INSERT INTO reserves VALUES (22, 102, TO_DATE('10/20/2022', 'MM/DD/YYYY'));
+INSERT INTO reserves VALUES (59, 103, TO_DATE('10/20/2022', 'MM/DD/YYYY'));
 
 -- insert data into sailors2 table
-INSERT INTO SAILORS2(sid, sname, rating, age)
+INSERT INTO sailors2(sid, sname, rating, age)
 	VALUES (20, 'joe', 9, 24.0);
-INSERT INTO SAILORS2(sid, sname, rating, age)
+INSERT INTO sailors2(sid, sname, rating, age)
 	VALUES (22, 'dustin', 7, 45.0);
-INSERT INTO SAILORS2(sid, sname, rating, age)
+INSERT INTO sailors2(sid, sname, rating, age)
 	VALUES (31, 'lubber', 8, 55.5);
-INSERT INTO SAILORS2(sid, sname, rating, age)
+INSERT INTO sailors2(sid, sname, rating, age)
 	VALUES (60, 'andy', 9, 60.0);
 
 
 --- some operations
 
-select sname, rating, (rating-1)/2 as newcol from sailors;
-select sname, rating, (rating-1) from sailors;
+SELECT sname, rating, (rating-1)/2 AS newcol FROM sailors;
+SELECT sname, rating, (rating-1) FROM sailors;
 
 --UNION, INTERSECT
-select * from sailors
-UNION
-select * from sailors2;
+SELECT * FROM sailors
+	UNION
+	SELECT * FROM sailors2;
 
-select * from sailors
-UNION ALL
-select * from sailors2;
+SELECT * FROM sailors
+	UNION ALL
+	SELECT * FROM sailors2;
 
-select * from sailors
-INTERSECT
-select * from sailors2;
+SELECT * FROM sailors
+	INTERSECT
+	SELECT * FROM sailors2;
 
-(select * from sailors where rating >8)
-UNION
-(select * from sailors2 where rating <8);
+(SELECT * FROM sailors WHERE rating > 8)
+	UNION
+	(SELECT * FROM sailors2 WHERE rating < 8);
 
 
 
 --- operation with aggregates
-select avg(rating) from sailors;
--- with where clause
-select sum(rating) from sailors where age >40;
+SELECT AVG(rating) FROM sailors;
+-- with WHERE clause
+SELECT SUM(rating) FROM sailors WHERE age > 40;
 
 -- next commented out query will return an error if run
---select age,avg(rating) from sailors;
+--SELECT age,AVG(rating) from sailors;
 
 --GROUP BY
-select rating,avg(age) from sailors group by age;
+SELECT rating, AVG(age) FROM sailors GROUP BY rating;
 -- group by and order by
-select age,avg(rating) from sailors group by age order by avg(rating);
+SELECT age, AVG(rating) FROM sailors GROUP BY age ORDER BY AVG(rating);
 -- group by with renaming aggregate
-select age,avg(rating) as avgrating from sailors group by age order by avgrating;
+SELECT age, AVG(rating) AS avgrating FROM sailors GROUP BY age ORDER BY avgrating;
 
 
 -- GROUP BY AND HAVING
 -- how many boats of each color I have ?
-select count(*) from boats group by color;
+SELECT COUNT(*) FROM boats GROUP BY color;
 -- how many boats of each color I have ? Include in the results boats with an id greater than 102
-select count(*) from boats where bid>102 group by color;
+SELECT COUNT(*) FROM boats WHERE bid > 102 GROUP BY color;
 
 -- MORE PRACTICE
-select * from reserves;
+SELECT * FROM reserves;
 
 -- Find how many reservations for each boat color we have.
-select color,count(*)
-from reserves r, boats b
-where r.bid=b.bid
-group by color;
+SELECT color, COUNT(*)
+	FROM reserves r, boats b
+	WHERE r.bid = b.bid
+	GROUP BY color;
 
 -- Find how many reservation for each boat color we have. Count each unique boat only once.
-select color,count(distinct r.bid)
-from reserves r, boats b
-where r.bid=b.bid
-group by color;
-
+SELECT color, COUNT(distinct r.bid)
+	FROM reserves r, boats b
+	WHERE r.bid = b.bid
+	GROUP BY color;
