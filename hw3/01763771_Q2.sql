@@ -17,7 +17,7 @@ CREATE TABLE Students (
 CREATE TABLE Reads (
     sid     NUMBER(9) PRIMARY KEY,
     aid     NUMBER(9) PRIMARY KEY,
-    year    NUMBER(4),
+    year    INT,
     PRIMARY KEY(sid, aid),
     FOREIGN KEY(sid) REFERENCES Students,
     FOREIGN KEY(aid) REFERENCES Articles
@@ -38,7 +38,15 @@ SELECT * FROM Articles a
     ) ORDER BY a.aname;
 
 -- Answer for e)
-
+SELECT s.sid, s.sname, s.age
+    FROM Students s
+    WHERE NOT EXISTS (
+        SELECT a.aid FROM Articles a
+        WHERE NOT EXISTS (
+            SELECT * FROM Reads r
+            WHERE r.aid = a.aid AND r.aid = s.sid
+        )
+    );
 
 -- Answer for f)
 
@@ -50,10 +58,16 @@ SELECT * FROM Articles a
 
 
 -- Answer for i)
-
+SELECT s.state, MIN(s.age), MAX(s.age), AVG(s.age)
+    FROM Students s, Articles a, Reads r
+    WHERE s.sid = r.sid AND r.aid = a.aid
+    GROUP BY s.state
+    HAVING COUNT(*) >= 2;
 
 -- Answer for j)
-
+SELECT * FROM Articles
+    WHERE first_author LIKE 'B%'
+    AND (pubyear <= 2018 OR pubyear >= 2020);
 
 -- Answer for k)
 

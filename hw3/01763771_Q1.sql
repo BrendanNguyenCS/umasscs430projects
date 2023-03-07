@@ -58,7 +58,13 @@ SELECT c.cid, c.name, c.age FROM Customers c
 
 
 -- Answer for h)
-
+SELECT COUNT(*)
+    FROM Customers c, Accounts a, Has_account h
+    -- Joining conditions
+    WHERE c.cid = h.cid AND h.aid = a.aid
+    -- Customer age between 25 and 35 with more than 2 accounts
+    AND c.age > 25 AND c.age < 35
+    HAVING COUNT(*) > 2;
 
 -- Answer for i)
 
