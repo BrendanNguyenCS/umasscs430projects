@@ -25,7 +25,7 @@ CREATE TABLE Reads (
 
 -- Answer for b)
 INSERT INTO Students VALUES (1, 'Brendan Nguyen', 22, 'MA');
-INSERT INTO Articles VALUES (1, 'Rainbow Six', 'Tom Clancy', 1998, 'G.P. Putnams Sons');
+INSERT INTO Articles VALUES (1, 'Rainbow Six', 'Tom Clancy', 1998, 'G.P. Putnam''s Sons');
 INSERT INTO Reads VALUES (1, 1,2023);
 
 -- Answer for c)
@@ -49,13 +49,21 @@ SELECT s.sid, s.sname, s.age
     );
 
 -- Answer for f)
-
+SELECT * FROM Students s, Articles a, Reads r
+    WHERE s.sid = r.sid AND r.aid = a.aid
+    AND pubyear = 2020 AND s.sid NOT IN (
+        SELECT s2.sid FROM Students s2, Articles a2, Reads r2
+            WHERE s2.sid = r2.sid AND r2.aid = a2.aid AND a.pubyear = 2018
+    );
 
 -- Answer for g)
 
 
 -- Answer for h)
-
+SELECT DISTINCT s.sid, COUNT(*) FROM Students s, Reads r
+    WHERE s.sid = r.sid
+    GROUP BY s.sid
+    HAVING COUNT(*) >= 3;
 
 -- Answer for i)
 SELECT s.state, MIN(s.age), MAX(s.age), AVG(s.age)
