@@ -4,7 +4,7 @@ CREATE TABLE Customers (
     name    VARCHAR(20),
     city    VARCHAR(50),
     state   VARCHAR(50),
-    age     REAL
+    age     INT
 );
 
 CREATE TABLE Accounts (
@@ -16,7 +16,7 @@ CREATE TABLE Accounts (
 CREATE TABLE Has_account (
     cid     NUMBER(9),
     aid     NUMBER(9),
-    since   INT,
+    since   DATE,
     PRIMARY KEY (cid, aid),
     FOREIGN KEY (cid) REFERENCES Customers,
     FOREIGN KEY (aid) REFERENCES Accounts
@@ -27,8 +27,8 @@ INSERT INTO Customers VALUES (1, 'Brendan Nguyen', 'Milton', 'MA', 22);
 INSERT INTO Customers VALUES (2, 'Trent Murphy', 'Los Angeles', 'CA', 20);
 INSERT INTO Accounts VALUES (1, 'savings', 5000);
 INSERT INTO Accounts VALUES (2, 'checking', 2000);
-INSERT INTO Has_account VALUES (2, 1, 2010);
-INSERT INTO Has_account VALUES (1, 2, 2011);
+INSERT INTO Has_account VALUES (2, 1, TO_DATE('01/15/2010', 'MM/DD/YYYY'));
+INSERT INTO Has_account VALUES (1, 2, TO_DATE('11/11/2011', 'MM/DD/YYYY'));
 
 -- Answer for c)
 SELECT DISTINCT c.cid, c.name FROM Customers c, Accounts a, Has_account h
@@ -53,7 +53,7 @@ SELECT DISTINCT c.cid, c.name, c.age FROM Customers c, Has_account h, Accounts a
     WHERE c.cid = h.cid AND h.aid = a.aid
     AND a.atype = 'savings' AND c.cid IN (
         SELECT c2.cid FROM Customers c2, Has_account h2, Accounts a2
-            WHERE c.cid = h.cid AND h.aid = a.aid AND a.atype = 'checking'
+            WHERE c2.cid = h2.cid AND h2.aid = a2.aid AND a2.atype = 'checking'
     );
 
 -- Answer for f)
@@ -80,15 +80,19 @@ SELECT DISTINCT c.cid, COUNT(*)
 
 -- Answer for i)
 SELECT DISTINCT c.cid, c.name, c.age FROM Customers c, Has_account h
+    -- Joining conditions
     WHERE c.cid = h.cid
-    AND h.since = 2020 AND h.cid IN (
+    -- Accounts that were opened in 2018 and 2020
+    AND EXTRACT(YEAR FROM h.since) = 2020 AND h.cid IN (
         SELECT h2.cid FROM Customers c2, Has_account h2
-            WHERE h2.cid = c2.cid AND h2.since = 2018
+        WHERE h2.cid = c2.cid AND EXTRACT(YEAR FROM h2.since) = 2018
     );
 
 -- Answer for j)
 SELECT DISTINCT c.cid, c.name FROM Customers c, Accounts a, Has_account h
+    -- Joining conditions
     WHERE c.cid = h.cid AND h.aid = a.aid
+    -- Customers from 'MA' and have at least 2 'savings' accounts
     AND c.state = 'MA' AND a.atype = 'savings'
     GROUP BY c.cid, c.name
     HAVING COUNT(*) >= 2;

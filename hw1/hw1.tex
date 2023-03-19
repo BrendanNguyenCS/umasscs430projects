@@ -67,6 +67,7 @@
 
 \usepackage[none]{hyphenat}
 \usepackage{times}
+\usepackage{soul}
 
 \title{CS430 Homework 1}
 \author{Brendan Nguyen (\#01763771)}
@@ -80,12 +81,12 @@
 
 Consider a database schema with three relations:
 \begin{itemize}
-    \item \textit{Books} (\underline{\texttt{bid}: integer}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: integer, \texttt{pubcompany}: string)
-    \item \textit{Students} (\underline{\texttt{sid}: integer}, \texttt{sname}: string, \texttt{age}: real, \texttt{state}: string)
-    \item \textit{Reads} (\underline{\texttt{sid}: integer, \texttt{bid}: integer}, \texttt{year}: integer)
+    \item \textit{Books} (\ul{\texttt{bid}: int}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: int, \texttt{pubcompany}: string)
+    \item \textit{Students} (\ul{\texttt{sid}: int}, \texttt{sname}: string, \texttt{age}: real, \texttt{state}: string)
+    \item \textit{Reads} (\ul{\texttt{sid}: int, \texttt{bid}: int}, \texttt{year}: integer)
 \end{itemize}
 
-(The primary keys are underlined in each relation. A book is uniquely identified by \texttt{bid}. A student is uniquely identified by \texttt{sid}. If a student reads a book, a record will be present in the \textit{Reads} relation, with that \texttt{sid} and \texttt{bid} and the year the book was read.)
+(The primary keys are uld in each relation. A book is uniquely identified by \texttt{bid}. A student is uniquely identified by \texttt{sid}. If a student reads a book, a record will be present in the \textit{Reads} relation, with that \texttt{sid} and \texttt{bid} and the year the book was read.)
 
 and the following relations instances:
 
@@ -249,12 +250,12 @@ Using the relation instances from above, show the resulted relation for each of 
 
 Consider a database schema with three relations:
 \begin{itemize}
-    \item \textit{Actors} (\underline{\texttt{aid}: integer}, \texttt{aname}: string, \texttt{age}: real, \texttt{city}: string, \texttt{state}: string)
-    \item \textit{Playsin} (\underline{\texttt{aid}: integer, \texttt{mid}: integer}, \texttt{character}: string)
-    \item \textit{Movies} (\underline{\texttt{mid}: integer}, \texttt{mname}: string, \texttt{year}: integer, \texttt{studio}: string)
+    \item \textit{Actors} (\ul{\texttt{aid}: int}, \texttt{aname}: string, \texttt{age}: real, \texttt{city}: string, \texttt{state}: string)
+    \item \textit{Playsin} (\ul{\texttt{aid}: int, \texttt{mid}: int}, \texttt{character}: string)
+    \item \textit{Movies} (\ul{\texttt{mid}: int}, \texttt{mname}: string, \texttt{year}: int, \texttt{studio}: string)
 \end{itemize}
 
-Primary keys are underlined in each relation. Attribute aid uniquely identifies an actor in Actors relation. An actor has an id (\texttt{aid}), a name (attr. \texttt{aname}), an age (attr. \texttt{age}), and a city and state(attributes \texttt{city} and \texttt{state}). Attribute \texttt{mid} uniquely identifies a movie in relation Movies. A movie has an id(\texttt{mid}), a name(attr. \texttt{mname}), a year (attr. \texttt{year}) and a studio that produced it (attr. \texttt{studio}). Relation Playsin contains information about actors who played in movies. Attribute \texttt{character} = the character name of the actor with \texttt{aid} when playing in \texttt{mid}.
+Primary keys are uld in each relation. Attribute aid uniquely identifies an actor in Actors relation. An actor has an id (\texttt{aid}), a name (attr. \texttt{aname}), an age (attr. \texttt{age}), and a city and state(attributes \texttt{city} and \texttt{state}). Attribute \texttt{mid} uniquely identifies a movie in relation Movies. A movie has an id(\texttt{mid}), a name(attr. \texttt{mname}), a year (attr. \texttt{year}) and a studio that produced it (attr. \texttt{studio}). Relation Playsin contains information about actors who played in movies. Attribute \texttt{character} = the character name of the actor with \texttt{aid} when playing in \texttt{mid}.
 
 Write relational algebra queries for the following queries:
 \begin{enumerate}[label={\alph*})]
@@ -298,12 +299,12 @@ Write relational algebra queries for the following queries:
 
 Consider a database schema with three relations:
 \begin{itemize}
-    \item \textit{Books} (\underline{\texttt{bid}: integer}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: integer,\texttt{pubcompany}: string)
-    \item \textit{Students} (\underline{\texttt{sid}: integer}, \texttt{sname}: string, \texttt{age}: real, \texttt{state}: string)
-    \item \textit{Reads} (\underline{\texttt{sid}: integer, \texttt{bid}: integer}, \texttt{year}: integer)
+    \item \textit{Books} (\ul{\texttt{bid}: int}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: int,\texttt{pubcompany}: string)
+    \item \textit{Students} (\ul{\texttt{sid}: int}, \texttt{sname}: string, \texttt{age}: real, \texttt{state}: string)
+    \item \textit{Reads} (\ul{\texttt{sid}: int, \texttt{bid}: int}, \texttt{year}: int)
 \end{itemize}
 
-Primary keys are underlined  in each relation. A book is uniquely identified by \texttt{bid}. A book has an id (\texttt{bid}), a name (\texttt{bname}), one author (attribute \texttt{author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). A student is uniquely identified by \texttt{sid}. A student has an id (\texttt{sid}), a name (attr. \texttt{sname}), age (attr. \texttt{age}) and a state (attr. \texttt{state}). If a student reads a book, a record will be present in the Reads relation, with that \texttt{sid} and \texttt{bid} and the \texttt{year} the book was read.
+Primary keys are uld  in each relation. A book is uniquely identified by \texttt{bid}. A book has an id (\texttt{bid}), a name (\texttt{bname}), one author (attribute \texttt{author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). A student is uniquely identified by \texttt{sid}. A student has an id (\texttt{sid}), a name (attr. \texttt{sname}), age (attr. \texttt{age}) and a state (attr. \texttt{state}). If a student reads a book, a record will be present in the Reads relation, with that \texttt{sid} and \texttt{bid} and the \texttt{year} the book was read.
 
 Write the relational algebra expressions for the following queries:
 \begin{enumerate}[label={\alph*})]

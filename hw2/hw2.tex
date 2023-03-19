@@ -67,6 +67,7 @@
 
 \usepackage[none]{hyphenat}
 \usepackage{times}
+\usepackage{soul}
 
 \title{CS430 Homework 2}
 \author{Brendan Nguyen (\#01763771)}
@@ -75,13 +76,6 @@
 \begin{document}
 
 \maketitle
-
-\textbf{INSTRUCTIONS (please read carefully):}\\
-All submissions must have one \textbf{PDF file (submitted on Gradescope in the Homework 2 assignment)} and one \textbf{SQL file} (copied on the users.cs Unix machine) and MUST be submitted before the due date following these instructions:
-\begin{itemize}
-    \item \textbf{The PDF file will contain answers for Question 1 and Question 2} problems, and has to be \textbf{uploaded on Gradescope in Homework 2 assignment} before the due date.
-    \item \textbf{The SQL file (named \texttt{Q3.sql}) will contain the answers (SQL statements) for Question 3} problems and MUST be copied on the users.cs Unix machine before the due date, using the following instructions: Create a folder `HW2' under your main folder for the course (cs630), and place the script file named \texttt{Q3.sql} there. Ensure that the files are not readable by ``others" (using \texttt{chmod o-r filename}) and that the files belong to the group CS630-1G and are readable by the group (\texttt{chmod g+r filename}). DO NOT CHANGE PERMISSIONS FOR ANY OF THE DIRECTORIES (ESPECIALLY THE cs630 DIRECTORY IN YOUR HOMEDIR)!  (Note: students must have a cs Unix account and must be enrolled in the cs630 class in the cs portal to be able to submit the .sql file)
-\end{itemize}
 
 \section*{Question 1 (30 points)}
 
@@ -141,9 +135,9 @@ NOTES: the ER diagram should strictly follow the notations used in class. No oth
     \item Write the database schema for this ER diagram.
 
     \begin{itemize}
-        \item \textit{Countries} (\underline{\texttt{countryname}: string}, \texttt{capital}: string, \texttt{president}: string, \texttt{continent}: string)
-        \item \textit{Persons} (\underline{\texttt{id}: int}, \texttt{firstName}: string, \texttt{lastName}: string, \texttt{dob}: date)
-        \item \textit{Visited} (\underline{\texttt{id}: int, \texttt{countryname}: string})
+        \item \textit{Countries} (\ul{\texttt{countryname}: string}, \texttt{capital}: string, \texttt{president}: string, \texttt{continent}: string)
+        \item \textit{Persons} (\ul{\texttt{id}: int}, \texttt{firstName}: string, \texttt{lastName}: string, \texttt{dob}: date)
+        \item \textit{Visited} (\ul{\texttt{id}: int, \texttt{countryname}: string})
     \end{itemize}
     
     \item Write the SQL \texttt{CREATE TABLE} statements for all tables identified for this database.\\
@@ -198,12 +192,12 @@ DROP TABLE Countries;
 
 Given the following schema:
 \begin{itemize}
-    \item \textit{songs} (\underline{\texttt{songid}: int}, \texttt{title}: string, \texttt{release}: date)
-    \item \textit{singers} (\underline{\texttt{singerid}: int}, \texttt{name}: string, \texttt{age}: real, \texttt{city}: string, \texttt{state}: string)
-    \item \textit{singsin} (\underline{\texttt{singerid}: int, \texttt{songid}: int})
+    \item \textit{songs} (\ul{\texttt{songid}: int}, \texttt{title}: string, \texttt{release}: date)
+    \item \textit{singers} (\ul{\texttt{singerid}: int}, \texttt{name}: string, \texttt{age}: real, \texttt{city}: string, \texttt{state}: string)
+    \item \textit{singsin} (\ul{\texttt{singerid}: int, \texttt{songid}: int})
 \end{itemize}
 
-The primary keys are underlined in each relation. Relation \textit{singers} contains information about singers. Relation \textit{songs} contain information about songs. Relation \textit{singsin} contains information about singers singing songs.
+The primary keys are uld in each relation. Relation \textit{singers} contains information about singers. Relation \textit{songs} contain information about songs. Relation \textit{singsin} contains information about singers singing songs.
 
 Notes:
 \begin{itemize}

@@ -1,26 +1,27 @@
 -- SQL Practice 5
 -- NOTE: a comment line in SQL starts with --
 -- DROP TABLES (IF THEY EXIST ALREADY, UNCOMMENT THE NEXT FOUR LINES TO DROP THE TABLES FIRST)
+/*
+ DROP TABLE PlaysIn;
+ DROP TABLE Movies;
+ DROP TABLE Actors;
+ DROP TABLE Movies2;
+*/
 
- --DROP TABLE PlaysIn;
- --DROP TABLE Movies;
- --DROP TABLE Actors;
- --DROP TABLE Movies2;
-
-CREATE TABLE Movies(
+CREATE TABLE Movies (
     movie_id 	NUMBER(9) PRIMARY KEY,
     title	    VARCHAR(40),
     year        INT,
     studio      VARCHAR(20)
 );
 
-CREATE TABLE Actors(
-    actor_id 	NUMBER(9) PRIMARY KEY,
+CREATE TABLE Actors (
+    actor_id    NUMBER(9) PRIMARY KEY,
     name	    VARCHAR(40),
     age         NUMBER(4,2)
 );
 
-CREATE TABLE PlaysIn(
+CREATE TABLE PlaysIn (
     actor_id 	NUMBER(9),
     movie_id    NUMBER(9),
     character   VARCHAR(40),
@@ -30,15 +31,15 @@ CREATE TABLE PlaysIn(
 );
 
 -- insert records into Actors table
-INSERT INTO Actors(actor_id, name, age) VALUES (10, 'Joe', 35.0);
-INSERT INTO Actors(actor_id, name, age) VALUES (20, 'Mary', 20.0);
-INSERT INTO Actors(actor_id, name, age) VALUES (30, 'Anne', 55.0);
-INSERT INTO Actors(actor_id, name, age) VALUES (40, 'Jerry', 45.0);
+INSERT INTO Actors (actor_id, name, age) VALUES (10, 'Joe', 35.0);
+INSERT INTO Actors (actor_id, name, age) VALUES (20, 'Mary', 20.0);
+INSERT INTO Actors (actor_id, name, age) VALUES (30, 'Anne', 55.0);
+INSERT INTO Actors (actor_id, name, age) VALUES (40, 'Jerry', 45.0);
 
--- insert records into movies table
-INSERT INTO Movies(movie_id, title, year, studio) VALUES (100,'Movie A', 2010, 'Universal');
-INSERT INTO Movies(movie_id, title, year, studio) VALUES (200,'Movie B', 2005, 'Universal');
-INSERT INTO Movies(movie_id, title, year, studio) VALUES (300,'Movie C', 2015, 'WB');
+-- insert records into Movies table
+INSERT INTO Movies (movie_id, title, year, studio) VALUES (100,'Movie A', 2010, 'Universal');
+INSERT INTO Movies (movie_id, title, year, studio) VALUES (200,'Movie B', 2005, 'Universal');
+INSERT INTO Movies (movie_id, title, year, studio) VALUES (300,'Movie C', 2015, 'WB');
 
 -- insert records into PlaysIn tab
 INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (10, 100, 'cab driver');
@@ -55,13 +56,12 @@ INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (40, 200, 'football pl
 -- check how many records you have in each table
 SELECT COUNT(*) FROM Actors;
 SELECT COUNT(*) FROM Movies;
-SELECT COUNT(*) FROM Playsin;
+SELECT COUNT(*) FROM PlaysIn;
 
 -- look at data from each table
-SELECT * FROM actors;
-SELECT * FROM movies;
-SELECT * FROM playsin;
-
+SELECT * FROM Actors;
+SELECT * FROM Movies;
+SELECT * FROM PlaysIn;
 
 --Find the id and name of actors who played in all movies
 -- sol 1
@@ -135,7 +135,7 @@ SELECT COUNT(*) FROM Movies;
 SELECT COUNT(studio) FROM Movies;
 
 -- INSERT a Movie with a NULL studio will work
-INSERT INTO Movies(movie_id, title, year) VALUES (400, 'Movie D', 2010);
+INSERT INTO Movies (movie_id, title, year) VALUES (400, 'Movie D', 2010);
 
 SELECT * FROM Movies;
 -- next two queries will not return the same result because studio has a null value in one record
@@ -143,13 +143,13 @@ SELECT COUNT(*) FROM Movies;
 SELECT COUNT(studio) FROM Movies;
 
 --insert a movie without a year will work
-INSERT INTO Movies(movie_id, title) VALUES (500, 'Movie E');
+INSERT INTO Movies (movie_id, title) VALUES (500, 'Movie E');
 -- next two queries will not return the same result because year has a null value
 SELECT COUNT(*) FROM Movies m;
 SELECT COUNT(*) FROM Movies m WHERE m.year < 2010 or m.year >= 2010;
 
 -- CREATE TABLE with NOT NULL constraint on studio colub
-CREATE TABLE Movies2(
+CREATE TABLE Movies2 (
     movie_id 	NUMBER(9) PRIMARY KEY,
     title	    VARCHAR(40),
     year        INT,
@@ -174,18 +174,18 @@ SELECT * FROM Movies where studio IS NOT NULL;
 SELECT * FROM Movies WHERE studio IS NULL;
 
 -- insert another movie without year
-INSERT INTO Movies(movie_id, title) VALUES (1000, 'Movie H');
+INSERT INTO Movies (movie_id, title) VALUES (1000, 'Movie H');
 --with SUM on column that has some null values
 SELECT SUM(year) FROM Movies;
 
-SELECT COUNT(*) FROM movies;
-SELECT COUNT(year)FROM movies;
-SELECT COUNT(studio) FROM movies;
+SELECT COUNT(*) FROM Movies;
+SELECT COUNT(year) FROM Movies;
+SELECT COUNT(studio) FROM Movies;
 
 -- group by, will have a group for NULL
 SELECT AVG(movie_id), year FROM Movies GROUP BY year;
 
 -- min
-SELECT MIN(year) FROM movies;
+SELECT MIN(year) FROM Movies;
 -- min and group by
-SELECT MIN(year), studio FROM movies GROUP BY studio;
+SELECT MIN(year), studio FROM Movies GROUP BY studio;

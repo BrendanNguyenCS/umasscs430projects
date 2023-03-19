@@ -8,7 +8,7 @@ CREATE TABLE songs (
 CREATE TABLE singers (
     singerid    NUMBER(9) PRIMARY KEY,
     name        VARCHAR(20),
-    age         REAL,
+    age         INT,
     city        VARCHAR(50),
     state       VARCHAR(50)
 );
