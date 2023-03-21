@@ -1,0 +1,140 @@
+\documentclass[letterpaper, 11pt]{article}
+\usepackage{nopageno} % For removing page numbers
+\usepackage[utf8]{inputenc}
+\usepackage{color, colortbl} % For table coloring
+\usepackage{titling} % For positioning of title preamble
+\usepackage[margin=0.75in]{geometry} % For margin width setting
+\usepackage{comment} % For block commenting
+\usepackage{float} % For table positioning
+% For math equation formatting
+\usepackage{amsmath, amssymb, amsfonts}
+\newcommand{\PMod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+\usepackage{parskip} % For automatic paragraph spacing/formatting
+\usepackage{relsize} % For increased math mode font sizing
+% For code blocks
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{lmodern}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{listings, minted}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keepspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color{blue},
+    commentstyle=\sffamily\itshape\color{Green}\scriptsize,
+    stringstyle = \color{red},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2
+}
+\tcbset{
+    colback=gray!5!white,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colframe=gray!75!black,
+}
+\setlength{\extrarowheight}{2pt}
+\usepackage{titlesec} % Custom styling for section titles
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont}{\thesection}{1em}{}
+% For side-by-side figures
+\usepackage{multicol}
+\usepackage{makecell}
+% For horizontal lists
+\usepackage{enumitem, tasks, varwidth}
+% For custom page numbers
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\usepackage[skip=2pt]{caption}
+\usepackage{graphicx}
+\graphicspath{{../Images/}}
+
+% Move title area to the top of the page
+\setlength{\droptitle}{-4em}
+\addtolength{\droptitle}{-4pt} 
+\renewcommand{\arraystretch}{1.25}
+% Disable paragraph indenting
+\setlength{\parindent}{0pt}
+
+\usepackage[none]{hyphenat}
+\usepackage{times}
+\usepackage{soul}
+
+\title{CS430 Homework 4}
+\author{Brendan Nguyen (\#01763771)}
+\date{Due: Thursday, Mar. 30, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1 (70 points)}
+
+Given the following db schema:
+\begin{itemize}
+    \item \textit{Books} (\ul{\texttt{bid}: int}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: int, \texttt{pubcompany}: string)
+    \item \textit{Authors} (\ul{\texttt{aid}: int}, \texttt{name}: string, \texttt{rating}: int, \texttt{city}: string, \texttt{state}: string)
+    \item \textit{Write} (\ul{\texttt{aid}: int, \texttt{bid}: int})
+\end{itemize}
+
+Primary keys are underlined in each relation. A book is uniquely identified by \texttt{bid}. A book has an id (\texttt{bid}), a name (\texttt{bname}), one author (attribute \texttt{author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). An author is uniquely identified by \texttt{aid}. An author has an id (\texttt{aid}), a name (attr. \texttt{name}), a rating (attr. \texttt{rating}), a city (attr. \texttt{city}) and a state (attr. \texttt{state}). If an author wrote a book, a record will be present in the \textit{Write} relation, with the \texttt{aid} of that author and the \texttt{bid} of that book. 
+
+Notes:
+\begin{itemize}
+    \item For both CS430 and CS630 students, each problem (a through n) carries 5 points possible.
+\end{itemize}
+
+For this schema:
+\begin{enumerate}[label={\alph*})]
+    \item Write the SQL statements to create the three tables. Do not forget about the keys constraints. Table statements should be written in an order such that if executed in that order will not cause an error. 
+    \item Use \texttt{INNER JOIN} to write the SQL query to extract the id and name of the authors and the id, name, and pubyear of books they wrote. (Queries that do not use \texttt{INNER JOIN} or \texttt{JOIN} keywords for joining tables will receive no credit)
+    \item Write the SQL query to extract the id and name of all the \textit{Books} that do not have a pubyear. Sort the result by name in descending order.
+    \item Write the SQL query to find the number of books for each pubcompany and pubyear.
+    \item Write the SQL statement to join \textit{Authors} with \textit{Write}. In the result also include the authors that did not write any books.
+    \item Write the SQL statement to update all \textit{Authors} ratings to use rating 8.
+    \item Write the SQL statement to update all books published in year 2020 to use {pubcompany} \texttt{`simon'}.
+    \item Write the SQL statement to delete all authors that did not write any book.
+    \item Write the SQL statement to delete all \textit{Books} that do not have a pubyear.
+    \item Write the SQL table to insert a record into each of these three tables. Statements need to be written in an order such that if executed in that that will not cause an error.
+    \item Write the SQL statement to update the record you inserted in \textit{Authors} table at part (j). Update the name of the author and the rating to use different values.
+    \item Write the SQL statement to alter table \textit{Authors} to add an additional column \texttt{phone} of type string.
+    \item Inside a comment line describe under what conditions query \texttt{SELECT COUNT(name) FROM Authors;} could return a result different than the result of query \texttt{SELECT COUNT(*) FROM Authors;}
+    \item Drop all tables (note that the drop statements should be written in an order such that they can execute successfully when run in that order). Rewrite the create statement for table Authors to include the constraint that we only allow ratings between 1 and 10 (note: including 1 and 10). 
+\end{enumerate}
+
+\section*{Question 2 (30 points)}
+
+Given the following db schema:
+\begin{itemize}
+    \item \textit{Cars} (\ul{\texttt{carid}: int}, \texttt{make}: string, \texttt{model}: string, \texttt{myear}: int, \texttt{dailyfee}: real)
+    \item \textit{Customers} (\ul{\texttt{custid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{dob}: date)
+    \item \textit{Rents} (\ul{\texttt{carid}: int, \texttt{custid}: int}, \texttt{rday}: date)
+\end{itemize}
+
+Primary keys are underlined in each relation. A car is uniquely identified by \texttt{carid}. A car also has a \texttt{make} (e.g. Toyota), a \texttt{model} (e.g. Corolla), a manufacturing year (attr. \texttt{myear}), and a daily fee (attr. \texttt{dailyfee}). A customer is uniquely identified by attribute \texttt{custid}. A customer also has a \texttt{name}, \texttt{city}, \texttt{state} and a date of birth (\texttt{dob}). Customers rent Cars. If a customer rents a car, a record is inserted in \textit{Rents} table with the \texttt{carid}, the \texttt{custid} and the day (attribute \texttt{rday}) the rental is made for.
+
+Notes:
+\begin{itemize}
+    \item For both CS430 and CS630 students, each problem (a through f) carries 5 points possible.
+\end{itemize}
+
+For this schema:
+\begin{enumerate}[label={\alph*})]
+    \item Write the SQL statement to create table \textit{Cars} with the constraint that no car older than 2015 (i.e. manufacturing year before 2015), and no car newer than 2020 (i.e. manufacturing year after 2020) can be inserted into the table. Please do not forget about the key constraints. 
+    \item Write the SQL statement to create table \textit{Customers}. In addition to the key constraints, add the constraints that no field in the table can be null.
+    \item Write the SQL statement to create table \textit{Rents}. Add the key constraints. The day of the rental should always be provided.
+    \item Write the SQL statement to find the id and name of customers who rented both Honda and Toyota cars (i.e. both make Honda and make Toyota).
+    \item Write the SQL query to extract the \texttt{carid}, \texttt{make} and \texttt{model} for cars that were rented for some day in 2020, but they were not rented for any day in 2022.
+    \item Write an \texttt{INSERT} statement to the table \textit{Cars}. Right after the statement, explain in a comment line what should be changed in the insert to cause it to fail due to the constraint ``no car older than 2015 or newer than 2020 can be inserted in the table".
+\end{enumerate}
+
+\end{document}
