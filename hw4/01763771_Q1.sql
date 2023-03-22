@@ -24,7 +24,9 @@ CREATE TABLE Write (
 );
 
 -- Answer for b)
-
+SELECT a.aid, a.name, b.bid, b.bname, b.pubyear FROM Authors a
+    JOIN Write w ON a.aid = w.aid
+    JOIN Books b ON w.bid = b.bid;
 
 -- Answer for c)
 SELECT bid, bname FROM Books WHERE pubyear IS NULL ORDER BY bname DESC;
@@ -35,7 +37,8 @@ SELECT b.pubcompany, b.pubyear, COUNT(*) FROM Books b, Authors a, Write w
     GROUP BY b.pubcompany, b.pubyear;
 
 -- Answer for e)
-
+SELECT * FROM Authors a
+    LEFT JOIN Write w ON a.aid = w.aid;
 
 -- Answer for f)
 UPDATE Authors SET rating = 8;
@@ -44,7 +47,9 @@ UPDATE Authors SET rating = 8;
 UPDATE Books SET pubcompany = 'simon' WHERE pubyear = 2020;
 
 -- Answer for h)
-
+DELETE FROM Authors WHERE aid NOT IN (
+    SELECT a2.aid FROM Authors a2, Write w WHERE a2.aid = w.aid
+);
 
 -- Answer for i)
 DELETE FROM Books WHERE pubyear IS NULL;

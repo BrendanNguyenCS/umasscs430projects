@@ -51,7 +51,7 @@ SELECT s.sid, s.sname, s.age
 -- Answer for f)
 SELECT * FROM Students s, Articles a, Reads r
     WHERE s.sid = r.sid AND r.aid = a.aid
-    AND pubyear = 2020 AND s.sid NOT IN (
+    AND a.pubyear = 2020 AND s.sid NOT IN (
         SELECT s2.sid FROM Students s2, Articles a2, Reads r2
         WHERE s2.sid = r2.sid AND r2.aid = a2.aid AND a2.pubyear = 2018
     );
