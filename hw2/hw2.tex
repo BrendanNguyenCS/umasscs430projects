@@ -31,11 +31,8 @@
 }
 \tcbset{
     colback=gray!5!white,
-    left=0pt,
-    right=0pt,
-    top=0pt,
-    bottom=0pt,
     colframe=gray!75!black,
+    boxsep=5pt,
 }
 \setlength{\extrarowheight}{2pt}
 \usepackage{titlesec} % Custom styling for section titles
@@ -70,7 +67,7 @@
 \usepackage{soul}
 
 \title{CS430 Homework 2}
-\author{Brendan Nguyen (\#01763771)}
+\author{Brendan Nguyen}
 \date{Due: Wednesday, Mar. 1, 2023}
 
 \begin{document}
@@ -80,13 +77,6 @@
 \section*{Question 1 (30 points)}
 
 A movie platform database contains information about \textit{authors} (identified by \texttt{authorid}) and information about \textit{books} (identified by \texttt{bookid}). Each book also has a name, a genre, a release year, and a publisher (i.e. publishing company). Authors also have a name, age, phone, and address. Authors write books.
-
-NOTES:
-\begin{itemize}
-    \item the ER diagram should strictly follow the notations used in class. No other notations will receive any points.
-    \item Each problem from a through f must have its own ER diagram. This means students must provide six ER diagrams.
-    \item for both CS430 and CS630 students each problem (a through f) carries 5 points possible.
-\end{itemize}
 
 \begin{enumerate}[label={\alph*})]
     \item Draw the ER diagram of this database (as described in the Question 1 statement). Do not use any other constraints.
@@ -143,7 +133,7 @@ NOTES: the ER diagram should strictly follow the notations used in class. No oth
     \item Write the SQL \texttt{CREATE TABLE} statements for all tables identified for this database.\\
     The create statements have to work when ran against the Oracle database.\\
     The create statements have to be written in an order such that if executed in that order will not cause any error.
-
+\begin{tcolorbox}
     \begin{lstlisting}[language=SQL]
 CREATE TABLE Countries (
     countryname VARCHAR(20) PRIMARY KEY,
@@ -167,23 +157,28 @@ CREATE TABLE Visited (
     FOREIGN KEY(countryname) REFERENCES Countries
 );
     \end{lstlisting}
+    \end{tcolorbox}
     
     \item Write the SQL statement to update the table \textit{Persons} to add two new columns: city and state.
-
+    \begin{tcolorbox}
     \begin{lstlisting}[language=SQL]
 ALTER TABLE Persons ADD (
     city VARCHAR(50),
     state VARCHAR(50)
 );
-    \end{lstlisting}
+    \end{lstlisting}   
+    \end{tcolorbox}
+    
     
     \item Write the SQL statements to remove these three tables from the database. Write the statements in an order such that if executed in that order no error will occur.
-
+    \begin{tcolorbox}
     \begin{lstlisting}[language=SQL]
 DROP TABLE Visited;
 DROP TABLE Persons;
 DROP TABLE Countries;
     \end{lstlisting}
+    \end{tcolorbox}
+    
 \end{enumerate}
 
 \section*{Question 3 (40 points)}
@@ -199,20 +194,12 @@ Given the following schema:
 
 The primary keys are uld in each relation. Relation \textit{singers} contains information about singers. Relation \textit{songs} contain information about songs. Relation \textit{singsin} contains information about singers singing songs.
 
-Notes:
-\begin{itemize}
-    \item SQL must run against the Oracle database we use in class. (Please run and test your queries against the Oracle DB. Create the tables, insert some data, and test your queries!!!)
-    \item SQL queries that do not run against the Oracle db will receive no credit.
-    \item In the .sql file, before each SQL statement you MUST include a comment line with the problem number the SQL statement is for (e.g., before writing the SQL query for (c) add a comment line such as --Answer for c) ). Remember that a comment line starts with two dash symbols. Any other additional comments can be written in comment lines.
-    \item For both CS430 and CS630 students, each problem carries 4 points possible
-\end{itemize}
-
 \begin{enumerate}[label={\alph*})]
     \item Write the SQL statements that create tables \textit{songs}, \textit{singers} and \textit{singsin}. Don’t forget to define the key constraints.
     \item Write the SQL query that extracts all the names of the singers from Boston. Sort the result by name in ascending order.
     \item Write the SQL query that extracts information about the singers and the songs they sing. Each record in the result should contain the name and age of the singer, the title of the song, and the release date of the song. Sort the result by the name of the singers in descending order.
     \item Write the SQL query that finds how many singers from Los Angeles, CA are in the database.
-    \item Write the SQL that extracts information about singers whose name ends with the letter \texttt{a}. Sort the result by the state of the singers, in descending order.
+    \item Write the SQL that extracts information about singers whose name ends with the letter ``a". Sort the result by the state of the singers, in descending order.
     \item Write the SQL that extracts the name and state for all singers who played in a song that has a title that contains the word happy. The query should be case insensitive with regard to the case of the letters from the title of the song.
     \item Write an SQL query to extract the name, city, and state of singers that sang a song that was released after Aug 10, 2022.
     \item Write the SQL to extract the names of the oldest songs.
