@@ -11,7 +11,7 @@ CREATE TABLE Sailors (
 	sid 	NUMBER(9) PRIMARY KEY,
 	sname	VARCHAR(20),
 	rating  NUMBER(2),
-	age   	NUMBER(4, 2)
+	age   	NUMBER(4,2)
 );
 
 -- create table Boats
@@ -51,10 +51,10 @@ ALTER TABLE Reserves RENAME COLUMN invoiceday to invday;
 DESC Reserves;
 
 -- rename table
-ALTER TABLE Reserves RENAME TO otherreserves;
+ALTER TABLE Reserves RENAME TO OtherReserves;
 
 -- rename table
-ALTER TABLE otherreserves RENAME TO Reserves;
+ALTER TABLE OtherReserves RENAME TO Reserves;
 
 -- alter table Reserves by dropping one column
 ALTER TABLE Reserves DROP COLUMN invday;
@@ -69,7 +69,7 @@ INSERT INTO Sailors VALUES (58, 'rusty', 10, 35.0);
 INSERT INTO Sailors VALUES (59, 'rusty', 10, 45.0);
 
 -- insert data into Boats table
-INSERT INTO Boats VALUES ('interlake', 101, 'red');
+INSERT INTO Boats (name, bid, color) VALUES ('interlake', 101, 'red');
 INSERT INTO Boats VALUES (102, 'clipper', 'green');
 
 -- insert data into Reserves table

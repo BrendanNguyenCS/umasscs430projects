@@ -25,7 +25,7 @@ CREATE TABLE Movies (
 CREATE TABLE Actors (
     actor_id 	NUMBER(9) PRIMARY KEY,
     name	    VARCHAR(40),
-    age         NUMBER(4, 2)
+    age         NUMBER(4,2)
 );
 
 -- create table PlaysIn
@@ -39,28 +39,46 @@ CREATE TABLE PlaysIn (
 );
 
 -- insert records into Actors table
-INSERT INTO Actors (actor_id, name, age) VALUES (10, 'Joe', 35.0);
-INSERT INTO Actors (actor_id, name, age) VALUES (20, 'Mary', 20.0);
-INSERT INTO Actors (actor_id, name, age) VALUES (30, 'Anne', 55.0);
-INSERT INTO Actors (actor_id, name, age) VALUES (40, 'Jerry', 45.0);
-INSERT INTO Actors (actor_id, name, age) VALUES (500, 'Joe', 45.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (10, 'Joe', 35.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (20, 'Mary', 20.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (30, 'Anne', 55.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (40, 'Jerry', 45.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (500, 'Joe', 45.0);
 
 -- insert records into Movies table
-INSERT INTO Movies (movie_id, title, year, studio) VALUES (100, 'Movie A', 2010, 'Universal');
-INSERT INTO Movies (movie_id, title, year, studio) VALUES (200, 'Movie B', 2005, 'Universal');
-INSERT INTO Movies (movie_id, title, year, studio) VALUES (300, 'Movie C', 2015, 'WB');
+INSERT INTO Movies (movie_id, title, year, studio)
+    VALUES (100, 'Movie A', 2010, 'Universal');
+INSERT INTO Movies (movie_id, title, year, studio)
+    VALUES (200, 'Movie B', 2005, 'Universal');
+INSERT INTO Movies (movie_id, title, year, studio)
+    VALUES (300, 'Movie C', 2015, 'WB');
 
 -- insert records into PlaysIn table
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (10, 100, 'cab driver');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (10, 200, 'waitress');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (10, 300, 'Billy');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (20, 100, 'musician');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (20, 300, 'waitress');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (30, 100, 'Laura');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (30, 200, 'teacher');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (30, 300, 'librarian');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (40, 100, 'teacher');
-INSERT INTO PlaysIn (actor_id, movie_id, character) VALUES (40, 200, 'football player');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (10, 100, 'cab driver');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (10, 200, 'waitress');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (10, 300, 'Billy');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (20, 100, 'musician');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (20, 300, 'waitress');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (30, 100, 'Laura');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (30, 200, 'teacher');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (30, 300, 'librarian');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (40, 100, 'teacher');
+INSERT INTO PlaysIn (actor_id, movie_id, character)
+    VALUES (40, 200, 'football player');
 
 SELECT * FROM Actors a, PlaysIn p WHERE a.actor_id = p.actor_id ;
 
@@ -71,7 +89,7 @@ SELECT * FROM Actors a
     LEFT JOIN PlaysIn p ON a.actor_id = p.actor_id ;
 
 SELECT * FROM Actors a, PlaysIn p, Movies m
-    WHERE a.actor_id = p.actor_id and p.movie_id = m.movie_id;
+    WHERE a.actor_id = p.actor_id AND p.movie_id = m.movie_id;
 
 SELECT * FROM Actors a
     JOIN PlaysIn p ON a.actor_id = p.actor_id
@@ -93,7 +111,7 @@ CREATE TABLE Sailors(
     sid 	NUMBER(9) PRIMARY KEY,
     sname	VARCHAR(20),
     rating  NUMBER(2),
-    age   	NUMBER(4, 2)
+    age   	NUMBER(4,2)
 );
 
 -- create table Boats
@@ -168,7 +186,7 @@ CREATE TABLE Sailors4 (
     sid 	NUMBER(9) PRIMARY KEY,
     sname	VARCHAR(20),
     rating  NUMBER(2),
-    age   	NUMBER(4, 2),
+    age   	NUMBER(4,2),
     CONSTRAINT RatingRange CHECK (rating >= 1 AND rating <= 10)
 );
 
@@ -180,7 +198,7 @@ CREATE TABLE Sailors5 (
     sid 	NUMBER(9) PRIMARY KEY,
     sname	VARCHAR(20),
     rating  NUMBER(2) CHECK (rating >= 11 AND rating <= 10),
-    age   	NUMBER(4, 2)
+    age   	NUMBER(4,2)
 );
 
 -- this will return an error because of the constraint on rating

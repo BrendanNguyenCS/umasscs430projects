@@ -32,7 +32,9 @@ SELECT a.aid, a.name, b.bid, b.bname, b.pubyear FROM Authors a
 SELECT bid, bname FROM Books WHERE pubyear IS NULL ORDER BY bname DESC;
 
 -- Answer for d)
-SELECT b.pubcompany, b.pubyear, COUNT(*) FROM Books b, Authors a, Write w
+SELECT b.pubcompany, b.pubyear, COUNT(*)
+    FROM Books b, Authors a, Write w
+    -- Joining conditions
     WHERE b.bid = w.bid AND a.aid = w.aid
     GROUP BY b.pubcompany, b.pubyear;
 
@@ -55,9 +57,12 @@ DELETE FROM Authors WHERE aid NOT IN (
 DELETE FROM Books WHERE pubyear IS NULL;
 
 -- Answer for j)
-INSERT INTO Books VALUES (1, 'Operating Systems: Three Easy Pieces', 'Remzi Arpaci-Dusseau', 2018, 'University of Wisconsin-Madison');
-INSERT INTO Authors VALUES (1, 'Remzi Arpaci-Dusseau', 9, 'Madison', 'Wisconsin');
-INSERT INTO Write VALUES (1, 1);
+INSERT INTO Books
+    VALUES (1, 'Operating Systems: Three Easy Pieces', 'Remzi Arpaci-Dusseau', 2018, 'University of Wisconsin-Madison');
+INSERT INTO Authors
+    VALUES (1, 'Remzi Arpaci-Dusseau', 9, 'Madison', 'Wisconsin');
+INSERT INTO Write
+    VALUES (1, 1);
 
 -- Answer for k)
 UPDATE Authors SET name = 'Andrea Arpaci-Dusseau', rating = 7 WHERE aid = 1;
@@ -68,9 +73,8 @@ ALTER TABLE Authors ADD (
 );
 
 -- Answer for m)
-/*
- The statement SELECT COUNT(name) FROM AUTHORS; will count all the rows in the name column and excludes NULL values while the statement SELECT COUNT(*) FROM Authors; doesn't exclude NULL values.
- */
+SELECT COUNT(name) FROM Authors;    -- This statement counts all the rows in the name column and excludes NULL values.
+SELECT COUNT(*) FROM Authors;       -- This statement doesn't exclude NULL values.
 
 -- Answer for n)
 DROP TABLE Write;

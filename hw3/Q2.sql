@@ -38,8 +38,7 @@ SELECT * FROM Articles a
     ) ORDER BY a.aname;
 
 -- Answer for e)
-SELECT s.sid, s.sname, s.age
-    FROM Students s
+SELECT s.sid, s.sname, s.age FROM Students s
     WHERE NOT EXISTS (
         SELECT a.aid FROM Articles a
         WHERE NOT EXISTS (
@@ -49,27 +48,37 @@ SELECT s.sid, s.sname, s.age
     );
 
 -- Answer for f)
-SELECT * FROM Students s, Articles a, Reads r
+SELECT s.sid, s.sname FROM Students s, Articles a, Reads r
+    -- Joining conditions
     WHERE s.sid = r.sid AND r.aid = a.aid
+    -- Student read an article published in 2020 but none published in 2018
     AND a.pubyear = 2020 AND s.sid NOT IN (
         SELECT s2.sid FROM Students s2, Articles a2, Reads r2
-        WHERE s2.sid = r2.sid AND r2.aid = a2.aid AND a2.pubyear = 2018
+            -- Joining conditions
+            WHERE s2.sid = r2.sid AND r2.aid = a2.aid
+            -- An article that was published in 2018
+            AND a2.pubyear = 2018
     );
 
 -- Answer for g)
 SELECT DISTINCT s.sid, s.sname FROM Students s, Articles a, Reads r
+    -- Joining conditions
     WHERE s.sid = r.sid AND r.aid = a.aid
+    -- An article was read the same year as published
     AND r.year = a.pubyear;
 
 -- Answer for h)
-SELECT DISTINCT s.sid, COUNT(*) FROM Students s, Reads r
+SELECT s.sid, COUNT(*) FROM Students s, Reads r
+    -- Joining condition
     WHERE s.sid = r.sid
     GROUP BY s.sid
+    -- Students must have read more than 3 articles
     HAVING COUNT(*) >= 3;
 
 -- Answer for i)
 SELECT s.state, MIN(s.age), MAX(s.age), AVG(s.age)
     FROM Students s, Articles a, Reads r
+    -- Joining conditions
     WHERE s.sid = r.sid AND r.aid = a.aid
     GROUP BY s.state
     HAVING COUNT(*) >= 2;
@@ -84,7 +93,8 @@ SELECT DISTINCT s.sid, s.sname
     FROM Students s
     WHERE NOT EXISTS (
         SELECT a.aid FROM Articles a
-            WHERE a.pubcompany = 'penguin' AND NOT EXISTS (
+            WHERE a.pubcompany = 'penguin' AND a.pubyear = 2022
+            AND NOT EXISTS (
                 SELECT * FROM Reads r
                 WHERE r.aid = a.aid AND r.sid = s.sid
             )

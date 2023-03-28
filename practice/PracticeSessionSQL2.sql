@@ -58,11 +58,11 @@ SELECT * FROM Sailors;
 SELECT * FROM Sailors ORDER BY age;
 SELECT * FROM Sailors ORDER BY age DESC;
 SELECT * FROM Sailors ORDER BY 4 DESC;
-SELECT * FROM Sailors ORDER BY 4,3 DESC;
-SELECT * FROM Sailors ORDER BY 4,rating DESC;
+SELECT * FROM Sailors ORDER BY 4, 3 DESC;
+SELECT * FROM Sailors ORDER BY 4, rating DESC;
 
 --next commented out qyery will give an error if run
---select * FROM Sailors, Reserves where Sailors.sid = Reserves.sid order by sid;
+--SELECT * FROM Sailors, Reserves where Sailors.sid = Reserves.sid ORDER BY sid;
 SELECT * FROM Sailors, Reserves WHERE Sailors.sid = Reserves.sid ORDER BY 1;
 
 --LIKE keyword

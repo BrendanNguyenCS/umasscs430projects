@@ -109,7 +109,7 @@ SELECT s.sname,s.rating, MIN(s.age)
 	FROM Sailors3 s
 	GROUP BY s.rating, s.sname;
 
----- NESTED QUERIES
+-- NESTED QUERIES
 -- find the sailors with the highest rating
 SELECT * FROM Sailors s
 	WHERE s.rating = (
@@ -142,7 +142,7 @@ SELECT * FROM Sailors s
 -- select all sailors whose rating is higher than any sailor who reserved boat 101
 SELECT * FROM Sailors s
 	WHERE s.rating > ANY (
-		SELECT s2.rating FROM Sailors s2,Reserves r
+		SELECT s2.rating FROM Sailors s2, Reserves r
 		WHERE s2.sid = r.sid AND r.bid = 101
 	);
 

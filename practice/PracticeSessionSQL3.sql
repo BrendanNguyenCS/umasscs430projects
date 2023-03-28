@@ -114,7 +114,7 @@ SELECT SUM(rating) FROM Sailors WHERE age > 40;
 -- next commented out query will return an error if run
 --SELECT age, AVG(rating) from Sailors;
 
---GROUP BY
+-- GROUP BY
 SELECT rating, AVG(age) FROM Sailors GROUP BY rating;
 -- group by and order by
 SELECT age, AVG(rating) FROM Sailors GROUP BY age ORDER BY AVG(rating);

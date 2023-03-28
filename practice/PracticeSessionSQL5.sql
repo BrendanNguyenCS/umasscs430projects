@@ -37,21 +37,34 @@ INSERT INTO Actors (actor_id, name, age) VALUES (30, 'Anne', 55.0);
 INSERT INTO Actors (actor_id, name, age) VALUES (40, 'Jerry', 45.0);
 
 -- insert records into Movies table
-INSERT INTO Movies (movie_id, title, year, studio) VALUES (100,'Movie A', 2010, 'Universal');
-INSERT INTO Movies (movie_id, title, year, studio) VALUES (200,'Movie B', 2005, 'Universal');
-INSERT INTO Movies (movie_id, title, year, studio) VALUES (300,'Movie C', 2015, 'WB');
+INSERT INTO Movies (movie_id, title, year, studio)
+    VALUES (100,'Movie A', 2010, 'Universal');
+INSERT INTO Movies (movie_id, title, year, studio)
+    VALUES (200,'Movie B', 2005, 'Universal');
+INSERT INTO Movies (movie_id, title, year, studio)
+    VALUES (300,'Movie C', 2015, 'WB');
 
 -- insert records into PlaysIn tab
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (10, 100, 'cab driver');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (10, 200, 'waitress');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (10, 300, 'Billy');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (20, 100, 'musician');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (20, 300, 'waitress');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (30, 100, 'Laura');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (30, 200, 'teacher');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (30, 300, 'librarian');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (40, 100, 'teacher');
-INSERT INTO PlaysIn(actor_id, movie_id, character) VALUES (40, 200, 'football player');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (10, 100, 'cab driver');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (10, 200, 'waitress');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (10, 300, 'Billy');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (20, 100, 'musician');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (20, 300, 'waitress');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (30, 100, 'Laura');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (30, 200, 'teacher');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (30, 300, 'librarian');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (40, 100, 'teacher');
+INSERT INTO PlaysIn(actor_id, movie_id, character)
+    VALUES (40, 200, 'football player');
 
 -- check how many records you have in each table
 SELECT COUNT(*) FROM Actors;
@@ -63,7 +76,7 @@ SELECT * FROM Actors;
 SELECT * FROM Movies;
 SELECT * FROM PlaysIn;
 
---Find the id and name of actors who played in all movies
+-- Find the id and name of actors who played in all movies
 -- sol 1
 SELECT a.actor_id, a.name
     FROM Actors a
@@ -74,7 +87,7 @@ SELECT a.actor_id, a.name
         WHERE p.actor_id = a.actor_id)
     );
 
---Find the id and name of actors who played in all movies
+-- Find the id and name of actors who played in all movies
 -- sol 2
 SELECT a.actor_id, a.name
     FROM Actors a
@@ -97,7 +110,7 @@ SELECT a.actor_id, a.name
         )
     ) ORDER BY a.name;
 
---Find the id and name of actors who played in all movies produced by ‘Universal' studio.
+-- Find the id and name of actors who played in all movies produced by ‘Universal' studio.
 SELECT a.actor_id, a.name
     FROM Actors a
     WHERE NOT EXISTS(
@@ -106,7 +119,7 @@ SELECT a.actor_id, a.name
         (SELECT p.movie_id FROM PlaysIn p WHERE p.actor_id = a.actor_id)
     );
 
----Find the id and name of actors who played in all movies produced by ‘Universal' studio.
+-- Find the id and name of actors who played in all movies produced by ‘Universal' studio.
 -- sol 2
 SELECT a.actor_id, a.name
     FROM Actors a
@@ -118,7 +131,7 @@ SELECT a.actor_id, a.name
             )
     );
 
----List the average age of actors for each movie in which at least 4 actors play.
+-- List the average age of actors for each movie in which at least 4 actors play.
 SELECT m.movie_id, AVG(a.age)
     FROM Movies m, Actors a, PlaysIn p
     WHERE m.movie_id = p.movie_id AND p.actor_id = a.actor_id
@@ -130,12 +143,13 @@ SELECT m.movie_id, AVG(a.age)
 -- see Movies schema
 DESC Movies
 
--- hoq many records we have in  Movies table
+-- how many records we have in  Movies table
 SELECT COUNT(*) FROM Movies;
 SELECT COUNT(studio) FROM Movies;
 
 -- INSERT a Movie with a NULL studio will work
-INSERT INTO Movies (movie_id, title, year) VALUES (400, 'Movie D', 2010);
+INSERT INTO Movies (movie_id, title, year)
+    VALUES (400, 'Movie D', 2010);
 
 SELECT * FROM Movies;
 -- next two queries will not return the same result because studio has a null value in one record
@@ -146,9 +160,9 @@ SELECT COUNT(studio) FROM Movies;
 INSERT INTO Movies (movie_id, title) VALUES (500, 'Movie E');
 -- next two queries will not return the same result because year has a null value
 SELECT COUNT(*) FROM Movies m;
-SELECT COUNT(*) FROM Movies m WHERE m.year < 2010 or m.year >= 2010;
+SELECT COUNT(*) FROM Movies m WHERE m.year < 2010 OR m.year >= 2010;
 
--- CREATE TABLE with NOT NULL constraint on studio colub
+-- CREATE TABLE with NOT NULL constraint on studio column
 CREATE TABLE Movies2 (
     movie_id 	NUMBER(9) PRIMARY KEY,
     title	    VARCHAR(40),
@@ -160,22 +174,22 @@ DESC Movies;
 DESC Movies2;
 
 -- next commented out INSERT statement will give will give an error, because studio has a NOT NULL constraint and it is missing from the INSERT statement
--- INSERT INTO Movies2(movie_id,title,year) VALUES(600,'Movie F', 2010);
+-- INSERT INTO Movies2 (movie_id, title, year) VALUES (600, 'Movie F', 2010);
 
 -- next commented out insert will also give an error because primary key attribute is not present
---INSERT INTO Movies(title,year,studio) VALUES('Movie G', 2010,'Universal');
+-- INSERT INTO Movies (title, year, studio) VALUES ('Movie G', 2010, 'Universal');
 
 SELECT * FROM Movies;
 
 -- Find all movies that have a studio
-SELECT * FROM Movies where studio IS NOT NULL;
+SELECT * FROM Movies WHERE studio IS NOT NULL;
 
---Find all movies that DO NOT have a studio (i.r. column studio is null)
+-- Find all movies that DO NOT have a studio (i.r. column studio is null)
 SELECT * FROM Movies WHERE studio IS NULL;
 
 -- insert another movie without year
 INSERT INTO Movies (movie_id, title) VALUES (1000, 'Movie H');
---with SUM on column that has some null values
+-- with SUM on column that has some null values
 SELECT SUM(year) FROM Movies;
 
 SELECT COUNT(*) FROM Movies;

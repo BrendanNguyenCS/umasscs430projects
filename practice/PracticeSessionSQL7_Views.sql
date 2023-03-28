@@ -9,7 +9,7 @@ CREATE TABLE Sailors (
 	sid 	NUMBER(9) PRIMARY KEY,
 	sname	VARCHAR(20),
 	rating  NUMBER(2),
-	age   	NUMBER(4, 2)
+	age   	NUMBER(4,2)
 );
 
 -- create table boats

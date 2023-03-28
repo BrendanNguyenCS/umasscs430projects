@@ -43,33 +43,43 @@ SELECT DISTINCT c.cid, c.name FROM Customers c, Accounts a, Has_account h
 SELECT DISTINCT c.cid, c.name, c.age FROM Customers c
     WHERE c.cid NOT IN (
         SELECT h.cid FROM Customers c2, Has_account h
+            -- Joining conditions
             WHERE c2.cid = h.cid
+            -- Account was opened between Jan 1st 2020 and Dec 1st 2021
             AND h.since >= TO_DATE('01/01/2020', 'MM/DD/YYYY')
             AND h.since <= TO_DATE('12/01/2021', 'MM/DD/YYYY')
     );
 
 -- Answer for e)
-SELECT DISTINCT c.cid, c.name, c.age FROM Customers c, Has_account h, Accounts a
+SELECT DISTINCT c.cid, c.name, c.age
+    FROM Customers c, Has_account h, Accounts a
+    -- Joining conditions
     WHERE c.cid = h.cid AND h.aid = a.aid
+    -- The account is a savings account
     AND a.atype = 'savings' AND c.cid IN (
         SELECT c2.cid FROM Customers c2, Has_account h2, Accounts a2
-            WHERE c2.cid = h2.cid AND h2.aid = a2.aid AND a2.atype = 'checking'
+            -- Joining conditions
+            WHERE c2.cid = h2.cid AND h2.aid = a2.aid
+            -- The account is a checking account
+            AND a2.atype = 'checking'
     );
 
 -- Answer for f)
 SELECT c.cid, c.name FROM Customers c, Has_account h, Accounts a
+    -- Joining conditions
     WHERE c.cid = h.cid AND h.aid = a.aid
     GROUP BY c.cid, c.name
     HAVING SUM(a.amount) <= 10000;
 
 -- Answer for g)
 SELECT a.aid FROM Accounts a
+    -- A checking account has more than 2 owners
     WHERE a.atype = 'checking' AND 2 <= (
         SELECT COUNT(*) FROM Has_account h WHERE h.aid = a.aid
     );
 
 -- Answer for h)
-SELECT DISTINCT c.cid, COUNT(*)
+SELECT c.cid, COUNT(*)
     FROM Customers c, Accounts a, Has_account h
     -- Joining conditions
     WHERE c.cid = h.cid AND h.aid = a.aid
@@ -89,7 +99,7 @@ SELECT DISTINCT c.cid, c.name, c.age FROM Customers c, Has_account h
     );
 
 -- Answer for j)
-SELECT DISTINCT c.cid, c.name FROM Customers c, Accounts a, Has_account h
+SELECT c.cid, c.name FROM Customers c, Accounts a, Has_account h
     -- Joining conditions
     WHERE c.cid = h.cid AND h.aid = a.aid
     -- Customers from 'MA' and have at least 2 'savings' accounts
