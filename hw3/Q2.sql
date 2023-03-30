@@ -43,7 +43,7 @@ SELECT s.sid, s.sname, s.age FROM Students s
         SELECT a.aid FROM Articles a
         WHERE NOT EXISTS (
             SELECT * FROM Reads r
-            WHERE r.aid = a.aid AND r.aid = s.sid
+            WHERE r.aid = a.aid AND r.sid = s.sid
         )
     );
 

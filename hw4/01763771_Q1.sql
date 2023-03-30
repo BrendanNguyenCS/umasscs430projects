@@ -54,6 +54,10 @@ DELETE FROM Authors WHERE aid NOT IN (
 );
 
 -- Answer for i)
+-- The first DELETE statement on Write is needed to satisfy the foreign key referential integrity of the tables
+DELETE FROM Write WHERE bid IN (
+    SELECT b.bid FROM Books b WHERE b.pubyear IS NULL
+);
 DELETE FROM Books WHERE pubyear IS NULL;
 
 -- Answer for j)
