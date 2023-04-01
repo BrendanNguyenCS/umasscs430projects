@@ -58,7 +58,7 @@ SELECT s.sid, s.sname FROM Students s, Articles a, Reads r
             WHERE s2.sid = r2.sid AND r2.aid = a2.aid
             -- An article that was published in 2018
             AND a2.pubyear = 2018
-    );
+    ) ORDER BY s.sname DESC;
 
 -- Answer for g)
 SELECT DISTINCT s.sid, s.sname FROM Students s, Articles a, Reads r

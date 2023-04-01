@@ -89,12 +89,12 @@ SELECT c.cid, COUNT(*)
     HAVING COUNT(*) >= 2;
 
 -- Answer for i)
-SELECT DISTINCT c.cid, c.name, c.age FROM Customers c, Has_account h
+SELECT c.cid, c.name, c.age FROM Customers c, Has_account h
     -- Joining conditions
     WHERE c.cid = h.cid
     -- Accounts that were opened in 2018 and 2020
-    AND EXTRACT(YEAR FROM h.since) = 2020 AND h.cid IN (
-        SELECT h2.cid FROM Customers c2, Has_account h2
+    AND EXTRACT(YEAR FROM h.since) = 2020 AND c.cid IN (
+        SELECT c2.cid FROM Customers c2, Has_account h2
         WHERE h2.cid = c2.cid AND EXTRACT(YEAR FROM h2.since) = 2018
     );
 
