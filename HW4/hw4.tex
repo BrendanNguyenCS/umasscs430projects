@@ -70,7 +70,7 @@
 \usepackage{soul}
 
 \title{CS430 Homework 4}
-\author{Brendan Nguyen (\#01763771)}
+\author{Brendan Nguyen}
 \date{Due: Thursday, Mar. 30, 2023}
 
 \begin{document}
@@ -87,11 +87,6 @@ Given the following db schema:
 \end{itemize}
 
 Primary keys are underlined in each relation. A book is uniquely identified by \texttt{bid}. A book has an id (\texttt{bid}), a name (\texttt{bname}), one author (attribute \texttt{author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). An author is uniquely identified by \texttt{aid}. An author has an id (\texttt{aid}), a name (attr. \texttt{name}), a rating (attr. \texttt{rating}), a city (attr. \texttt{city}) and a state (attr. \texttt{state}). If an author wrote a book, a record will be present in the \textit{Write} relation, with the \texttt{aid} of that author and the \texttt{bid} of that book. 
-
-Notes:
-\begin{itemize}
-    \item For both CS430 and CS630 students, each problem (a through n) carries 5 points possible.
-\end{itemize}
 
 For this schema:
 \begin{enumerate}[label={\alph*})]
@@ -122,15 +117,10 @@ Given the following db schema:
 
 Primary keys are underlined in each relation. A car is uniquely identified by \texttt{carid}. A car also has a \texttt{make} (e.g. Toyota), a \texttt{model} (e.g. Corolla), a manufacturing year (attr. \texttt{myear}), and a daily fee (attr. \texttt{dailyfee}). A customer is uniquely identified by attribute \texttt{custid}. A customer also has a \texttt{name}, \texttt{city}, \texttt{state} and a date of birth (\texttt{dob}). Customers rent Cars. If a customer rents a car, a record is inserted in \textit{Rents} table with the \texttt{carid}, the \texttt{custid} and the day (attribute \texttt{rday}) the rental is made for.
 
-Notes:
-\begin{itemize}
-    \item For both CS430 and CS630 students, each problem (a through f) carries 5 points possible.
-\end{itemize}
-
 For this schema:
 \begin{enumerate}[label={\alph*})]
     \item Write the SQL statement to create table \textit{Cars} with the constraint that no car older than 2015 (i.e. manufacturing year before 2015), and no car newer than 2020 (i.e. manufacturing year after 2020) can be inserted into the table. Please do not forget about the key constraints. 
-    \item Write the SQL statement to create table \textit{Customers}. In addition to the key constraints, add the constraints that no field in the table can be null.
+    \item Write the SQL statement to create table \textit{Customers}. In addition to the key constraints, add the constraints that no field in the table can be \texttt{NULL}.
     \item Write the SQL statement to create table \textit{Rents}. Add the key constraints. The day of the rental should always be provided.
     \item Write the SQL statement to find the id and name of customers who rented both Honda and Toyota cars (i.e. both make Honda and make Toyota).
     \item Write the SQL query to extract the \texttt{carid}, \texttt{make} and \texttt{model} for cars that were rented for some day in 2020, but they were not rented for any day in 2022.

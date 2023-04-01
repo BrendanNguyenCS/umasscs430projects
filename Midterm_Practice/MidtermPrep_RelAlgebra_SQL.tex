@@ -1,0 +1,161 @@
+\documentclass[letterpaper, 11pt]{article}
+\usepackage{nopageno} % For removing page numbers
+\usepackage[utf8]{inputenc}
+\usepackage{color, colortbl} % For table coloring
+\usepackage{titling} % For positioning of title preamble
+\usepackage[margin=0.75in]{geometry} % For margin width setting
+\usepackage{comment} % For block commenting
+\usepackage{float} % For table positioning
+% For math equation formatting
+\usepackage{amsmath, amssymb, amsfonts}
+\newcommand{\PMod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+\usepackage{parskip} % For automatic paragraph spacing/formatting
+\usepackage{relsize} % For increased math mode font sizing
+% For code blocks
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{lmodern}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{listings, minted}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keepspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color{blue},
+    commentstyle=\sffamily\itshape\color{Green}\scriptsize,
+    stringstyle = \color{red},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2
+}
+\tcbset{
+    colback=gray!5!white,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colframe=gray!75!black,
+}
+\setlength{\extrarowheight}{2pt}
+\usepackage{titlesec} % Custom styling for section titles
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont}{\thesection}{1em}{}
+% For side by side figures
+\usepackage{multicol}
+\usepackage{makecell}
+% For horizontal lists
+\usepackage{enumitem, tasks, varwidth}
+% For custom page numbers
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\usepackage[skip=2pt]{caption}
+\usepackage{graphicx}
+\graphicspath{{../Images/}}
+
+% Move title area to the top of the page
+\setlength{\droptitle}{-4em}
+\addtolength{\droptitle}{-4pt} 
+\renewcommand{\arraystretch}{1.25}
+% Disable paragraph indenting
+\setlength{\parindent}{0pt}
+
+\usepackage[none]{hyphenat}
+\usepackage{times}
+\usepackage{soul}
+
+\title{Midterm Prep: Relational Algebra and SQL}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\vspace{-4em}
+
+Given the following db schema:
+\begin{itemize}
+    \item \textit{Customers} (\underline{\texttt{cid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{age}: int)
+    \item \textit{Visit} (\underline{\texttt{cid}: int, \texttt{mid}: int}, \texttt{visitday}: date)
+    \item \textit{Museums} (\underline{\texttt{mid}: int}, \texttt{mname}: string, \texttt{mcity}: string, \texttt{mstate}: string, \texttt{mtype}: string) 
+\end{itemize}
+
+A customer is identified by the \texttt{sid}. A customer also has a \texttt{name}, a \texttt{city} a \texttt{state}, and an \texttt{age}. A museum is identified by \texttt{mid}. A museum also has a name (attr. \texttt{mname}), a city (attr. \texttt{mcity}). A state ( attr. \texttt{mstate}) and a type (attr. \texttt{mtype}; e.f.: history). Customers visit museums. When a customer visits a museum, a record is inserted into the \textit{Visit} relation, with the \texttt{cid} of that customer, the \texttt{mid} of that museum and the day of visit (attr. \texttt{visitday}).
+
+\section*{Question 1}
+
+Using the db schema from above:
+\begin{enumerate}
+    \item Write the relational algebra to find the name and city of all customers from MA.
+    \[\pi_{\textit{name,city}}\left(\sigma_{\textit{state=`MA'}}\textit{Customers}\right)\]
+    \item Write the relational algebra to find information about all museums of type history or science.
+    \[\sigma_{\textit{(mtype=`history')} \vee \textit{(mtype=`science')}}\textit{Museums}\]
+    \item Write the relational algebra to find the id and name of customers and the names of museums they visit.
+    \[\pi_{\textit{cid,name,mname}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\]
+    \item Write the relational algebra to find the names of customers who visited only museums in NY state.
+    \[\rho\left(\textit{CustVisitOther}, \pi_{\textit{cid,name}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \left(\sigma_{\textit{mstate}\neq\textit{`NY'}} \textit{Museums}\right)\right)\right)\]
+    \[\rho\left(\textit{CustVisitNY}, \pi_{\textit{cid,name}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \left(\sigma_{\textit{mstate=`NY'}} \textit{Museums}\right)\right)\right)\]
+    \[\pi_{cid,name}\left(\textit{CustVisitNY} - \textit{CustVisitOther}\right)\]
+    \item Write the relational algebra to find the names of museums that were visited by both customers from Boston, MA and Burlington, MA.
+    \[\rho\left(\textit{BostonMACustMuseums}, \pi_{mid,mname}\left(\left(\sigma_{\textit{(city=`Boston')} \wedge \textit{(state=`MA')}} \textit{Customers}\right) \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\right)\]
+    \[\rho\left(\textit{BurlingtonMACustMuseums}, \pi_{mid,mname}\left(\left(\sigma_{\textit{(city=`Burlington')} \wedge \textit{(state=`MA')}} \textit{Customers}\right) \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\right)\]
+    \[\pi_{\textit{mname}}\left(\textit{BostonMACustMuseums} \cap \textit{BurlingtonMACustMuseums}\right)\]
+\end{enumerate}
+
+\section*{Question 2}
+
+Using the db schema from above:
+\begin{enumerate}
+    \item Write the SQL statement to find how many museums we have in the database.
+    \item Write the SQL statement to find how many museums from Boston, MA we have in the db.
+    \item Write the SQL statement to find the average age of customers for each state. Show the results only for those states that have at least 5 customers.
+    \item Write the SQL statement to find all customers who are from MA and are either younger than 30 or older than 40.
+    \item Write the SQL statements to create all tables from the db schema. Do not forget about the key constraints. Write a second version of \texttt{CREATE} statement for the table Customer to only allow customers older than 5 years.
+    \item Find the id and the name of customers who visited a museum from MA in year 2018. Sort the result by name in ascending order.
+    \item Write an insert statement for each table. The statements should be written in an order such that it won’t cause an error.
+    \item Find the id and name of customers who visited museums in 2019 and did not visit any museum in 2020.
+    \item Find the id and the name of customers who visited museums both in 2020 and 2022.
+    \item Explain the \texttt{NOT NULL} constraint on a table column. Give an example of violation.
+
+    The \texttt{NOT NULL} constraint ensures that a column is entered whenever data is inserted into the table. An example of this is given a table with the following schema:
+    \begin{tcolorbox}
+    \begin{lstlisting}[language=SQL]
+CREATE TABLE Customers (
+    cid     INT PRIMARY KEY,
+    name    VARCHAR(40) NOT NULL,
+    city    VARCHAR(50),
+    state   VARCHAR(50),
+    age     INT
+);
+    \end{lstlisting}
+    \end{tcolorbox}
+    The following \texttt{INSERT} statement would fail because a name isn't inserted.
+    \begin{tcolorbox}
+    \begin{lstlisting}[language=SQL]
+INSERT INTO Customers (cid, city, state, age) VALUES (1, 'Boston', 'MA', 22);
+    \end{lstlisting}
+    \end{tcolorbox}
+    \item Write the SQL statement to extract information of customers who visited museums of type history.
+    \item Write the SQL statement to find information about museums that had at least 100 visitors in year 2021.
+    \item Explain the difference between the following \texttt{SELECT} statements assuming that \texttt{mtype} column can contain \texttt{NULL} values.
+    \begin{tcolorbox}
+    \begin{lstlisting}[language=SQL]
+SELECT COUNT(*) FROM Museums;
+SELECT COUNT(mtype) FROM Museums;
+    \end{lstlisting}
+    \end{tcolorbox}
+    With the first statement, it counts the total rows in the \textit{Museums} table disregarding any \texttt{NULL} data values. The second statement would count the number of rows in the \texttt{mtype} column while disregarding any rows whose value in the column is \texttt{NULL}.
+    \item Write the SQL Statement to find information about all museum that have a type.
+    \item Write the SQL query to find the id and name of customers who visited all museums.
+    \item Write the SQL query that finds the id and names of the youngest customers.
+    \item Write the SQL query to find all customers who visited all museums from MA. Extract the id and name of the customers. Sort the result by the name in descending order.
+    \item Write the SQL query to find the id and name of customers who visited both history and science museums. Remove the duplicates. 
+\end{enumerate}
+
+\end{document}

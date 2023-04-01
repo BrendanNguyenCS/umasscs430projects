@@ -40,11 +40,9 @@ SELECT * FROM Articles a
 -- Answer for e)
 SELECT s.sid, s.sname, s.age FROM Students s
     WHERE NOT EXISTS (
-        SELECT a.aid FROM Articles a
-        WHERE NOT EXISTS (
-            SELECT * FROM Reads r
-            WHERE r.aid = a.aid AND r.sid = s.sid
-        )
+        (SELECT a.aid FROM Articles a)
+        MINUS
+        (SELECT r.aid FROM Reads r WHERE r.sid = s.sid)
     );
 
 -- Answer for f)
@@ -76,11 +74,9 @@ SELECT s.sid, COUNT(*) FROM Students s, Reads r
     HAVING COUNT(*) >= 3;
 
 -- Answer for i)
-SELECT s.state, MIN(s.age), MAX(s.age), AVG(s.age)
-    FROM Students s, Articles a, Reads r
-    -- Joining conditions
-    WHERE s.sid = r.sid AND r.aid = a.aid
-    GROUP BY s.state
+SELECT state, MIN(age), MAX(age), AVG(age)
+    FROM Students s
+    GROUP BY state
     HAVING COUNT(*) >= 2;
 
 -- Answer for j)
