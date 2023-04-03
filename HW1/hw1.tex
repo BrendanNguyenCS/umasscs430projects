@@ -31,11 +31,8 @@
 }
 \tcbset{
     colback=gray!5!white,
-    left=0pt,
-    right=0pt,
-    top=0pt,
-    bottom=0pt,
     colframe=gray!75!black,
+    oversize,
 }
 \setlength{\extrarowheight}{2pt}
 \usepackage{titlesec} % Custom styling for section titles
@@ -149,7 +146,6 @@ Using the relation instances from above, show the resulted relation for each of 
     \item $\sigma_{\textit{author='joyce'}}\textit{Books}$
     \begin{table}[H]
         \centering
-        \caption*{$\sigma_{\textit{author='joyce'}}\textit{Books}$}
         \begin{tabular}{|l|l|l|l|l|}
         \hline
             \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} bname & \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear & \cellcolor[HTML]{b4c6e7} pubcompany \\
@@ -164,7 +160,6 @@ Using the relation instances from above, show the resulted relation for each of 
     \item $\pi_{\textit{author,pubyear}}(\sigma_{\textit{author='joyce'}}\textit{Books})$
     \begin{table}[H]
         \centering
-        \caption*{$\pi_{\textit{author,pubyear}}(\sigma_{\textit{author='joyce'}}\textit{Books})$}
         \begin{tabular}{|l|l|}
         \hline
             \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear \\
@@ -179,7 +174,6 @@ Using the relation instances from above, show the resulted relation for each of 
     \item $(\sigma_{\textit{sname='mary'}}\textit{Students}) \bowtie \textit{Reads}$
     \begin{table}[H]
         \centering
-        \caption*{$(\sigma_{\textit{sname='mary'}}\textit{Students}) \bowtie \textit{Reads}$}
         \begin{tabular}{|l|l|l|l|l|l|}
             \hline
             \cellcolor[HTML]{b4c6e7} sid & \cellcolor[HTML]{b4c6e7} sname & \cellcolor[HTML]{b4c6e7} age & \cellcolor[HTML]{b4c6e7} state & \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} year \\
@@ -193,7 +187,6 @@ Using the relation instances from above, show the resulted relation for each of 
     \item $(\sigma_{\textit{state='MA'}}\textit{Students}) \times (\sigma_{\textit{year=2020}}\textit{Reads})$
     \begin{table}[H]
         \centering
-        \caption*{$(\sigma_{\textit{state='MA'}}\textit{Students}) \times (\sigma_{\textit{year=2020}}\textit{Reads})$}
         \begin{tabular}{|l|l|l|l|l|l|l|}
         \hline
             \cellcolor[HTML]{b4c6e7} (sid) & \cellcolor[HTML]{b4c6e7} sname & \cellcolor[HTML]{b4c6e7} age & \cellcolor[HTML]{b4c6e7} state & \cellcolor[HTML]{b4c6e7} (sid) & \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} year \\
@@ -215,7 +208,6 @@ Using the relation instances from above, show the resulted relation for each of 
     \item $\rho(A(\textit{bname} \to \textit{name}), \sigma_{(\textit{pubcompany='simon})\vee (\textit{pubcompany='alien'})} \textit{Books})$
     \begin{table}[H]
         \centering
-        \caption*{$\rho(A(\textit{bname} \to \textit{name}), \sigma_{(\textit{pubcompany='simon})\vee (\textit{pubcompany='alien'})} \textit{Books})$}
         \begin{tabular}{|l|l|l|l|l|}
         \hline
             \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} name & \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear & \cellcolor[HTML]{b4c6e7} pubcompany \\
@@ -229,7 +221,6 @@ Using the relation instances from above, show the resulted relation for each of 
     \item $\left[\text{CS630 only}\right]$ $\textit{Students} \bowtie \textit{Reads} \bowtie (\sigma_{\textit{pubyear \textless 1950}}\textit{Books})$
     \begin{table}[H]
         \centering
-        \caption*{$\left[\text{CS630 only}\right]$ $\textit{Students} \bowtie \textit{Reads} \bowtie (\sigma_{\textit{pubyear \textless 1950}}\textit{Books})$}
         \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
             \hline
             \cellcolor[HTML]{b4c6e7} sid & \cellcolor[HTML]{b4c6e7} sname & \cellcolor[HTML]{b4c6e7} age & \cellcolor[HTML]{b4c6e7} state & \cellcolor[HTML]{b4c6e7} bid & \cellcolor[HTML]{b4c6e7} year & \cellcolor[HTML]{b4c6e7} bname & \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear & \cellcolor[HTML]{b4c6e7} pubcompany \\
@@ -256,37 +247,37 @@ Primary keys are underlined in each relation. Attribute aid uniquely identifies 
 Write relational algebra queries for the following queries:
 \begin{enumerate}[label={\alph*})]
     \item Find the information about movies produced by `WB' or `Universal' studios
-    
-    $\sigma_{(\textit{studio=`WB'}) \vee (\textit{studio=`Universal'})}\textit{Movies}$
-    
+    \begin{tcolorbox}
+    \[\sigma_{(\textit{studio=`WB'}) \vee (\textit{studio=`Universal'})}\textit{Movies}\]    
+    \end{tcolorbox}
     \item Find the names of actors who are older than 25 and are from state VT.
-
-    $\pi_{\textit{aname}}(\sigma_{(\textit{age \textgreater 25}) \wedge (\textit{state = `VT'})}\textit{Actors})$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{aname}}(\sigma_{(\textit{age \textgreater 25}) \wedge (\textit{state = `VT'})}\textit{Actors})\]
+    \end{tcolorbox}    
     \item Find the names and ages of the actors who played only in movies only in 2015.
-
-    $\pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{year=2015}}\textit{Movies}))$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{year=2015}}\textit{Movies}))\]
+    \end{tcolorbox}    
     \item Find the names, age and city of actors who are from Boston MA and played some movies produced by `Universal' studio.
-
-    $\pi_{\textit{aname,age,city}}((\sigma_{(\textit{city=`Boston'})\wedge (\textit{state=`MA'})}\textit{Actors}) \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{studio=`Universal'}}\textit{Movies}))$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{aname,age,city}}((\sigma_{(\textit{city=`Boston'})\wedge (\textit{state=`MA'})}\textit{Actors}) \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{studio=`Universal'}}\textit{Movies}))\]
+    \end{tcolorbox}    
     \item Find the name and age of the actors who played in movies both in 2012 and 2018.
-
-    $\pi_{\textit{aname,age}}((\sigma_{\textit{year=2012}}\textit{Movies} \bowtie \textit{Playsin}) \cap (\sigma_{\textit{year=2018}}\textit{Movies} \bowtie \textit{Playsin})) \bowtie \textit{Actors}$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{aname,age}}((\sigma_{\textit{year=2012}}\textit{Movies} \bowtie \textit{Playsin}) \cap (\sigma_{\textit{year=2018}}\textit{Movies} \bowtie \textit{Playsin})) \bowtie \textit{Actors}\]
+    \end{tcolorbox}    
     \item Find the names of the actors older than 30 who played in a movie produced by `WB' studio in 2018.
-
-    $\pi_{\textit{aname}}((\sigma_{\textit{age \textgreater 30}}\textit{Actors}) \bowtie (\textit{Playsin} \bowtie (\sigma_{(studio=`WB') \wedge (\textit{year=2018})}\textit{Movies})))$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{aname}}((\sigma_{\textit{age \textgreater 30}}\textit{Actors}) \bowtie (\textit{Playsin} \bowtie (\sigma_{(studio=`WB') \wedge (\textit{year=2018})}\textit{Movies})))\]
+    \end{tcolorbox}    
     \item Find the information about actors and movies they played in. The result should contain the name and age of actors and the name of movies.
-
-    $\pi_{\textit{aname,age,mname}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie \textit{Movies})$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{aname,age,mname}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie \textit{Movies})\]
+    \end{tcolorbox}    
     \item Find the names and ages of actors from MA who played as character `Batman'.
-
-    $\pi_{\textit{aname,age}}(\sigma_{(\textit{city=`MA'})\wedge (\textit{character=`Batman'})}(\textit{Actors} \bowtie \textit{Playsin}))$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{aname,age}}(\sigma_{(\textit{state=`MA'})\wedge (\textit{character=`Batman'})}(\textit{Actors} \bowtie \textit{Playsin}))\]
+    \end{tcolorbox}    
     \item $\left[\text{CS630 only}\right]$ Find the name and age of actors who played in movies produced by `Paramount' (in any year) and never played in any movie produced by `WB' in year 2020.
     \item $\left[\text{CS630 only}\right]$ Find names of movies in which actors from both MA and NY states played.
 \end{enumerate}
@@ -305,33 +296,33 @@ Primary keys are underlined  in each relation. A book is uniquely identified by 
 Write the relational algebra expressions for the following queries:
 \begin{enumerate}[label={\alph*})]
     \item Find the information about the youngest students.
-    
-    $\rho(S1, \textit{Students})$\\
-    $\rho(S2, \textit{Students})$\\
-    $\rho(\textit{Temp}(1 \to \textit{fsid}, 2 \to \textit{fsname}, 3 \to \textit{fage}, 4 \to \textit{fstate}), S1 \bowtie_{\textit{S1.age \textgreater S2.age}}S2)$\\
-    $\rho(\textit{TempLeft}, \pi_{\textit{fsid,fsname,fage,fstate}}\textit{Temp})$\\
-    $\textit{Students} - \textit{TempLeft}$
-    
+    \begin{tcolorbox}
+    \[\rho(S1, \textit{Students})\]
+    \[\rho(S2, \textit{Students})\]
+    \[\rho(\textit{Temp}(1 \to \textit{fsid}, 2 \to \textit{fsname}, 3 \to \textit{fage}, 4 \to \textit{fstate}), S1 \bowtie_{\textit{S1.age \textgreater S2.age}}S2)\]
+    \[\rho(\textit{TempLeft}, \pi_{\textit{fsid,fsname,fage,fstate}}\textit{Temp})\]
+    \[\textit{Students} - \textit{TempLeft}\]
+    \end{tcolorbox}
     \item Find the information about the books that are either published in 2010 or 2020.
-
-    $\sigma_{(\textit{year=2010}) \wedge (\textit{year=2020})}\textit{Books}$
-    
+    \begin{tcolorbox}
+    \[\sigma_{(\textit{pubyear=2010}) \wedge (\textit{pubyear=2020})}\textit{Books}\]    
+    \end{tcolorbox}
     \item Find the names, pub year and pub company of the oldest books.
-
-    $\rho(B1, \textit{Books})$\\
-    $\rho(B2, \textit{Books})$\\
-    $\rho(\textit{Temp}(1 \to \textit{fbid}, 2 \to \textit{fbname}, 3 \to \textit{fauthor}, 4 \to \textit{fpubyear}, 5 \to \textit{fpubcompany}), B1 \bowtie_{\textit{B1.pubyear \textgreater B2.pubyear}} B2)$\\
-    $\rho(\textit{TempLeft}, \pi_{\textit{fbname,fpubye\textit{}ar,fpubcompany}}\textit{Temp})$\\
-    $\textit{Books} - \textit{TempLeft}$
-    
+    \begin{tcolorbox}
+    \[\rho(B1, \textit{Books})\]
+    \[\rho(B2, \textit{Books})\]
+    \[\rho(\textit{Temp}(1 \to \textit{fbid}, 2 \to \textit{fbname}, 3 \to \textit{fauthor}, 4 \to \textit{fpubyear}, 5 \to \textit{fpubcompany}), B1 \bowtie_{\textit{B1.pubyear \textgreater B2.pubyear}} B2)\]
+    \[\rho(\textit{TempLeft}, \pi_{\textit{fbname,fpubye\textit{}ar,fpubcompany}}\textit{Temp})\]
+    \[\textit{Books} - \textit{TempLeft}\]
+    \end{tcolorbox}
     \item Find the names of the students from MA who read some books both in 2015 and 2018.
-
-    $\pi_{\textit{sname}}(((\sigma_{\textit{year=2015}}\textit{Reads}) \bowtie (\sigma_{\textit{state=`MA'}}\textit{Students})) \cap ((\sigma_{\textit{year=2018}}\textit{Reads}) \bowtie (\sigma_{\textit{state=`MA'}}\textit{Students})))$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{sname}}(((\sigma_{\textit{year=2015}}\textit{Reads}) \bowtie (\sigma_{\textit{state=`MA'}}\textit{Students})) \cap ((\sigma_{\textit{year=2018}}\textit{Reads}) \bowtie (\sigma_{\textit{state=`MA'}}\textit{Students})))\]
+    \end{tcolorbox}
     \item Find the names of the books that were read by all students.
-
-    $\pi_{\textit{bname}}((\pi_{\textit{bid,sid}}\textit{Reads} / \pi_{\textit{sid}}\textit{Students}) \bowtie \textit{Books})$
-    
+    \begin{tcolorbox}
+    \[\pi_{\textit{bname}}((\pi_{\textit{bid,sid}}\textit{Reads} / \pi_{\textit{sid}}\textit{Students}) \bowtie \textit{Books})\]
+    \end{tcolorbox}    
     \item $\left[\text{CS630 only}\right]$ Find the names, pubyear and pubcompany of the books that were read by all students from MA.
 \end{enumerate}
 

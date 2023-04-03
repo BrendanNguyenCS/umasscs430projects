@@ -31,11 +31,8 @@
 }
 \tcbset{
     colback=gray!5!white,
-    left=0pt,
-    right=0pt,
-    top=0pt,
-    bottom=0pt,
     colframe=gray!75!black,
+    oversize,
 }
 \setlength{\extrarowheight}{2pt}
 \usepackage{titlesec} % Custom styling for section titles
@@ -91,27 +88,37 @@ A customer is identified by the \texttt{sid}. A customer also has a \texttt{name
 \section*{Question 1}
 
 Using the db schema from above:
-\begin{enumerate}
+\begin{enumerate}[leftmargin=*]
     \item Write the relational algebra to find the name and city of all customers from MA.
+    \begin{tcolorbox}
     \[\pi_{\textit{name,city}}\left(\sigma_{\textit{state=`MA'}}\textit{Customers}\right)\]
+    \end{tcolorbox}
     \item Write the relational algebra to find information about all museums of type history or science.
+    \begin{tcolorbox}
     \[\sigma_{\textit{(mtype=`history')} \vee \textit{(mtype=`science')}}\textit{Museums}\]
+    \end{tcolorbox}
     \item Write the relational algebra to find the id and name of customers and the names of museums they visit.
-    \[\pi_{\textit{cid,name,mname}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\]
+    \begin{tcolorbox}
+    \[\pi_{\textit{cid,name,mname}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\]    
+    \end{tcolorbox}
     \item Write the relational algebra to find the names of customers who visited only museums in NY state.
-    \[\rho\left(\textit{CustVisitOther}, \pi_{\textit{cid,name}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \left(\sigma_{\textit{mstate}\neq\textit{`NY'}} \textit{Museums}\right)\right)\right)\]
+    \begin{tcolorbox}
     \[\rho\left(\textit{CustVisitNY}, \pi_{\textit{cid,name}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \left(\sigma_{\textit{mstate=`NY'}} \textit{Museums}\right)\right)\right)\]
+    \[\rho\left(\textit{CustVisitOther}, \pi_{\textit{cid,name}}\left(\textit{Customers} \bowtie \textit{Visit} \bowtie \left(\sigma_{\textit{mstate}\neq\textit{`NY'}} \textit{Museums}\right)\right)\right)\]
     \[\pi_{cid,name}\left(\textit{CustVisitNY} - \textit{CustVisitOther}\right)\]
+    \end{tcolorbox}
     \item Write the relational algebra to find the names of museums that were visited by both customers from Boston, MA and Burlington, MA.
-    \[\rho\left(\textit{BostonMACustMuseums}, \pi_{mid,mname}\left(\left(\sigma_{\textit{(city=`Boston')} \wedge \textit{(state=`MA')}} \textit{Customers}\right) \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\right)\]
-    \[\rho\left(\textit{BurlingtonMACustMuseums}, \pi_{mid,mname}\left(\left(\sigma_{\textit{(city=`Burlington')} \wedge \textit{(state=`MA')}} \textit{Customers}\right) \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\right)\]
-    \[\pi_{\textit{mname}}\left(\textit{BostonMACustMuseums} \cap \textit{BurlingtonMACustMuseums}\right)\]
+    \begin{tcolorbox}
+    \[\rho\left(\textit{BostonMACustMuseums}, \pi_{\textit{mid,mname}}\left(\left(\sigma_{\textit{(city=`Boston')} \wedge \textit{(state=`MA')}} \textit{Customers}\right) \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\right)\]
+    \[\rho\left(\textit{BurlingtonMACustMuseums}, \pi_{\textit{mid,mname}}\left(\left(\sigma_{\textit{(city=`Burlington')} \wedge \textit{(state=`MA')}} \textit{Customers}\right) \bowtie \textit{Visit} \bowtie \textit{Museums}\right)\right)\]
+    \[\pi_{\textit{mname}}\left(\textit{BostonMACustMuseums} \cap \textit{BurlingtonMACustMuseums}\right)\]    
+    \end{tcolorbox}
 \end{enumerate}
 
 \section*{Question 2}
 
 Using the db schema from above:
-\begin{enumerate}
+\begin{enumerate}[leftmargin=*]
     \item Write the SQL statement to find how many museums we have in the database.
     \item Write the SQL statement to find how many museums from Boston, MA we have in the db.
     \item Write the SQL statement to find the average age of customers for each state. Show the results only for those states that have at least 5 customers.

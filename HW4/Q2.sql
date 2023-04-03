@@ -10,7 +10,7 @@ CREATE TABLE Cars (
 
 -- Answer for b)
 CREATE TABLE Customers (
-    custid  NUMBER(9) PRIMARY KEY NOT NULL,
+    custid  NUMBER(9) PRIMARY KEY,
     name    VARCHAR(40) NOT NULL,
     city    VARCHAR(40) NOT NULL,
     state   VARCHAR(40) NOT NULL,

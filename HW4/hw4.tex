@@ -31,11 +31,8 @@
 }
 \tcbset{
     colback=gray!5!white,
-    left=0pt,
-    right=0pt,
-    top=0pt,
-    bottom=0pt,
     colframe=gray!75!black,
+    oversize,
 }
 \setlength{\extrarowheight}{2pt}
 \usepackage{titlesec} % Custom styling for section titles
@@ -79,7 +76,7 @@
 
 \section*{Question 1 (70 points)}
 
-Given the following db schema:
+Given the following DB schema:
 \begin{itemize}
     \item \textit{Books} (\ul{\texttt{bid}: int}, \texttt{bname}: string, \texttt{author}: string, \texttt{pubyear}: int, \texttt{pubcompany}: string)
     \item \textit{Authors} (\ul{\texttt{aid}: int}, \texttt{name}: string, \texttt{rating}: int, \texttt{city}: string, \texttt{state}: string)
@@ -108,14 +105,14 @@ For this schema:
 
 \section*{Question 2 (30 points)}
 
-Given the following db schema:
+Given the following DB schema:
 \begin{itemize}
     \item \textit{Cars} (\ul{\texttt{carid}: int}, \texttt{make}: string, \texttt{model}: string, \texttt{myear}: int, \texttt{dailyfee}: real)
     \item \textit{Customers} (\ul{\texttt{custid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{dob}: date)
     \item \textit{Rents} (\ul{\texttt{carid}: int, \texttt{custid}: int}, \texttt{rday}: date)
 \end{itemize}
 
-Primary keys are underlined in each relation. A car is uniquely identified by \texttt{carid}. A car also has a \texttt{make} (e.g. Toyota), a \texttt{model} (e.g. Corolla), a manufacturing year (attr. \texttt{myear}), and a daily fee (attr. \texttt{dailyfee}). A customer is uniquely identified by attribute \texttt{custid}. A customer also has a \texttt{name}, \texttt{city}, \texttt{state} and a date of birth (\texttt{dob}). Customers rent Cars. If a customer rents a car, a record is inserted in \textit{Rents} table with the \texttt{carid}, the \texttt{custid} and the day (attribute \texttt{rday}) the rental is made for.
+Primary keys are underlined in each relation. A car is uniquely identified by \texttt{carid}. A car also has a \texttt{make} (e.g. Toyota), a \texttt{model} (e.g. Corolla), a manufacturing year (attr. \texttt{myear}), and a daily fee (attr. \texttt{dailyfee}). A customer is uniquely identified by attribute \texttt{custid}. A customer also has a \texttt{name}, \texttt{city}, \texttt{state} and a date of birth (\texttt{dob}). Customers rent Cars. If a customer rents a car, a record is inserted in \textit{Rents} table with the \texttt{carid}, the \texttt{custid}, and the day (attribute \texttt{rday}) the rental is made for.
 
 For this schema:
 \begin{enumerate}[label={\alph*})]

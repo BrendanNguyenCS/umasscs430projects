@@ -44,7 +44,7 @@ print(df.agg(['min', 'mean']))
 print("Average only for rating column")
 print(df.RATING.agg(['mean']))
 
-print("Another ay to get the average only for rating column")
+print("Another way to get the average only for rating column")
 print(df[['RATING']].agg(['mean']))
 
 # close the connection

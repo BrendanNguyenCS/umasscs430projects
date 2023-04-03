@@ -1,0 +1,135 @@
+\documentclass[letterpaper, 11pt]{article}
+\usepackage{nopageno} % For removing page numbers
+\usepackage[utf8]{inputenc}
+\usepackage{color, colortbl} % For table coloring
+\usepackage{titling} % For positioning of title preamble
+\usepackage[margin=0.75in]{geometry} % For margin width setting
+\usepackage{comment} % For block commenting
+\usepackage{float} % For table positioning
+% For math equation formatting
+\usepackage{amsmath, amssymb, amsfonts}
+\newcommand{\PMod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+\usepackage{parskip} % For automatic paragraph spacing/formatting
+\usepackage{relsize} % For increased math mode font sizing
+% For code blocks
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{lmodern}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{listings, minted}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keepspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color{blue},
+    commentstyle=\sffamily\itshape\color{Green}\scriptsize,
+    stringstyle = \color{red},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2
+}
+\tcbset{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    oversize,
+}
+\setlength{\extrarowheight}{2pt}
+\usepackage{titlesec} % Custom styling for section titles
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont}{\thesection}{1em}{}
+% For side-by-side figures
+\usepackage{multicol}
+\usepackage{makecell}
+% For horizontal lists
+\usepackage{enumitem, tasks, varwidth}
+% For custom page numbers
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\usepackage[skip=2pt]{caption}
+\usepackage{graphicx}
+\graphicspath{{../Images/}}
+
+% Move title area to the top of the page
+\setlength{\droptitle}{-4em}
+\addtolength{\droptitle}{-4pt} 
+\renewcommand{\arraystretch}{1.25}
+% Disable paragraph indenting
+\setlength{\parindent}{0pt}
+
+\usepackage[none]{hyphenat}
+\usepackage{times}
+\usepackage{soul}
+
+\title{CS430 Homework 5}
+\author{Brendan Nguyen}
+\date{Due: Wednesday, Apr. 13, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1 (40 points)}
+
+Given the following DB schema:
+\begin{itemize}
+    \item \textit{Articles} (\underline{\texttt{aid}: int}, \texttt{title}: string, \texttt{author}: string, \texttt{pubyear}: int)
+    \item \textit{Students} (\underline{\texttt{sid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{age}: real, \texttt{gpa}: real)
+    \item \textit{Reads} (\underline{\texttt{aid}: int, \texttt{sid}: int}, \texttt{rday}: date)
+\end{itemize}
+
+For this schema:
+\begin{enumerate}[label={\alph*})]
+    \item Write the SQL statement to create the table \textit{Articles}. Do not forget about the key constraints.\\
+    Write the SQL statement to create table \textit{Students}. Add the constraint that \texttt{gpa} should be between 1 and 4 (including 1 and 4). Do not forget about the key constraints. Write the SQL statement to create table \textit{Reads}. Add the constraint that no attribute can be null. Do not forget about the key constraints.
+    \item Write the SQL statement to create an index on column \texttt{rday}. Explain when such an index will be useful.
+    \item Write the \texttt{INSERT} statements to insert 3 students. Write the \texttt{INSERT} statements to insert 2 articles.
+    \item Write the \texttt{INSERT} statements to insert some records into Reads following these conditions: one of the students from (b) read all articles inserted for (b). Another student from (b) read one article inserted for (b). One student from (b) read no article. 
+    \item Write the SQL statement to create a View called \textit{MAStudents} that contains all the information for Students from MA.
+    \item Write the SQL statement to create a View called \textit{StudentsReads} that contains information about the id, name, and city of students and the id and title of the article they read.
+    \item Write an SQL query that uses the view from (e) (view \textit{StudentsReads}) to extract the count of articles read by each student. Queries that do not use the view \textit{StudentsReads} are given no credit.
+    \item Write the SQL statements to drop the 2 views: \textit{StudentsReads}, \textit{MAStudents}.
+\end{enumerate}
+
+\section*{Question 2 (30 points)}
+
+Using the schema from Question 1, write a Python file that uses the PANDAS library and does the following:
+\begin{itemize}[label=-]
+    \item Reads from the input: an Oracle username, Oracle password, Oracle hostname, Oracle DB name.
+    \item Connects to our Oracle DB.
+    \item Uses PANDAS library to run a query against the DB that extracts information about all Students. Saves the results in a PANDAS dataframe.
+    \item Prints out the name of the columns of that dataframe.
+    \item Prints out the shape of the dataframe.
+    \item Prints out the first 3 records from the dataframe. Uses PANDAS aggregates to extract the average and min age of students. Prints the value.
+    \item Uses PANDAS aggregates to get the minimum and maximum gpa for students. Prints the result.
+    \item Uses PANDAS aggregates to get the sum of gpa values. Prints that result.
+    \item Runs a second query against the DB to extract information about the id, name, and state of students and the id and title of articles they read (the resulting relation will have the \texttt{SID}, \texttt{NAME}, \texttt{STATE}, \texttt{AID}, \texttt{TITLE} columns). Save the result in a PANDAS dataframe.
+    \item Prints this new dataframe.
+    \item Prints how many records are in the new dataframe.
+    \item Prints how many columns are in the new dataframe.
+    \item Prints the name of the columns from this new dataframe.
+\end{itemize}
+
+Note: please remember to close the connection.
+
+\section*{Question 3 (30 points)}
+
+Using the schema from Question 1, write a Python file that uses the \texttt{connection.cursor()} to execute queries against the DB. The program should do the following:
+\begin{itemize}[label=-]
+    \item Reads from the input: an Oracle username, Oracle password, Oracle hostname, Oracle DB name.
+    \item Connects to our Oracle DB.
+    \item Uses the cursor to drop tables \textit{Students}, \textit{Articles}, \textit{Reads}. Code must gracefully handle any exception, for the case these tables it tries to drop were not in the DB. Uses cursor to re-create the 3 tables from Schema from Question 1.
+    \item Uses the cursor to insert two records in each table.
+    \item Uses the cursor to run a select query that extracts all articles. Prints all records extracted.
+    \item Uses the cursor to run a select query that extracts all students. Prints all records extracted.
+    \item Uses the cursor to run a select query that extracts all records from Reads. Prints all records extracted.
+\end{itemize}
+
+Note: please remember to commit the transaction and close the connection.
+
+\end{document}

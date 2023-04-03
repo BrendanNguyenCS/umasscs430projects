@@ -12,7 +12,7 @@ SELECT * FROM Customers WHERE state = 'MA' AND (age < 30 OR age > 40);
 
 -- Answer for 5
 CREATE TABLE Customers (
-    cid     INT PRIMARY KEY,
+    cid     NUMBER(9) PRIMARY KEY,
     name    VARCHAR(40),
     city    VARCHAR(50),
     state   VARCHAR(50),
@@ -20,7 +20,7 @@ CREATE TABLE Customers (
 );
 
 CREATE TABLE Museums (
-    mid     INT PRIMARY KEY,
+    mid     NUMBER(9) PRIMARY KEY,
     mname   VARCHAR(40),
     mcity   VARCHAR(50),
     mstate  VARCHAR(50),
@@ -28,8 +28,8 @@ CREATE TABLE Museums (
 );
 
 CREATE TABLE Visit (
-    cid         INT,
-    mid         INT,
+    cid         NUMBER(9),
+    mid         NUMBER(9),
     visitday    DATE,
     PRIMARY KEY (cid, mid),
     FOREIGN KEY (cid) REFERENCES Customers,
@@ -48,21 +48,26 @@ INSERT INTO Museums VALUES (1, 'Museum of Science', 'Boston', 'MA', 'science');
 INSERT INTO Visit VALUES (1, 1, TO_DATE('03/30/2023', 'MM/DD/YYYY'));
 
 -- Answer for 8
-(SElECT c.cid, c.name FROM Customers c, Visit v WHERE c.cid = v.cid
+(SElECT c.cid, c.name FROM Customers c, Visit v
+    WHERE c.cid = v.cid
     AND EXTRACT(YEAR FROM v.visitday) = 2019)
 MINUS
-(SELECT c2.cid, c2.name FROM Customers c2, Visit v2 WHERE c2.cid = v2.cid
+(SELECT c2.cid, c2.name FROM Customers c2, Visit v2
+    WHERE c2.cid = v2.cid
     AND EXTRACT(YEAR FROM v2.visitday) = 2020);
 
 -- Answer for 9
-(SELECT c.cid, c.name FROM Customers c, Visit v WHERE c.cid = v.cid
+(SELECT c.cid, c.name FROM Customers c, Visit v
+    WHERE c.cid = v.cid
     AND EXTRACT(YEAR FROM v.visitday) = 2020)
 INTERSECT
-(SELECT c2.cid, c2.name FROM Customers c2, Visit v2 WHERE c2.cid = v2.cid
+(SELECT c2.cid, c2.name FROM Customers c2, Visit v2
+    WHERE c2.cid = v2.cid
     AND EXTRACT(YEAR FROM v2.visitday) = 2018);
 
 -- Answer for 11
-SELECT c.cid, c.name, c.city, c.state, c.age FROM Customers c, Visit v, Museums m
+SELECT c.cid, c.name, c.city, c.state, c.age
+    FROM Customers c, Visit v, Museums m
     WHERE c.cid = v.cid AND m.mid = v.mid
     AND m.mtype = 'history';
 

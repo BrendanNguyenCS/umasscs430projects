@@ -31,11 +31,8 @@
 }
 \tcbset{
     colback=gray!5!white,
-    left=0pt,
-    right=0pt,
-    top=0pt,
-    bottom=0pt,
     colframe=gray!75!black,
+    oversize,
 }
 \setlength{\extrarowheight}{2pt}
 \usepackage{titlesec} % Custom styling for section titles
@@ -79,7 +76,7 @@
 
 \section*{Question 1 (40 points)}
 
-Given the following db schema:
+Given the following DB schema:
 \begin{itemize}
     \item \textit{Customers} (\ul{\texttt{cid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{age}: int)
     \item \textit{Has\textunderscore account} (\ul{\texttt{cid}: int, \texttt{aid}: int}, \texttt{since}: date)
@@ -88,9 +85,9 @@ Given the following db schema:
 
 Primary keys are uld in each relation. Relation \textit{Customers} contains information about customers. A customer is uniquely identified by \texttt{cid}. Relation \textit{Accounts} contains information about bank accounts. An account is uniquely identified by \texttt{aid}. The type of the account is given in column \texttt{atype} (for example  \texttt{atype = `savings'}).  Customers have accounts. For a customer that has an account (i.e. is the owner of that account) there is a record in relation \textit{Has\textunderscore account}, that has the \texttt{cid} of that customer and the \texttt{aid} of that account, as well as the date when the account was opened (column \texttt{since}).
 
-Using this db schema:
+Using this DB schema:
 \begin{enumerate}[label={\alph*}),leftmargin=*]
-    \item Write the SQL statements to create the tables from this db schema. Do not forget to define the necessary key constraints. The statements should be written in an order such that if executed in that order will not cause an error.
+    \item Write the SQL statements to create the tables from this DB schema. Do not forget to define the necessary key constraints. The statements should be written in an order such that if executed in that order will not cause an error.
     \item Write SQL statements to insert two records in each table. The statements should be written in such an order such that if executed in that order do not cause an error.
     \item Write the SQL query that extracts the id, name of customers from city ``Boston" that have some account with an amount smaller than 5000.  The result should not contain duplicates. Sort the result by name in descending order.
     \item Write the SQL query to extract the id, name, and age of customers who did not opened any account between Jan 1\textsuperscript{st} 2020 and Dec 1\textsuperscript{st} 2021 (including these dates).
@@ -104,7 +101,7 @@ Using this db schema:
 
 \section*{Question 2 (60 points)}
 
-Given the following db schema:
+Given the following DB schema:
 \begin{itemize}
     \item \textit{Articles} (\ul{\texttt{aid}: int}, \texttt{aname}: string, \texttt{first\textunderscore author}: string, \texttt{pubyear}: int, \texttt{pubcompany}: string)
     \item \textit{Students} (\ul{\texttt{sid}: int}, \texttt{sname}: string, \texttt{age}: real, \texttt{state}: string)
@@ -113,9 +110,9 @@ Given the following db schema:
 
 Primary keys are underlined in each relation. An article is uniquely identified by \texttt{aid}. An article has an id (\texttt{aid}), a name (\texttt{aname}), one first author (\texttt{first\textunderscore author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). A student is uniquely identified by \texttt{sid}. A student has an id (\texttt{sid}), a name (attr. \texttt{sname}), age (attr. \texttt{age}) and a state (attr. \texttt{state}). If a student reads an article, a record will be present in the \textit{Reads} relation, with that \texttt{sid}, \texttt{aid}, and the \texttt{year} the article was read.
 
-For this db schema:
+For this DB schema:
 \begin{enumerate}[label={\alph*}),leftmargin=*]
-    \item Write the SQL statements to create the tables from this db schema. Do not forget to define the key constraints. The statements should be written in an order such that if executed in that order will not cause an error.
+    \item Write the SQL statements to create the tables from this DB schema. Do not forget to define the key constraints. The statements should be written in an order such that if executed in that order will not cause an error.
     \item For each table, write an insert statement to insert one record. The statements should be written in an order such that if executed in that order will not cause an error.
     \item Write the SQL statement to find the number of articles that have a \texttt{first\textunderscore author} whose name contain string ``an". The query has to be case insensitive with regards string ``an".
     \item Write the SQL statement to find information about the newest articles (hint: \texttt{pubyear} is max). Sort the result by the name of the article in ascending order.
