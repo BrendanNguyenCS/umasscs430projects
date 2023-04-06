@@ -19,7 +19,7 @@ if hostname[-1] == '/':
 elif hostname[-1] != '/':
     connection = oracledb.connect(user=username,
                                   password=userpwd, dsn=hostname + '/' + database)  # username to access
-    # Oracle databses (in quotes)
+    # Oracle databases (in quotes)
 
 # run query against DB
 df = pdsql.read_sql('SELECT * FROM Sailors', con=connection)
