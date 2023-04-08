@@ -125,9 +125,9 @@ Using the schema from Question 1, write a Python file that uses the \texttt{conn
     \item Connects to our Oracle DB.
     \item Uses the cursor to drop tables \textit{Students}, \textit{Articles}, \textit{Reads}. Code must gracefully handle any exception, for the case these tables it tries to drop were not in the DB. Uses cursor to re-create the 3 tables from Schema from Question 1.
     \item Uses the cursor to insert two records in each table.
-    \item Uses the cursor to run a select query that extracts all articles. Prints all records extracted.
-    \item Uses the cursor to run a select query that extracts all students. Prints all records extracted.
-    \item Uses the cursor to run a select query that extracts all records from Reads. Prints all records extracted.
+    \item Uses the cursor to run a \texttt{SELECT} query that extracts all articles. Prints all records extracted.
+    \item Uses the cursor to run a \texttt{SELECT} query that extracts all students. Prints all records extracted.
+    \item Uses the cursor to run a \texttt{SELECT} query that extracts all records from Reads. Prints all records extracted.
 \end{itemize}
 
 Note: please remember to commit the transaction and close the connection.

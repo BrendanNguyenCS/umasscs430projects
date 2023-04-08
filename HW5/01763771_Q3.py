@@ -18,9 +18,21 @@ elif hostname[-1] != '/':
 cursor = connection.cursor()
 
 # Drop tables and re-create the 3 tables with cursor.
-cursor.execute('DROP TABLE Reads')
-cursor.execute('DROP TABLE Articles')
-cursor.execute('DROP TABLE Students')
+try:
+    cursor.execute('DROP TABLE Reads')
+except oracledb.Error:
+    pass
+finally:
+    try:
+        cursor.execute('DROP TABLE Articles')
+    except oracledb.Error:
+        pass
+    finally:
+        try:
+            cursor.execute('DROP TABLE Students')
+        except oracledb.Error:
+            pass
+
 
 createQueries = [
     'CREATE TABLE Articles (aid NUMBER(9) PRIMARY KEY, title VARCHAR(40), author VARCHAR(50), pubyear INT)',
@@ -66,7 +78,7 @@ print("Outputting all records in Reads")
 cursor.execute('SELECT * FROM Reads')
 cursor.fetchall()
 
-# Commit the transaction
+# Commits the transaction
 connection.commit()
 
 # Closes the connection
