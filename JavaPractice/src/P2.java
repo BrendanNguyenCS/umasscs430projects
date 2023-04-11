@@ -21,7 +21,7 @@ public class P2 {
                     System.out.println("Program will exit.");
                     break;
                 }
-                ResultSet rs = stmt.executeQuery("SELECT sname, rating, age, FROM Sailors" + " WHERE rating >= " + rating_no);
+                ResultSet rs = stmt.executeQuery("SELECT sname, rating, age, FROM Sailors WHERE rating >= " + rating_no);
                 if (rs.next()) {
                     do {
                         System.out.println(
