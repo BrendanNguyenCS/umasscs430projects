@@ -22,7 +22,7 @@ elif hostname[-1] != '/':
     # Oracle databases (in quotes)
 
 # run query against DB
-df = pdsql.read_sql('SELECT * FROM Sailors', con=connection)
+df = pdsql.read_sql("SELECT * FROM Sailors", con=connection)
 # print the names of columns from the dataframe
 print(df.columns)
 print('Dataframe data')
