@@ -18,17 +18,17 @@ elif hostname[-1] != '/':
 cursor = connection.cursor()
 
 # Drop tables and re-create the 3 tables with cursor.
-cursor.execute("SELECT COUNT(*) FROM user_tables WHERE table_name='READS'")
+cursor.execute("SELECT COUNT(*) FROM user_tables WHERE table_name = 'READS'")
 has_reads = cursor.fetchone()
 if has_reads[0] == 1:
     cursor.execute("DROP TABLE Reads")
     print("Table Reads dropped.")
-cursor.execute("SELECT COUNT(*) FROM user_tables WHERE table_name='ARTICLES'")
+cursor.execute("SELECT COUNT(*) FROM user_tables WHERE table_name = 'ARTICLES'")
 has_articles = cursor.fetchone()
 if has_articles[0] == 1:
     cursor.execute("DROP TABLE Articles")
     print("Table Articles dropped.")
-cursor.execute("SELECT COUNT(*) FROM user_tables WHERE table_name='STUDENTS'")
+cursor.execute("SELECT COUNT(*) FROM user_tables WHERE table_name = 'STUDENTS'")
 has_students = cursor.fetchone()
 if has_students[0] == 1:
     cursor.execute("DROP TABLE Students")
