@@ -12,10 +12,10 @@ if hostname does not have / at the end, then add it.
 
 Establish the connection to DBMS
 '''
-if (hostname[-1] == '/'):
+if hostname[-1] == '/':
     connection = oracledb.connect(user=username,
                                   password=userpwd, dsn=hostname + database)
-elif (hostname[-1] != '/'):
+elif hostname[-1] != '/':
     connection = oracledb.connect(user=username,
                                   password=userpwd, dsn=hostname + '/' + database)
 
@@ -57,7 +57,8 @@ curs.execute("CREATE TABLE boats_sample(bid NUMBER(9) PRIMARY KEY, name VARCHAR(
 print("After creating table boats_sample.")
 print("Before creating table reserves_sample.")
 curs.execute(
-    "CREATE TABLE reserves_sample(sid NUMBER(9),bid NUMBER(9),PRIMARY KEY(sid, bid), FOREIGN KEY (sid) REFERENCES sailors_sample, FOREIGN KEY(bid) REFERENCES boats_sample)")
+    "CREATE TABLE reserves_sample(sid NUMBER(9),bid NUMBER(9),PRIMARY KEY(sid, bid), FOREIGN KEY (sid)\
+     REFERENCES sailors_sample, FOREIGN KEY(bid) REFERENCES boats_sample)")
 print("After creating table reserves_sample.")
 
 # ALTER TABLE sailors_sample #
@@ -78,7 +79,7 @@ print("After inserting data.")
 # RUN SELECT STATEMENT (find the name of the sailor(s) who reserved a red boat. #
 print("Find the name of the sailor(s) who reserved a red boat")
 for row in curs.execute("SELECT s.sname FROM sailors_sample S, reserves_sample R,\
-        Boats_sample B WHERE s.sid = r.sid AND r.bid = b.bid AND b.color = 'red'"):
+Boats_sample B WHERE s.sid = r.sid AND r.bid = b.bid AND b.color = 'red'"):
     print(row)
 
 print("Committing transaction.")

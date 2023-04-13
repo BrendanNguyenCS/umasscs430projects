@@ -2,12 +2,25 @@ import java.sql.*;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Practice Java SQL app
+ */
 public class P1 {
-    // The host name of the server and the server instance name/id
+    /**
+     * The server host name
+     */
     public static final String oracleServer = "dbs3.cs.umb.edu";
+    /**
+     * The server instance name/id
+     */
     public static final String oracleServerSid = "dbs3";
 
+    /**
+     * Practice code to show how to connect to the database from a Java app.
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
+        // Establish connection to database
         Connection conn;
         try {
             conn = getConnection();
@@ -20,6 +33,10 @@ public class P1 {
         }
     }
 
+    /**
+     * Establishes a connection to the Oracle SQL database.
+     * @return the {@link Connection} object that is connected to the database
+     */
     public static Connection getConnection() {
         // First, we need to load the driver
         String jdbcDriver = "oracle.jdbc.OracleDriver";

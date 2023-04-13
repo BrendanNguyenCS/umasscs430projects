@@ -47,7 +47,8 @@ print("Calculating the sum of gpa values.")
 print(df1.GPA.agg(['sum']))
 
 # Runs a second query against the DB.
-q2 = "SELECT s.sid, s.name, s.state, a.aid, a.title FROM Students s, Reads r, Articles a WHERE s.sid = r.sid AND a.aid = r.aid"
+q2 = "SELECT s.sid, s.name, s.state, a.aid, a.title FROM Students s, Reads r, Articles a\
+ WHERE s.sid = r.sid AND a.aid = r.aid"
 df2 = pdsql.read_sql(q2, con=connection)
 
 # Prints this new dataframe.

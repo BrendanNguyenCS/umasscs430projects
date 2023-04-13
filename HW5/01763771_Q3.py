@@ -36,8 +36,10 @@ if has_students[0] == 1:
 
 createQueries = [
     "CREATE TABLE Articles (aid NUMBER(9) PRIMARY KEY, title VARCHAR(40), author VARCHAR(50), pubyear INT)",
-    "CREATE TABLE Students (sid NUMBER(9) PRIMARY KEY, name VARCHAR(50), city VARCHAR(40), state VARCHAR(40), age REAL, gpa REAL, CONSTRAINT GPARange CHECK (gpa >= 1 AND gpa <= 4))",
-    "CREATE TABLE Reads (aid NUMBER(9), sid NUMBER(9), rday DATE NOT NULL, PRIMARY KEY (aid, sid), FOREIGN KEY (aid) REFERENCES Articles, FOREIGN KEY (sid) REFERENCES Students)"]
+    "CREATE TABLE Students (sid NUMBER(9) PRIMARY KEY, name VARCHAR(50), city VARCHAR(40), state VARCHAR(40),\
+     age REAL, gpa REAL, CONSTRAINT GPARange CHECK (gpa >= 1 AND gpa <= 4))",
+    "CREATE TABLE Reads (aid NUMBER(9), sid NUMBER(9), rday DATE NOT NULL, PRIMARY KEY (aid, sid),\
+     FOREIGN KEY (aid) REFERENCES Articles, FOREIGN KEY (sid) REFERENCES Students)"]
 
 print("Recreating Articles, Students, and Reads tables...")
 for q in createQueries:
