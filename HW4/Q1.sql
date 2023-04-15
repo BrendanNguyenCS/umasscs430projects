@@ -32,11 +32,8 @@ SELECT a.aid, a.name, b.bid, b.bname, b.pubyear FROM Authors a
 SELECT bid, bname FROM Books WHERE pubyear IS NULL ORDER BY bname DESC;
 
 -- Answer for d)
-SELECT b.pubcompany, b.pubyear, COUNT(*)
-    FROM Books b, Authors a, Write w
-    -- Joining conditions
-    WHERE b.bid = w.bid AND a.aid = w.aid
-    GROUP BY b.pubcompany, b.pubyear;
+SELECT pubcompany, pubyear, COUNT(*)
+    FROM Books GROUP BY pubcompany, pubyear;
 
 -- Answer for e)
 SELECT * FROM Authors a

@@ -59,6 +59,14 @@ SELECT c1.carid, c1.make, c1.model
             AND EXTRACT(YEAR FROM r2.rday) = 2022
     );
 
+(SELECT c1.carid, c1.make, c1.model
+    FROM Cars c1, Rents r1 WHERE c1.carid = r1.carid
+    AND EXTRACT(YEAR FROM r1.rday) = 2020)
+INTERSECT
+(SELECT c2.carid, c2.make, c2.model
+    FROM Cars c2, Rents r2 WHERE c2.carid = r2.carid
+    AND EXTRACT(YEAR FROM r2.rday) != 2022);
+
 -- Answer for f)
 INSERT INTO Cars
     VALUES (1, 'Honda', 'Civic', 2016, 95.50);

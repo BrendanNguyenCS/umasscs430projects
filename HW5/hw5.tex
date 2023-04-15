@@ -68,7 +68,7 @@
 
 \title{CS430 Homework 5}
 \author{Brendan Nguyen}
-\date{Due: Wednesday, Apr. 13, 2023}
+\date{Due: Sunday, Apr. 16, 2023}
 
 \begin{document}
 
@@ -105,7 +105,8 @@ Using the schema from Question 1, write a Python file that uses the PANDAS libra
     \item Uses PANDAS library to run a query against the DB that extracts information about all Students. Saves the results in a PANDAS dataframe.
     \item Prints out the name of the columns of that dataframe.
     \item Prints out the shape of the dataframe.
-    \item Prints out the first 3 records from the dataframe. Uses PANDAS aggregates to extract the average and min age of students. Prints the value.
+    \item Prints out the first 3 records from the dataframe.
+    \item Uses PANDAS aggregates to extract the average and min age of students. Prints the value.
     \item Uses PANDAS aggregates to get the minimum and maximum gpa for students. Prints the result.
     \item Uses PANDAS aggregates to get the sum of gpa values. Prints that result.
     \item Runs a second query against the DB to extract information about the id, name, and state of students and the id and title of articles they read (the resulting relation will have the \texttt{SID}, \texttt{NAME}, \texttt{STATE}, \texttt{AID}, \texttt{TITLE} columns). Save the result in a PANDAS dataframe.
@@ -113,6 +114,8 @@ Using the schema from Question 1, write a Python file that uses the PANDAS libra
     \item Prints how many records are in the new dataframe.
     \item Prints how many columns are in the new dataframe.
     \item Prints the name of the columns from this new dataframe.
+    \item Uses PANDAS to filter this dataframe to keep only students from state MA. Saves the result into a third dataframe.
+    \item Use PANDAS group by to extract how many articles each student from MA read. Prints the result.
 \end{itemize}
 
 Note: please remember to close the connection.
@@ -123,7 +126,8 @@ Using the schema from Question 1, write a Python file that uses the \texttt{conn
 \begin{itemize}[label=-]
     \item Reads from the input: an Oracle username, Oracle password, Oracle hostname, Oracle DB name.
     \item Connects to our Oracle DB.
-    \item Uses the cursor to drop tables \textit{Students}, \textit{Articles}, \textit{Reads}. Code must gracefully handle any exception, for the case these tables it tries to drop were not in the DB. Uses cursor to re-create the 3 tables from Schema from Question 1.
+    \item Uses the cursor to drop tables \textit{Students}, \textit{Articles}, \textit{Reads}. Code must gracefully handle any exception, for the case these tables it tries to drop were not in the DB. 
+    \item Uses cursor to re-create the 3 tables from Schema from Question 1.
     \item Uses the cursor to insert two records in each table.
     \item Uses the cursor to run a \texttt{SELECT} query that extracts all articles. Prints all records extracted.
     \item Uses the cursor to run a \texttt{SELECT} query that extracts all students. Prints all records extracted.

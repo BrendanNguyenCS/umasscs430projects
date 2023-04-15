@@ -1,7 +1,7 @@
 import oracledb
 import getpass
 
-# read input arguments: username, password, db host, db name
+# READ INPUT ARGUMENTS: USERNAME, PASSWORD, DB HOST, DB NAME
 username = input("Enter your username:")
 userpwd = getpass.getpass("Enter password: ")
 hostname = input("Enter the hostname:")
@@ -19,10 +19,10 @@ elif hostname[-1] != '/':
     connection = oracledb.connect(user=username,
                                   password=userpwd, dsn=hostname + '/' + database)
 
-curs = connection.cursor()  # creates a cursor that will be needed to access the databases
+# CREATES A CURSOR THAT WILL BE NEEDED TO ACCESS THE DATABASES
+curs = connection.cursor()
 
 # GET LIST OF ALL TABLES THAT BELONG TO THIS USERNAME #
-
 print("Tables created by this user:")
 for table in curs.execute("SELECT table_name FROM user_tables"):
     print(table)

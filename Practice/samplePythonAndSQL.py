@@ -2,9 +2,9 @@ import oracledb
 import getpass
 import pandas.io.sql as pdsql
 
-# READ USERNAME, PASSWORD, DB HOST, DB NAME from command line
+# READ USERNAME, PASSWORD, DB HOST, DB NAME FROM COMMAND LINE
 username = input("Enter your username:")
-userpwd = getpass.getpass("Enter password: ")  # Enter the pass set for you to access
+userpwd = getpass.getpass("Enter password: ")
 hostname = input("Enter the hostname:")
 database = input("Enter the database:")
 
@@ -18,16 +18,15 @@ if hostname[-1] == '/':
                                   password=userpwd, dsn=hostname + database)
 elif hostname[-1] != '/':
     connection = oracledb.connect(user=username,
-                                  password=userpwd, dsn=hostname + '/' + database)  # username to access
-    # Oracle databases (in quotes)
+                                  password=userpwd, dsn=hostname + '/' + database)
 
-# run query against DB
+# RUN QUERY AGAINST DB
 df = pdsql.read_sql("SELECT * FROM Sailors", con=connection)
-# print the names of columns from the dataframe
+# PRINT THE NAMES OF COLUMNS FROM THE DATAFRAME
 print(df.columns)
 print('Dataframe data')
 print(df)
-# prints the first 5 rows
+# PRINTS THE FIRST 5 ROWS
 print("df head")
 print(df.head())
 print("df shape")
@@ -47,5 +46,5 @@ print(df.RATING.agg(['mean']))
 print("Another way to get the average only for rating column")
 print(df[['RATING']].agg(['mean']))
 
-# close the connection
+# CLOSE THE CONNECTION
 connection.close()
