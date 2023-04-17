@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * Practice Java SQL app
  */
-public class P3 {
+public class P3 extends OJDBCConnection {
     /**
      * Practice code to show how to the column information for a given table in the database.
      * @param args the command line arguments
@@ -12,7 +12,7 @@ public class P3 {
     public static void main(String[] args) {
         // Establish connection to database
         Connection conn;
-        conn = P1.getConnection();
+        conn = getConnection();
         if (conn == null)
             System.exit(1);
 

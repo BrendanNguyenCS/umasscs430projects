@@ -49,9 +49,9 @@ CREATE VIEW MAStudents
 
 -- Answer for f)
 CREATE VIEW StudentReads
-    AS SELECT s.sid, s.name, s.city, a.aid, a.title
-    FROM Students s, Reads r, Articles a
-    WHERE s.sid = r.sid AND a.aid = r.aid;
+    AS SELECT s.sid, s.name, s.city, a.aid, a.title FROM Students s
+    JOIN Reads r ON s.sid = r.sid
+    JOIN Articles a ON a.aid = r.aid;
 
 -- Answer for g)
 SELECT sid, COUNT(*) FROM StudentReads GROUP BY sid;
