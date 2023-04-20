@@ -66,10 +66,10 @@ INTERSECT
     AND EXTRACT(YEAR FROM v2.visitday) = 2018);
 
 -- Answer for 11
-SELECT c.cid, c.name, c.city, c.state, c.age
-    FROM Customers c, Visit v, Museums m
-    WHERE c.cid = v.cid AND m.mid = v.mid
-    AND m.mtype = 'history';
+SELECT c.cid, c.name, c.city, c.state, c.age FROM Customers c
+    JOIN Visit v ON c.cid = v.cid
+    JOIN Museums m ON v.mid = m.mid
+    WHERE m.mtype = 'history';
 
 -- Answer for 12
 SELECT * FROM Museums m WHERE 100 <= (

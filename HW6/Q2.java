@@ -158,7 +158,7 @@ public class Q2 {
                 } while (rs.next());
             }
             else
-                System.out.println("No Records Retrieved");
+                System.out.println("There are no movies in this database.");
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting the number of movies in the database");
             e.printStackTrace();
@@ -171,13 +171,15 @@ public class Q2 {
      */
     private static void getCustomerMetadata(Connection connection) {
         try {
-            String table = "CUSTOMERS";
             DatabaseMetaData md = connection.getMetaData();
-            ResultSet trs = md.getTables(null, null, table, null);
+            // Get Customers table metadata
+            ResultSet trs = md.getTables(null, null, "CUSTOMERS", null);
             if (trs.next()) {
                 do {
+                    // Get table name
                     String tableName = trs.getString("TABLE_NAME");
                     System.out.println("The metadata for the Customers table...");
+                    // Get table column names and types
                     ResultSet crs = md.getColumns(null, null, tableName, null);
                     while (crs.next()) {
                         System.out.println(
@@ -201,6 +203,7 @@ public class Q2 {
      * @param input the command line input scanner
      */
     private static void getMoviesFromYear(Connection connection, Scanner input) {
+        // Get user prompted year
         System.out.print("Enter a year to find the movies from that year: ");
         int year = input.nextInt();
         try {
