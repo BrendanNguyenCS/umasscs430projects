@@ -23,9 +23,10 @@ CREATE TABLE Boats (
 
 --create table Reserves
 CREATE TABLE Reserves (
-	sid 	NUMBER(9) PRIMARY KEY,
-	bid 	NUMBER(9) PRIMARY KEY,
+	sid 	NUMBER(9),
+	bid 	NUMBER(9),
 	day 	DATE,
+	PRIMARY KEY(sid, bid),
 	FOREIGN KEY (sid) REFERENCES Sailors,
 	FOREIGN KEY (bid) REFERENCES Boats
 );
@@ -73,9 +74,9 @@ INSERT INTO Boats (name, bid, color) VALUES ('interlake', 101, 'red');
 INSERT INTO Boats VALUES (102, 'clipper', 'green');
 
 -- insert data into Reserves table
-INSERT INTO Reserves VALUES (22, 101, TO_DATE('10/10/2022', 'MM/DD/YYYY'));
-INSERT INTO Reserves VALUES (58, 101, TO_DATE('10/11/2022', 'MM/DD/YYYY'));
-INSERT INTO Reserves VALUES (22, 102, TO_DATE('10/20/2022', 'MM/DD/YYYY'));
+INSERT INTO Reserves VALUES (22, 101, TO_DATE('10/10/2022', 'MM/DD/YYYY'), TO_DATE('10/11/2022', 'MM/DD/YYYY'));
+INSERT INTO Reserves VALUES (58, 101, TO_DATE('10/11/2022', 'MM/DD/YYYY'), TO_DATE('10/12/2022', 'MM/DD/YYYY'));
+INSERT INTO Reserves VALUES (22, 102, TO_DATE('10/20/2022', 'MM/DD/YYYY'), TO_DATE('10/21/2022', 'MM/DD/YYYY'));
 
 -- SOME SELECT QUERIES USED TO EXTRACT DATA
 SELECT * FROM Sailors;
