@@ -1,0 +1,113 @@
+\documentclass[letterpaper, 11pt]{article}
+\usepackage{nopageno} % For removing page numbers
+\usepackage[utf8]{inputenc}
+\usepackage{color, colortbl} % For table coloring
+\usepackage{titling} % For positioning of title preamble
+\usepackage[margin=0.75in]{geometry} % For margin width setting
+\usepackage{comment} % For block commenting
+\usepackage{float} % For table positioning
+% For math equation formatting
+\usepackage{amsmath, amssymb, amsfonts}
+\newcommand{\PMod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+\usepackage{parskip} % For automatic paragraph spacing/formatting
+\usepackage{relsize} % For increased math mode font sizing
+% For code blocks
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{lmodern}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{listings, minted}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keepspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color{blue},
+    commentstyle=\sffamily\itshape\color{Green}\scriptsize,
+    stringstyle = \color{red},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2
+}
+\tcbset{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    oversize,
+}
+\setlength{\extrarowheight}{2pt}
+\usepackage{titlesec} % Custom styling for section titles
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont}{\thesection}{1em}{}
+% For side-by-side figures
+\usepackage{multicol}
+\usepackage{makecell}
+% For horizontal lists
+\usepackage{enumitem, tasks, varwidth}
+% For custom page numbers
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\usepackage[skip=2pt]{caption}
+\usepackage{graphicx}
+\graphicspath{{../Images/}}
+
+% Move title area to the top of the page
+\setlength{\droptitle}{-4em}
+\addtolength{\droptitle}{-4pt} 
+\renewcommand{\arraystretch}{1.25}
+% Disable paragraph indenting
+\setlength{\parindent}{0pt}
+
+\usepackage[none]{hyphenat}
+\usepackage{times}
+\usepackage{soul}
+
+\title{CS430 Homework 6}
+\author{Brendan Nguyen}
+\date{Due: Thursday, Apr. 27, 2023}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1 (28 points)}
+
+Given the following DB schema:
+\begin{itemize}
+    \item \textit{Movies} (\underline{\texttt{mid}: int}, \texttt{title}: string, \texttt{director}: string, \texttt{studio}: string, \texttt{releaseyear}: int)
+    \item \textit{Customers} (\underline{\texttt{cid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{age}: real)
+    \item \textit{Watch} (\underline{\texttt{cid}: int, \texttt{mid}: int}, \texttt{watchedon}: date)
+\end{itemize}
+
+Primary keys are underlined in each relation. A movie is identified by an id (\texttt{mid}). It also has a \texttt{title}, \texttt{director}, \texttt{studio}, and \texttt{releaseyear}. A customer is identified by \texttt{cid}. It also has a \texttt{name}, a \texttt{city}, \texttt{state}, and \texttt{age}. \textit{Customers} watch \textit{Movies}. When a customer watches a movie, a record is inserted into \textit{Watch} table, that will contain information about the ids as well as the date on which \texttt{cid} watched \texttt{mid} (attr. \texttt{watchedon}).
+
+For this schema:
+\begin{enumerate}[label={\alph*}),leftmargin=*]
+    \item Write the SQL statement to create the table \textit{Movies}. Do not forget about the key constraints.
+    \item Write the SQL statement to create table \textit{Customers}. Add the constraint that a customer must be at least 18 years old. Do not forget about the key constraints.
+    \item Write the SQL to create table \textit{Watch}. Do not forget about the key constraints.
+    \item Write the SQL statement to create an index on column \texttt{watchedon} of table \textit{Watch}. Name that index \textit{indexWatchDate}.
+    \item Write the SQL statements to insert a record in table \textit{Movies}, a record in table \textit{Customers}, and a record in table \textit{Watch}. The insert statements should be written in an order such that if executed in that order it will not cause an error.
+    \item Write the SQL statement to find the id and title of movies that were watched between Jan 1\textsuperscript{st} 2022 and July 31\textsuperscript{st} 2022 (including these dates). The result should contain no duplicates.
+    \item Write the SQL statement to extract the id and name of customers and the id, title and director of movies they watched, as well as the date on which they watched the movie (\texttt{watchedon}). Sort the result by \texttt{watchedon} in descending order.
+\end{enumerate}
+
+\section*{Question 2 (72 points)}
+
+Using the schema from Question 1, write a Java file that does the following:
+\begin{itemize}[label=-,leftmargin=*]
+    \item Reads from the input: an Oracle username, Oracle password, Oracle hostname, Oracle DB name.
+    \item Connects to the Oracle DB.
+    \item Runs a query against the database to extract all information about \textit{Customers}. It prints the extracted information to screen.
+    \item Runs a query against the database to extract the id and name of \textit{Customers} and the id and title of \textit{Movies} they watched as well as the date they watched the movies (\texttt{watchedon} attr.). It prints the extracted information to screen.
+    \item Runs a query against the database to find out how many movies are in the DB. It prints the result to screen.
+    \item Runs a query against the Oracle DB to extract the metadata for table \textit{Customers}. It prints the result to screen.
+    \item Prompts the username to enter a year. It returns the id, title, and director of the movies that were released in that year.
+    \item Closes the DB connection. Prints a message and exits the program.
+\end{itemize}
+
+\end{document}

@@ -83,7 +83,7 @@ Given the following DB schema:
     \item \textit{Accounts} (\ul{\texttt{aid}: int}, \texttt{atype}: string, \texttt{amount}: real)
 \end{itemize}
 
-Primary keys are uld in each relation. Relation \textit{Customers} contains information about customers. A customer is uniquely identified by \texttt{cid}. Relation \textit{Accounts} contains information about bank accounts. An account is uniquely identified by \texttt{aid}. The type of the account is given in column \texttt{atype} (for example  \texttt{atype = `savings'}).  Customers have accounts. For a customer that has an account (i.e. is the owner of that account) there is a record in relation \textit{Has\textunderscore account}, that has the \texttt{cid} of that customer and the \texttt{aid} of that account, as well as the date when the account was opened (column \texttt{since}).
+Primary keys are uld in each relation. Relation \textit{Customers} contains information about customers. A customer is uniquely identified by \texttt{cid}. Relation \textit{Accounts} contains information about bank accounts. An account is uniquely identified by \texttt{aid}. The type of the account is given in column \texttt{atype} (for example  \texttt{atype = `savings'}).  \textit{Customers} have \textit{Accounts}. For a customer that has an account (i.e. is the owner of that account) there is a record in relation \textit{Has\textunderscore account}, that has the \texttt{cid} of that customer and the \texttt{aid} of that account, as well as the date when the account was opened (column \texttt{since}).
 
 Using this DB schema:
 \begin{enumerate}[label={\alph*}),leftmargin=*]

@@ -83,8 +83,10 @@ Given the following DB schema:
     \item \textit{Reads} (\underline{\texttt{aid}: int, \texttt{sid}: int}, \texttt{rday}: date)
 \end{itemize}
 
+Primary keys are underlined in each relation. An article is uniquely identified by \texttt{aid}. An article has an id (\texttt{aid}), a \texttt{title}, an \texttt{author}, and a publication year (\texttt{pubyear}). A student is uniquely identified by \texttt{sid}. A student has an id (\texttt{sid}), a name (attr. \texttt{name}), a \texttt{city}, a \texttt{state}, \texttt{age}, and a \texttt{gpa}. If a student reads an article, a record will be present in the \textit{Reads} relation, with the \texttt{sid} of that student, the \texttt{aid} of that article, and the date the article was read (\texttt{rday} attribute).
+
 For this schema:
-\begin{enumerate}[label={\alph*})]
+\begin{enumerate}[label={\alph*}),leftmargin=*]
     \item Write the SQL statement to create the table \textit{Articles}. Do not forget about the key constraints.\\
     Write the SQL statement to create table \textit{Students}. Add the constraint that \texttt{gpa} should be between 1 and 4 (including 1 and 4). Do not forget about the key constraints. Write the SQL statement to create table \textit{Reads}. Add the constraint that no attribute can be null. Do not forget about the key constraints.
     \item Write the SQL statement to create an index on column \texttt{rday}. Explain when such an index will be useful.
@@ -99,7 +101,7 @@ For this schema:
 \section*{Question 2 (30 points)}
 
 Using the schema from Question 1, write a Python file that uses the PANDAS library and does the following:
-\begin{itemize}[label=-]
+\begin{itemize}[label=-,leftmargin=*]
     \item Reads from the input: an Oracle username, Oracle password, Oracle hostname, Oracle DB name.
     \item Connects to our Oracle DB.
     \item Uses PANDAS library to run a query against the DB that extracts information about all Students. Saves the results in a PANDAS dataframe.
@@ -123,7 +125,7 @@ Note: please remember to close the connection.
 \section*{Question 3 (30 points)}
 
 Using the schema from Question 1, write a Python file that uses the \texttt{connection.cursor()} to execute queries against the DB. The program should do the following:
-\begin{itemize}[label=-]
+\begin{itemize}[label=-,leftmargin=*]
     \item Reads from the input: an Oracle username, Oracle password, Oracle hostname, Oracle DB name.
     \item Connects to our Oracle DB.
     \item Uses the cursor to drop tables \textit{Students}, \textit{Articles}, \textit{Reads}. Code must gracefully handle any exception, for the case these tables it tries to drop were not in the DB. 

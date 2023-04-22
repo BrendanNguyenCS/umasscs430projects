@@ -35,9 +35,9 @@ public class P2 extends OJDBCConnection {
                 if (rs.next()) {
                     do {
                         System.out.println(
-                                "Name = " + rs.getString("sname") +
-                                ", Rating = " + rs.getString("rating") +
-                                ", Age = " + rs.getString("age")
+                            "Name = " + rs.getString("sname") +
+                            ", Rating = " + rs.getString("rating") +
+                            ", Age = " + rs.getString("age")
                         );
                     } while (rs.next());
                 }

@@ -212,9 +212,9 @@ public class Q2 {
             if (rs.next()) {
                 do {
                     System.out.println(
-                            "Movie id = " + rs.getString("mid") +
-                            ", Movie title = " + rs.getString("title") +
-                            ", Director = " + rs.getString("director")
+                        "Movie id = " + rs.getString("mid") +
+                        ", Movie title = " + rs.getString("title") +
+                        ", Director = " + rs.getString("director")
                     );
                 } while (rs.next());
             }

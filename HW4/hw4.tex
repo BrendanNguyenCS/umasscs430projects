@@ -86,7 +86,7 @@ Given the following DB schema:
 Primary keys are underlined in each relation. A book is uniquely identified by \texttt{bid}. A book has an id (\texttt{bid}), a name (\texttt{bname}), one author (attribute \texttt{author}), a publication year (\texttt{pubyear}), and a publishing company (\texttt{pubcompany}). An author is uniquely identified by \texttt{aid}. An author has an id (\texttt{aid}), a name (attr. \texttt{name}), a rating (attr. \texttt{rating}), a city (attr. \texttt{city}) and a state (attr. \texttt{state}). If an author wrote a book, a record will be present in the \textit{Write} relation, with the \texttt{aid} of that author and the \texttt{bid} of that book. 
 
 For this schema:
-\begin{enumerate}[label={\alph*})]
+\begin{enumerate}[label={\alph*}),leftmargin=*]
     \item Write the SQL statements to create the three tables. Do not forget about the keys constraints. Table statements should be written in an order such that if executed in that order will not cause an error. 
     \item Use \texttt{INNER JOIN} to write the SQL query to extract the id and name of the authors and the id, name, and pubyear of books they wrote. (Queries that do not use \texttt{INNER JOIN} or \texttt{JOIN} keywords for joining tables will receive no credit)
     \item Write the SQL query to extract the id and name of all the \textit{Books} that do not have a pubyear. Sort the result by name in descending order.
@@ -115,7 +115,7 @@ Given the following DB schema:
 Primary keys are underlined in each relation. A car is uniquely identified by \texttt{carid}. A car also has a \texttt{make} (e.g. Toyota), a \texttt{model} (e.g. Corolla), a manufacturing year (attr. \texttt{myear}), and a daily fee (attr. \texttt{dailyfee}). A customer is uniquely identified by attribute \texttt{custid}. A customer also has a \texttt{name}, \texttt{city}, \texttt{state} and a date of birth (\texttt{dob}). Customers rent Cars. If a customer rents a car, a record is inserted in \textit{Rents} table with the \texttt{carid}, the \texttt{custid}, and the day (attribute \texttt{rday}) the rental is made for.
 
 For this schema:
-\begin{enumerate}[label={\alph*})]
+\begin{enumerate}[label={\alph*}),leftmargin=*]
     \item Write the SQL statement to create table \textit{Cars} with the constraint that no car older than 2015 (i.e. manufacturing year before 2015), and no car newer than 2020 (i.e. manufacturing year after 2020) can be inserted into the table. Please do not forget about the key constraints. 
     \item Write the SQL statement to create table \textit{Customers}. In addition to the key constraints, add the constraints that no field in the table can be \texttt{NULL}.
     \item Write the SQL statement to create table \textit{Rents}. Add the key constraints. The day of the rental should always be provided.
