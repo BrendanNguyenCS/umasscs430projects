@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class P3 extends OJDBCConnection {
     /**
      * Practice code to show how to the column information for a given table in the database.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -39,8 +40,8 @@ public class P3 extends OJDBCConnection {
                         ResultSet crs = md.getColumns(null, null, tableName, null);
                         while (crs.next()) {
                             System.out.println(
-                                "COL_NAME = " + crs.getString("COLUMN_NAME") +
-                                ", TYPE = " + crs.getString("TYPE_NAME")
+                                    "COL_NAME = " + crs.getString("COLUMN_NAME") +
+                                    ", TYPE = " + crs.getString("TYPE_NAME")
                             );
                         }
                     } while (trs.next());

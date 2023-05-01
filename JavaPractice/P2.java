@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class P2 extends OJDBCConnection {
     /**
      * Practice code to show how to get information about sailors above a given rating threshold.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -35,9 +36,9 @@ public class P2 extends OJDBCConnection {
                 if (rs.next()) {
                     do {
                         System.out.println(
-                            "Name = " + rs.getString("sname") +
-                            ", Rating = " + rs.getString("rating") +
-                            ", Age = " + rs.getString("age")
+                                "Name = " + rs.getString("sname") +
+                                ", Rating = " + rs.getString("rating") +
+                                ", Age = " + rs.getString("age")
                         );
                     } while (rs.next());
                 }

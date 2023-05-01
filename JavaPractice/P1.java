@@ -6,6 +6,7 @@ import java.sql.*;
 public class P1 extends OJDBCConnection {
     /**
      * Practice code to show how to connect to the database from a Java app.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

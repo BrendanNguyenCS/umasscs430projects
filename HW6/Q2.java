@@ -3,15 +3,6 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Q2 {
-    /**
-     * The server host name
-     */
-    private static final String oracleServer = "dbs3.cs.umb.edu";
-    /**
-     * The server instance name/id
-     */
-    private static final String oracleServerSid = "dbs3";
-
     public static void main(String[] args) {
         // Set up command line input scanner
         Scanner input = new Scanner(System.in);
@@ -72,6 +63,13 @@ public class Q2 {
         // The following is used to mask the password
         Console console = System.console();
         String password = new String(console.readPassword());
+        // Get the server host name
+        System.out.print("Host name:");
+        String oracleServer = input.nextLine();
+        // Get oracle db instance id
+        System.out.print("DB name:");
+        String oracleServerSid = input.nextLine();
+
         String connString = "jdbc:oracle:thin:@" + oracleServer + ":1521:" + oracleServerSid;
 
         System.out.println("Connecting to the database...");

@@ -14,6 +14,7 @@ public abstract class OJDBCConnection {
 
     /**
      * Establishes a connection to the Oracle SQL database.
+     *
      * @return the {@link Connection} object that is connected to the database
      */
     public static Connection getConnection() {

@@ -4,6 +4,7 @@ import java.util.*;
 public class P4 extends OJDBCConnection {
     /**
      * This program hosts several programs which shows off the abilities of Oracle OJDB.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -62,6 +63,7 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Prints out the ratings statistics of sailors of all age groups.
+     *
      * @param connection the database connection instance
      */
     private static void printRatingsPerAge(Connection connection) {
@@ -75,10 +77,10 @@ public class P4 extends OJDBCConnection {
             if (rs.next()) {
                 do {
                     System.out.println(
-                        "Age = " + rs.getString("age") +
-                        ", Min Rating = " + rs.getString("MIN(rating)") +
-                        ", Max Rating = " + rs.getString("MAX(rating)") +
-                        ", Avg Rating = " + rs.getString("AVG(rating)")
+                            "Age = " + rs.getString("age") +
+                            ", Min Rating = " + rs.getString("MIN(rating)") +
+                            ", Max Rating = " + rs.getString("MAX(rating)") +
+                            ", Avg Rating = " + rs.getString("AVG(rating)")
                     );
                 } while (rs.next());
             }
@@ -92,6 +94,7 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Prints out the average age of sailors for each rating.
+     *
      * @param connection the database connection instance
      */
     private static void printAverageAgePerRating(Connection connection) {
@@ -105,8 +108,8 @@ public class P4 extends OJDBCConnection {
             if (rs.next()) {
                 do {
                     System.out.println(
-                        "Rating = " + rs.getString("rating") +
-                        ", Avg Age = " + rs.getString("AVG(age)")
+                            "Rating = " + rs.getString("rating") +
+                            ", Avg Age = " + rs.getString("AVG(age)")
                     );
                 } while (rs.next());
             }
@@ -120,8 +123,9 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Recursively prints the names of actors of the requested age.
+     *
      * @param connection the database connection instance
-     * @param input the command line input scanner
+     * @param input      the command line input scanner
      */
     private static void printActorsByAge(Connection connection, Scanner input) {
         if (connection == null || input == null) {
@@ -158,8 +162,9 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Recursively prints the titles of movies produced in the requested year.
+     *
      * @param connection the database connection instance
-     * @param input the command line input scanner
+     * @param input      the command line input scanner
      */
     private static void printMoviesByYear(Connection connection, Scanner input) {
         if (connection == null || input == null) {
@@ -195,8 +200,9 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Recursively prints the titles and year of movies produced by the requested studio (case-insensitive).
+     *
      * @param connection the database connection instance
-     * @param input the command line input scanner
+     * @param input      the command line input scanner
      */
     private static void printMoviesByStudio(Connection connection, Scanner input) {
         if (connection == null || input == null) {
@@ -216,7 +222,7 @@ public class P4 extends OJDBCConnection {
                 if (rs.next()) {
                     do {
                         System.out.println(
-                            rs.getString("title") + " (" + rs.getString("year") + ")"
+                                rs.getString("title") + " (" + rs.getString("year") + ")"
                         );
                     } while (rs.next());
                 }
@@ -231,8 +237,9 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Recursively prints the studio and cast list for the requested movie (case-insensitive).
+     *
      * @param connection the database connection instance
-     * @param input the command line input scanner
+     * @param input      the command line input scanner
      */
     private static void printMovieInfo(Connection connection, Scanner input) {
         if (connection == null || input == null) {
@@ -267,6 +274,7 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Prints out the number of boats for each color in the database.
+     *
      * @param connection the database connection instance
      */
     private static void printBoatCountByColor(Connection connection) {
@@ -292,6 +300,7 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Prints the boat reservation history of sailors who have reserved more than 2 boats.
+     *
      * @param connection the database connection instance
      */
     private static void printBoatReservationHistory(Connection connection) {
@@ -317,6 +326,7 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Prints the names, publication year, and author for all books in the database.
+     *
      * @param connection the database connection instance
      */
     private static void printBooksAndAuthors(Connection connection) {
@@ -330,7 +340,7 @@ public class P4 extends OJDBCConnection {
             if (rs.next()) {
                 do {
                     System.out.println(
-                        rs.getString("bname") + " (" + rs.getString("pubyear") + ") by " + rs.getString("name")
+                            rs.getString("bname") + " (" + rs.getString("pubyear") + ") by " + rs.getString("name")
                     );
                 } while (rs.next());
             }
