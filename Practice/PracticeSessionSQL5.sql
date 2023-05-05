@@ -9,40 +9,44 @@
 */
 
 CREATE TABLE Movies (
-    movie_id 	NUMBER(9) PRIMARY KEY,
-    title	    VARCHAR(40),
-    year        INT,
-    studio      VARCHAR(20)
+    movie_id NUMBER(9) PRIMARY KEY,
+    title    VARCHAR(40),
+    year     INT,
+    studio   VARCHAR(20)
 );
 
 CREATE TABLE Actors (
-    actor_id    NUMBER(9) PRIMARY KEY,
-    name	    VARCHAR(40),
-    age         NUMBER(4,2)
+    actor_id NUMBER(9) PRIMARY KEY,
+    name     VARCHAR(40),
+    age      NUMBER(4, 2)
 );
 
 CREATE TABLE PlaysIn (
-    actor_id 	NUMBER(9),
-    movie_id    NUMBER(9),
-    character   VARCHAR(40),
+    actor_id  NUMBER(9),
+    movie_id  NUMBER(9),
+    character VARCHAR(40),
     PRIMARY KEY (actor_id, movie_id),
     FOREIGN KEY (actor_id) REFERENCES Actors,
     FOREIGN KEY (movie_id) REFERENCES Movies
 );
 
 -- insert records into Actors table
-INSERT INTO Actors (actor_id, name, age) VALUES (10, 'Joe', 35.0);
-INSERT INTO Actors (actor_id, name, age) VALUES (20, 'Mary', 20.0);
-INSERT INTO Actors (actor_id, name, age) VALUES (30, 'Anne', 55.0);
-INSERT INTO Actors (actor_id, name, age) VALUES (40, 'Jerry', 45.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (10, 'Joe', 35.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (20, 'Mary', 20.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (30, 'Anne', 55.0);
+INSERT INTO Actors (actor_id, name, age)
+    VALUES (40, 'Jerry', 45.0);
 
 -- insert records into Movies table
 INSERT INTO Movies (movie_id, title, year, studio)
-    VALUES (100,'Movie A', 2010, 'Universal');
+    VALUES (100, 'Movie A', 2010, 'Universal');
 INSERT INTO Movies (movie_id, title, year, studio)
-    VALUES (200,'Movie B', 2005, 'Universal');
+    VALUES (200, 'Movie B', 2005, 'Universal');
 INSERT INTO Movies (movie_id, title, year, studio)
-    VALUES (300,'Movie C', 2015, 'WB');
+    VALUES (300, 'Movie C', 2015, 'WB');
 
 -- insert records into PlaysIn tab
 INSERT INTO PlaysIn(actor_id, movie_id, character)
@@ -67,24 +71,32 @@ INSERT INTO PlaysIn(actor_id, movie_id, character)
     VALUES (40, 200, 'football player');
 
 -- check how many records you have in each table
-SELECT COUNT(*) FROM Actors;
-SELECT COUNT(*) FROM Movies;
-SELECT COUNT(*) FROM PlaysIn;
+SELECT COUNT(*)
+    FROM Actors;
+SELECT COUNT(*)
+    FROM Movies;
+SELECT COUNT(*)
+    FROM PlaysIn;
 
 -- look at data from each table
-SELECT * FROM Actors;
-SELECT * FROM Movies;
-SELECT * FROM PlaysIn;
+SELECT *
+    FROM Actors;
+SELECT *
+    FROM Movies;
+SELECT *
+    FROM PlaysIn;
 
 -- Find the id and name of actors who played in all movies
 -- sol 1
 SELECT a.actor_id, a.name
     FROM Actors a
-    WHERE NOT EXISTS(
-        (SELECT m.movie_id FROM Movies m)
+    WHERE NOT EXISTS (
+        SELECT m.movie_id
+            FROM Movies m
         MINUS
-        (SELECT p.movie_id FROM PlaysIn p
-        WHERE p.actor_id = a.actor_id)
+        SELECT p.movie_id
+            FROM PlaysIn p
+            WHERE p.actor_id = a.actor_id
     );
 
 -- Find the id and name of actors who played in all movies
@@ -92,31 +104,42 @@ SELECT a.actor_id, a.name
 SELECT a.actor_id, a.name
     FROM Actors a
     WHERE NOT EXISTS (
-        SELECT m.movie_id FROM Movies m
-        WHERE NOT EXISTS (
-             SELECT * FROM PlaysIn p
-             WHERE p.actor_id = a.actor_id AND p.movie_id = m.movie_id
-        )
+        SELECT m.movie_id
+            FROM Movies m
+            WHERE NOT EXISTS (
+                SELECT *
+                    FROM PlaysIn p
+                    WHERE p.actor_id = a.actor_id
+                      AND p.movie_id = m.movie_id
+            )
     );
 
 -- Find the id and name of actors who played in all movies. Order the result by actors' name in ASC order.
 SELECT a.actor_id, a.name
     FROM Actors a
     WHERE NOT EXISTS (
-        SELECT m.movie_id FROM Movies m
-        WHERE NOT EXISTS (
-             SELECT * FROM PlaysIn p
-             WHERE p.actor_id = a.actor_id AND p.movie_id = m.movie_id
-        )
-    ) ORDER BY a.name;
+        SELECT m.movie_id
+            FROM Movies m
+            WHERE NOT EXISTS (
+                SELECT *
+                    FROM PlaysIn p
+                    WHERE p.actor_id = a.actor_id
+                      AND p.movie_id = m.movie_id
+            )
+    )
+    ORDER BY a.name;
 
 -- Find the id and name of actors who played in all movies produced by ‘Universal' studio.
 SELECT a.actor_id, a.name
     FROM Actors a
-    WHERE NOT EXISTS(
-        (SELECT m.movie_id FROM Movies m WHERE m.studio = 'Universal')
+    WHERE NOT EXISTS (
+        SELECT m.movie_id
+            FROM Movies m
+            WHERE m.studio = 'Universal'
         MINUS
-        (SELECT p.movie_id FROM PlaysIn p WHERE p.actor_id = a.actor_id)
+        SELECT p.movie_id
+            FROM PlaysIn p
+            WHERE p.actor_id = a.actor_id
     );
 
 -- Find the id and name of actors who played in all movies produced by ‘Universal' studio.
@@ -124,17 +147,24 @@ SELECT a.actor_id, a.name
 SELECT a.actor_id, a.name
     FROM Actors a
     WHERE NOT EXISTS (
-        SELECT m.movie_id FROM Movies m
-            WHERE m.studio = 'Universal' AND NOT EXISTS (
-                SELECT * FROM PlaysIn p
-                WHERE p.actor_id = a.actor_id AND p.movie_id = m.movie_id
+        SELECT m.movie_id
+            FROM Movies m
+            WHERE m.studio = 'Universal'
+              AND NOT EXISTS (
+                SELECT *
+                    FROM PlaysIn p
+                    WHERE p.actor_id = a.actor_id
+                      AND p.movie_id = m.movie_id
             )
     );
 
 -- List the average age of actors for each movie in which at least 4 actors play.
 SELECT m.movie_id, AVG(a.age)
-    FROM Movies m, Actors a, PlaysIn p
-    WHERE m.movie_id = p.movie_id AND p.actor_id = a.actor_id
+    FROM Movies m,
+         Actors a,
+         PlaysIn p
+    WHERE m.movie_id = p.movie_id
+      AND p.actor_id = a.actor_id
     GROUP BY m.movie_id
     HAVING COUNT(*) >= 4;
 
@@ -144,30 +174,40 @@ SELECT m.movie_id, AVG(a.age)
 DESC Movies
 
 -- how many records we have in  Movies table
-SELECT COUNT(*) FROM Movies;
-SELECT COUNT(studio) FROM Movies;
+SELECT COUNT(*)
+    FROM Movies;
+SELECT COUNT(studio)
+    FROM Movies;
 
 -- INSERT a Movie with a NULL studio will work
 INSERT INTO Movies (movie_id, title, year)
     VALUES (400, 'Movie D', 2010);
 
-SELECT * FROM Movies;
+SELECT *
+    FROM Movies;
 -- next two queries will not return the same result because studio has a null value in one record
-SELECT COUNT(*) FROM Movies;
-SELECT COUNT(studio) FROM Movies;
+SELECT COUNT(*)
+    FROM Movies;
+SELECT COUNT(studio)
+    FROM Movies;
 
 --insert a movie without a year will work
-INSERT INTO Movies (movie_id, title) VALUES (500, 'Movie E');
+INSERT INTO Movies (movie_id, title)
+    VALUES (500, 'Movie E');
 -- next two queries will not return the same result because year has a null value
-SELECT COUNT(*) FROM Movies m;
-SELECT COUNT(*) FROM Movies m WHERE m.year < 2010 OR m.year >= 2010;
+SELECT COUNT(*)
+    FROM Movies m;
+SELECT COUNT(*)
+    FROM Movies m
+    WHERE m.year < 2010
+       OR m.year >= 2010;
 
 -- CREATE TABLE with NOT NULL constraint on studio column
 CREATE TABLE Movies2 (
-    movie_id 	NUMBER(9) PRIMARY KEY,
-    title	    VARCHAR(40),
-    year        INT,
-    studio      VARCHAR(20)  NOT NULL
+    movie_id NUMBER(9) PRIMARY KEY,
+    title    VARCHAR(40),
+    year     INT,
+    studio   VARCHAR(20) NOT NULL
 );
 
 DESC Movies;
@@ -179,27 +219,42 @@ DESC Movies2;
 -- next commented out insert will also give an error because primary key attribute is not present
 -- INSERT INTO Movies (title, year, studio) VALUES ('Movie G', 2010, 'Universal');
 
-SELECT * FROM Movies;
+SELECT *
+    FROM Movies;
 
 -- Find all movies that have a studio
-SELECT * FROM Movies WHERE studio IS NOT NULL;
+SELECT *
+    FROM Movies
+    WHERE studio IS NOT NULL;
 
 -- Find all movies that DO NOT have a studio (i.r. column studio is null)
-SELECT * FROM Movies WHERE studio IS NULL;
+SELECT *
+    FROM Movies
+    WHERE studio IS NULL;
 
 -- insert another movie without year
-INSERT INTO Movies (movie_id, title) VALUES (1000, 'Movie H');
+INSERT INTO Movies (movie_id, title)
+    VALUES (1000, 'Movie H');
 -- with SUM on column that has some null values
-SELECT SUM(year) FROM Movies;
+SELECT SUM(year)
+    FROM Movies;
 
-SELECT COUNT(*) FROM Movies;
-SELECT COUNT(year) FROM Movies;
-SELECT COUNT(studio) FROM Movies;
+SELECT COUNT(*)
+    FROM Movies;
+SELECT COUNT(year)
+    FROM Movies;
+SELECT COUNT(studio)
+    FROM Movies;
 
 -- group by, will have a group for NULL
-SELECT AVG(movie_id), year FROM Movies GROUP BY year;
+SELECT AVG(movie_id), year
+    FROM Movies
+    GROUP BY year;
 
 -- min
-SELECT MIN(year) FROM Movies;
+SELECT MIN(year)
+    FROM Movies;
 -- min and group by
-SELECT MIN(year), studio FROM Movies GROUP BY studio;
+SELECT MIN(year), studio
+    FROM Movies
+    GROUP BY studio;
