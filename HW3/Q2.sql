@@ -58,6 +58,7 @@ SELECT s.sid, s.sname, s.age
     );
 
 -- Answer for f)
+-- Subquery version
 SELECT s.sid, s.sname
     FROM Students s,
          Articles a,
@@ -75,6 +76,20 @@ SELECT s.sid, s.sname
               AND a2.pubyear = 2018
     )
     ORDER BY s.sname DESC;
+
+-- Intersect version
+SELECT s1.sid, s1.sname
+    FROM Students s1
+         JOIN Reads r1 ON s1.sid = r1.sid
+         JOIN Articles a1 ON a1.aid = r1.aid
+    WHERE a1.pubyear = 2020
+INTERSECT
+SELECT s2.sid, s2.sname
+    FROM Students s2
+         JOIN Reads r2 ON s2.sid = r2.sid
+         JOIN Articles a2 ON r2.aid = a2.aid
+    WHERE a2.pubyear != 2018
+ORDER BY sname DESC;
 
 -- Answer for g)
 SELECT DISTINCT s.sid, s.sname

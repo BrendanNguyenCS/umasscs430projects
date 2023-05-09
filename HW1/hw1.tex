@@ -164,9 +164,9 @@ Using the relation instances from above, show the resulted relation for each of 
         \hline
             \cellcolor[HTML]{b4c6e7} author & \cellcolor[HTML]{b4c6e7} pubyear \\
             \hline
-            ulysses & joyce \\
+            joyce & 1920 \\
             \hline
-            other book & joyce \\
+            joyce & 1920 \\
             \hline
         \end{tabular}
     \end{table}
@@ -180,7 +180,7 @@ Using the relation instances from above, show the resulted relation for each of 
             \hline
             20 & mary & 21 & MA & 101 & 2020 \\
             \hline
-            20 & mary & 21 & VT & 102 & 2021 \\
+            20 & mary & 21 & MA & 102 & 2021 \\
             \hline
         \end{tabular}
     \end{table}
@@ -256,7 +256,9 @@ Write relational algebra queries for the following queries:
     \end{tcolorbox}    
     \item Find the names and ages of the actors who played only in movies only in 2015.
     \begin{tcolorbox}
-    \[\pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{year=2015}}\textit{Movies}))\]
+    \[\rho(\textit{In2015}, \pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{year=2015}}\textit{Movies})))\]
+    \[\rho(\textit{Not2015}, \pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{year!=2015}}\textit{Movies})))\]
+    \[\textit{In2015} - \textit{Not2015}\]
     \end{tcolorbox}    
     \item Find the names, age and city of actors who are from Boston MA and played some movies produced by `Universal' studio.
     \begin{tcolorbox}
@@ -305,7 +307,7 @@ Write the relational algebra expressions for the following queries:
     \end{tcolorbox}
     \item Find the information about the books that are either published in 2010 or 2020.
     \begin{tcolorbox}
-    \[\sigma_{(\textit{pubyear=2010}) \wedge (\textit{pubyear=2020})}\textit{Books}\]    
+    \[\sigma_{(\textit{pubyear=2010}) \vee (\textit{pubyear=2020})}\textit{Books}\]
     \end{tcolorbox}
     \item Find the names, pub year and pub company of the oldest books.
     \begin{tcolorbox}

@@ -56,7 +56,7 @@ SELECT category, AVG(dailyfee)
     GROUP BY category
     HAVING COUNT(*) >= 3;
 
--- Answer for f) MUST CORRECT
+-- Answer for f)
 SELECT m1.mid, m1.name
     FROM Musicians m1,
          Rents r1,

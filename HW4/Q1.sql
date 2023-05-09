@@ -77,6 +77,15 @@ DELETE
     FROM Books
     WHERE pubyear IS NULL;
 
+/**
+  The other solution is to add the ON DELETE CASCADE option to the bid foreign key in the Write table. Therefore, you
+  would only need the following SQL statement.
+
+  DELETE
+    FROM Books
+    WHERE pubyear IS NULL;
+ */
+
 -- Answer for j)
 INSERT INTO Books
     VALUES (1, 'Operating Systems: Three Easy Pieces', 'Remzi Arpaci-Dusseau', 2018, 'University of Wisconsin-Madison');

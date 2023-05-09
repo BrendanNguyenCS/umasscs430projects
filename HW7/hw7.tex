@@ -82,7 +82,16 @@ Note that C is the key. This relation has this set of functional dependencies: F
 
 \begin{enumerate}[label={\alph*}),leftmargin=*]
     \item Explain why this relation is not in BCNF.
+
+    The relation has dependent elements, B and D, which are dependent on other elements so it cannot be in BCNF.
+    
     \item Decompose this relation into BCNF.
+
+    The composition of the relation into BNCF is ACFSM with the relations FSB and AD also existing.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{hw7-1b.png}
+    \end{figure}
 \end{enumerate}
 
 \section*{Question 2 (20 points)}
@@ -101,7 +110,7 @@ CREATE USER joe IDENTIFIED BY joe123;
 
 \begin{tcolorbox}
 \begin{lstlisting}[language=SQL]
-GRANT SELECT, INSERT ON Sailors TO joe WITH ADMIN OPTION;
+GRANT SELECT, INSERT ON Sailors TO joe WITH GRANT OPTION;
 \end{lstlisting}
 \end{tcolorbox}
 \end{enumerate}

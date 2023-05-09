@@ -76,7 +76,7 @@
 
 \vspace{-4em}
 
-Given the following db schema:
+Given the following DB schema:
 \begin{itemize}
     \item \textit{Customers} (\underline{\texttt{cid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{age}: int)
     \item \textit{Visit} (\underline{\texttt{cid}: int, \texttt{mid}: int}, \texttt{visitday}: date)
@@ -87,7 +87,7 @@ A customer is identified by the \texttt{sid}. A customer also has a \texttt{name
 
 \section*{Question 1}
 
-Using the db schema from above:
+Using the DB schema from above:
 \begin{enumerate}[leftmargin=*]
     \item Write the relational algebra to find the name and city of all customers from MA.
     \begin{tcolorbox}
@@ -117,13 +117,13 @@ Using the db schema from above:
 
 \section*{Question 2}
 
-Using the db schema from above:
+Using the DB schema from above:
 \begin{enumerate}[leftmargin=*]
     \item Write the SQL statement to find how many museums we have in the database.
-    \item Write the SQL statement to find how many museums from Boston, MA we have in the db.
+    \item Write the SQL statement to find how many museums from Boston, MA we have in the DB.
     \item Write the SQL statement to find the average age of customers for each state. Show the results only for those states that have at least 5 customers.
     \item Write the SQL statement to find all customers who are from MA and are either younger than 30 or older than 40.
-    \item Write the SQL statements to create all tables from the db schema. Do not forget about the key constraints. Write a second version of \texttt{CREATE} statement for the table Customer to only allow customers older than 5 years.
+    \item Write the SQL statements to create all tables from the DB schema. Do not forget about the key constraints. Write a second version of \texttt{CREATE} statement for the table Customer to only allow customers older than 5 years.
     \item Find the id and the name of customers who visited a museum from MA in year 2018. Sort the result by name in ascending order.
     \item Write an insert statement for each table. The statements should be written in an order such that it won’t cause an error.
     \item Find the id and name of customers who visited museums in 2019 and did not visit any museum in 2020.

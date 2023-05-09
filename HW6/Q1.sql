@@ -43,7 +43,7 @@ SELECT DISTINCT m.mid, m.title
     FROM Movies m
          JOIN Watch w ON m.mid = w.mid
     WHERE w.watchedon >= TO_DATE('01/01/2022', 'MM/DD/YYYY')
-      AND w.watchedon <= TO_DATE('07/31/2022', 'MM/DD/YYYY')
+      AND w.watchedon <= TO_DATE('07/31/2022', 'MM/DD/YYYY');
 
 -- Answer for g)
 SELECT c.cid, c.name, m.mid, m.title, m.director, w.watchedon

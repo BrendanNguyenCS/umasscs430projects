@@ -28,47 +28,53 @@ CREATE TABLE Rents (
 );
 
 -- Answer for d)
+-- Subquery version
 SELECT cust1.custid, cust1.name
     FROM Customers cust1,
          Cars car1,
          Rents r
-         -- Joining conditions
     WHERE cust1.custid = r.custid
       AND car1.carid = r.carid
-      -- A Honda was rented
       AND car1.make = 'Honda'
-      -- A Toyota was also rented
       AND cust1.custid IN (
         SELECT cust2.custid
             FROM Customers cust2,
                  Cars car2,
                  Rents r2
-                 -- Joining conditions
             WHERE cust2.custid = r2.custid
               AND car2.carid = r2.carid
-              -- A Toyota car was rented
               AND car2.make = 'Toyota'
     );
 
+-- Intersect version
+SELECT cust1.custid, cust1.name
+    FROM Customers cust1
+         JOIN Rents r1 ON cust1.custid = r1.custid
+         JOIN Cars car1 ON car1.carid = r1.carid
+    WHERE car1.make = 'Honda'
+INTERSECT
+SELECT cust2.custid, cust2.name
+    FROM Customers cust2
+         JOIN Rents r2 ON cust2.custid = r2.custid
+         JOIN Cars car2 ON car2.carid = r2.carid
+    WHERE car2.make = 'Toyota';
+
 -- Answers for e)
+-- Subquery version
 SELECT c1.carid, c1.make, c1.model
     FROM Cars c1,
          Rents r1
-         -- Joining condition
     WHERE c1.carid = r1.carid
-      -- Car was rented in 2020
       AND EXTRACT(YEAR FROM r1.rday) = 2020
-      -- But not in 2022
       AND c1.carid NOT IN (
         SELECT *
             FROM Cars c2,
                  Rents r2
-                 -- Joining condition
             WHERE c2.carid = r2.carid
-              -- Car was rented in 2022
               AND EXTRACT(YEAR FROM r2.rday) = 2022
     );
 
+-- Intersect version
 SELECT c1.carid, c1.make, c1.model
     FROM Cars c1,
          Rents r1
