@@ -17,9 +17,10 @@ CREATE TABLE Instruments (
 );
 
 CREATE TABLE Rents (
-    mid NUMBER(9),
-    iid NUMBER(9),
-    PRIMARY KEY (mid, iid),
+    mid      NUMBER(9),
+    iid      NUMBER(9),
+    rentdate DATE,
+    PRIMARY KEY (mid, iid, rentdate),
     FOREIGN KEY (mid) REFERENCES Musicians,
     FOREIGN KEY (iid) REFERENCES Instruments
 );
@@ -57,21 +58,17 @@ SELECT category, AVG(dailyfee)
     HAVING COUNT(*) >= 3;
 
 -- Answer for f)
-SELECT m1.mid, m1.name
-    FROM Musicians m1,
-         Rents r1,
-         Instruments i1
-    WHERE m1.mid = r1.mid
-      AND i1.iid = r1.iid
-      AND i1.category = 'piano'
-MINUS
-SELECT m2.mid, m2.name
-    FROM Musicians m2,
-         Rents r2,
-         Instruments i2
-    WHERE m2.mid = r2.mid
-      AND i2.iid = r2.iid
-      AND i2.category != 'piano';
+SELECT m.mid, m.name
+    FROM Musicians m
+    WHERE NOT EXISTS (
+        SELECT i.iid
+            FROM Instruments i
+            WHERE i.category = 'piano'
+        MINUS
+        SELECT r.iid
+            FROM Rents r
+            WHERE r.mid = m.mid
+    );
 
 -- Answer for g)
 SELECT m.mid, m.name, SUM(i.dailyfee)

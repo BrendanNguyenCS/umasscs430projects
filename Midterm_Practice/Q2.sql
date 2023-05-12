@@ -9,9 +9,9 @@ SELECT COUNT(*)
       AND mstate = 'MA';
 
 -- Answer for 3
-SELECT AVG(c.age), c.state
-    FROM Customers c
-    GROUP BY c.state
+SELECT state, AVG(age)
+    FROM Customers
+    GROUP BY state
     HAVING COUNT(*) >= 5;
 
 -- Answer for 4
@@ -48,12 +48,10 @@ CREATE TABLE Visit (
 
 -- Answer for 6
 SELECT c.cid, c.name
-    FROM Customers c,
-         Visit v,
-         Museums m
-    WHERE c.cid = v.cid
-      AND m.mid = v.mid
-      AND mstate = 'MA'
+    FROM Customers c
+         JOIN Visit v ON c.cid = v.cid
+         JOIN Museums m ON m.mid = v.mid
+    WHERE mstate = 'MA'
       AND EXTRACT(YEAR FROM v.visitday) = 2018
     ORDER BY c.name;
 
@@ -67,37 +65,31 @@ INSERT INTO Visit
 
 -- Answer for 8
 SELECT c.cid, c.name
-    FROM Customers c,
-         Visit v
-    WHERE c.cid = v.cid
-      AND EXTRACT(YEAR FROM v.visitday) = 2019
+    FROM Customers c
+         JOIN Visit v ON c.cid = v.cid
+    WHERE EXTRACT(YEAR FROM v.visitday) = 2019
 MINUS
 SELECT c2.cid, c2.name
-    FROM Customers c2,
-         Visit v2
-    WHERE c2.cid = v2.cid
-      AND EXTRACT(YEAR FROM v2.visitday) = 2020;
+    FROM Customers c2
+         JOIN Visit v2 ON c2.cid = v2.cid
+    WHERE EXTRACT(YEAR FROM v2.visitday) = 2020;
 
 -- Answer for 9
 SELECT c.cid, c.name
-    FROM Customers c,
-         Visit v
-    WHERE c.cid = v.cid
-      AND EXTRACT(YEAR FROM v.visitday) = 2020
+    FROM Customers c
+         JOIN Visit v ON c.cid = v.cid
+    WHERE EXTRACT(YEAR FROM v.visitday) = 2020
 INTERSECT
 SELECT c2.cid, c2.name
-    FROM Customers c2,
-         Visit v2
-    WHERE c2.cid = v2.cid
-      AND EXTRACT(YEAR FROM v2.visitday) = 2018;
+    FROM Customers c2
+         JOIN Visit v2 ON c2.cid = v2.cid
+    WHERE EXTRACT(YEAR FROM v2.visitday) = 2018;
 
 -- Answer for 11
 SELECT c.cid, c.name, c.city, c.state, c.age
     FROM Customers c
-         JOIN Visit v
-              ON c.cid = v.cid
-         JOIN Museums m
-              ON v.mid = m.mid
+         JOIN Visit v ON c.cid = v.cid
+         JOIN Museums m ON v.mid = m.mid
     WHERE m.mtype = 'history';
 
 -- Answer for 12
@@ -153,17 +145,13 @@ SELECT c.cid, c.name
 
 -- Answer for 18
 SELECT c.cid, c.name
-    FROM Customers c,
-         Visit v,
-         Museums m
-    WHERE c.cid = v.cid
-      AND m.mid = v.mid
-      AND m.mtype = 'history'
+    FROM Customers c
+         JOIN Visit v ON c.cid = v.cid
+         JOIN Museums m ON m.mid = v.mid
+    WHERE m.mtype = 'history'
 INTERSECT
 SELECT c2.cid, c2.name
-    FROM Customers c2,
-         Visit v2,
-         Museums m2
-    WHERE c2.cid = v2.cid
-      AND m2.mid = v2.mid
-      AND m2.mtype = 'science';
+    FROM Customers c2
+         JOIN Visit v2 ON c2.cid = v2.cid
+         JOIN Museums m2 ON m2.mid = v2.mid
+    WHERE m2.mtype = 'science';

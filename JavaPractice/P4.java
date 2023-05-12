@@ -21,18 +21,18 @@ public class P4 extends OJDBCConnection {
         // Looping program
         while (true) {
             System.out.print("""
-                    Select one of the following programs to launch:
-                    1- Ratings Statistics of Sailors of All Age Groups
-                    2- Average Ages per Rating
-                    3- Ages and Their Actors
-                    4- Years and Its Movies
-                    5- Studios and Their Movies
-                    6- Movie Information
-                    7- Boat Color Counts
-                    8- Boat Reservation History
-                    9- Books and Their Authors
-                    -1- Exit
-                    :""");
+                                     Select one of the following programs to launch:
+                                     1- Ratings Statistics of Sailors of All Age Groups
+                                     2- Average Ages per Rating
+                                     3- Ages and Their Actors
+                                     4- Years and Its Movies
+                                     5- Studios and Their Movies
+                                     6- Movie Information
+                                     7- Boat Color Counts
+                                     8- Boat Reservation History
+                                     9- Books and Their Authors
+                                     -1- Exit
+                                     :""");
             int option;
             try {
                 option = input.nextInt();

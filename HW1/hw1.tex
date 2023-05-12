@@ -281,7 +281,17 @@ Write relational algebra queries for the following queries:
     \[\pi_{\textit{aname,age}}(\sigma_{(\textit{state=`MA'})\wedge (\textit{character=`Batman'})}(\textit{Actors} \bowtie \textit{Playsin}))\]
     \end{tcolorbox}    
     \item $\left[\text{CS630 only}\right]$ Find the name and age of actors who played in movies produced by `Paramount' (in any year) and never played in any movie produced by `WB' in year 2020.
+    \begin{tcolorbox}
+    \[\rho(\textit{AnyParamount}, \pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{\textit{studio=`Paramount'}}\textit{Movies})))\]
+    \[\rho(\textit{NotWB2020}, \pi_{\textit{aname,age}}(\textit{Actors} \bowtie \textit{Playsin} \bowtie (\sigma_{(\textit{studio=`WB'}) \wedge (\textit{year=2020})}\textit{Movies})))\]
+    \[\textit{AnyParamount} - \textit{NotWB2020}\]
+    \end{tcolorbox}
     \item $\left[\text{CS630 only}\right]$ Find names of movies in which actors from both MA and NY states played.
+    \begin{tcolorbox}
+    \[\rho(\textit{MoviesWithMAActors}, \pi_{\textit{mname}}((\sigma_{\textit{state=`MA'}}\textit{Actors}) \bowtie \textit{Playsin} \bowtie \textit{Movies}))\]
+    \[\rho(\textit{MoviesWithNYActors}, \pi_{\textit{mname}}((\sigma_{\textit{state=`NY'}}\textit{Actors}) \bowtie \textit{Playsin} \bowtie \textit{Movies}))\]
+    \[\textit{MoviesWithMAActors} \cap \textit{MoviesWithNYActors}\]
+    \end{tcolorbox}
 \end{enumerate}
 
 \section*{Question 3 (30 points)}
@@ -326,6 +336,9 @@ Write the relational algebra expressions for the following queries:
     \[\pi_{\textit{bname}}((\pi_{\textit{bid,sid}}\textit{Reads} / \pi_{\textit{sid}}\textit{Students}) \bowtie \textit{Books})\]
     \end{tcolorbox}    
     \item $\left[\text{CS630 only}\right]$ Find the names, pubyear and pubcompany of the books that were read by all students from MA.
+    \begin{tcolorbox}
+    \[\pi_{\textit{bname}}((\pi_{\textit{bid,sid}}\textit{Reads} / \pi_{\textit{sid}}(\sigma_{\textit{state=`MA'}}\textit{Students})) \bowtie \textit{Books})\]
+    \end{tcolorbox}
 \end{enumerate}
 
 \end{document}

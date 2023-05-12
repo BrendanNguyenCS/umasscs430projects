@@ -79,17 +79,21 @@
 
 \section*{Question 1}
 
-Consider a database which keeps track of customers and the hotels that they stay at. A customer has an identifier (\texttt{cid}). A customer also has a name, city, state, date of birth, and phone number. Customers stay at hotels. Hotels also have a unique identifier. In addition, they have name, city, and state. Hotels also are rated with a star rating.
+A travel agency database contains information about customers (identified by \texttt{cid}) and information about hotels (identified by \texttt{hid}) where customers stay. Each customer also has a name, a date of birth (\texttt{dob}), a city, a state, and a phone number. Hotels also have a name, a city, a state, and a stars number. Customers stay in hotels.
 
 \begin{enumerate}[label={\alph*}.,leftmargin=*]
-    \item Draw the EF diagram for the above description.
+    \item Draw the ER diagram of this database (as described above). Do not forget about the primary keys. Do not use any other constraints. The ER diagram should strictly follow the notations used in class. No other notations will receive credit.
     \begin{tcolorbox}
     \begin{figure}[H]
         \centering
         \includegraphics[scale=0.8]{midterm-1a.png}
     \end{figure}
     \end{tcolorbox}
-    \item Write the DB schema for the above description.
+    \item Explain in words how you would change the diagram to add the constraint for each hotel there must be at least one customer that stayed in.
+    \begin{tcolorbox}
+        You would add a thick line from the \textit{Stays} relation to the \textit{Hotels} relation.
+    \end{tcolorbox}
+    \item Write the DB schema for this database.
     \begin{tcolorbox}
     \begin{itemize}[leftmargin=*]
         \item \textit{Customers} (\ul{\texttt{cid}: int}, \texttt{cname}: string, \texttt{ccity}: string, \texttt{cstate}: string, \texttt{dob}: date, \texttt{phone\_number}: string)
@@ -139,7 +143,7 @@ Write the SQL statements for the following queries given the schema used for Que
     \item Save the id, name, city, and state of the youngest musicians into a view called \textit{YoungestMusicians}.
     \item The id, brand, and model of all instruments that were manufactured in the year 2020 from either `yamaha' or `roland' (which are brands).
     \item The average daily fee for each instrument category in the database. Only keep categories that have more than 3 instruments.
-    \item The id and name of musicians that only rented pianos.
+    \item The id and name of musicians who rented all instruments of type `piano'.
     \item The total amount of daily fees for all instruments that have been rented by each musician in the database. Also, include the id and name of the musicians.
     \item Add a phone number column to the \textit{Musicians} table.
     \item Explain the primary key constraint. How is it used in databases? How does it affect the creation and altering of data? Show an example of a violation of this constraint.

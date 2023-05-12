@@ -45,6 +45,7 @@ public class Q2 {
 
     /**
      * Establishes a connection to the Oracle SQL database.
+     *
      * @return the {@link Connection} object that is connected to the database
      */
     public static Connection getConnection(Scanner input) {
@@ -90,6 +91,7 @@ public class Q2 {
 
     /**
      * Prints all information about all customers in the database
+     *
      * @param connection the database connection instance
      */
     private static void getCustomerInfo(Connection connection) {
@@ -99,11 +101,11 @@ public class Q2 {
             if (rs.next()) {
                 do {
                     System.out.println(
-                        "Customer id = " + rs.getString("cid") +
-                        ", Name = " + rs.getString("name") +
-                        ", City = " + rs.getString("city") +
-                        ", State = " + rs.getString("state") +
-                        ", Age = " + rs.getString("age")
+                            "Customer id = " + rs.getString("cid") +
+                            ", Name = " + rs.getString("name") +
+                            ", City = " + rs.getString("city") +
+                            ", State = " + rs.getString("state") +
+                            ", Age = " + rs.getString("age")
                     );
                 } while (rs.next());
             }
@@ -117,6 +119,7 @@ public class Q2 {
 
     /**
      * Prints information about customers and the movies they watched
+     *
      * @param connection the database connection instance
      */
     private static void getCustomerWatchedMovies(Connection connection) {
@@ -126,11 +129,11 @@ public class Q2 {
             if (rs.next()) {
                 do {
                     System.out.println(
-                        "Customer id = " + rs.getString("cid") +
-                        ", Customer name = " + rs.getString("name") +
-                        ", Movie id = " + rs.getString("mid") +
-                        ", Movie title = " + rs.getString("title") +
-                        ", Watched on = " + rs.getString("watchedon")
+                            "Customer id = " + rs.getString("cid") +
+                            ", Customer name = " + rs.getString("name") +
+                            ", Movie id = " + rs.getString("mid") +
+                            ", Movie title = " + rs.getString("title") +
+                            ", Watched on = " + rs.getString("watchedon")
                     );
                 } while (rs.next());
             }
@@ -144,6 +147,7 @@ public class Q2 {
 
     /**
      * Prints the number of movies in the database
+     *
      * @param connection the database connection instance
      */
     private static void getNumberOfMovies(Connection connection) {
@@ -165,6 +169,7 @@ public class Q2 {
 
     /**
      * Prints the metadata for the Customers table
+     *
      * @param connection the database connection instance
      */
     private static void getCustomerMetadata(Connection connection) {
@@ -181,8 +186,8 @@ public class Q2 {
                     ResultSet crs = md.getColumns(null, null, tableName, null);
                     while (crs.next()) {
                         System.out.println(
-                            "COL_NAME = " + crs.getString("COLUMN_NAME") +
-                            ", TYPE = " + crs.getString("TYPE_NAME")
+                                "COL_NAME = " + crs.getString("COLUMN_NAME") +
+                                ", TYPE = " + crs.getString("TYPE_NAME")
                         );
                     }
                 } while (trs.next());
@@ -197,8 +202,9 @@ public class Q2 {
 
     /**
      * Prints the movies released in the year given from standard input
+     *
      * @param connection the database connection instance
-     * @param input the command line input scanner
+     * @param input      the command line input scanner
      */
     private static void getMoviesFromYear(Connection connection, Scanner input) {
         // Get user prompted year
@@ -210,9 +216,9 @@ public class Q2 {
             if (rs.next()) {
                 do {
                     System.out.println(
-                        "Movie id = " + rs.getString("mid") +
-                        ", Movie title = " + rs.getString("title") +
-                        ", Director = " + rs.getString("director")
+                            "Movie id = " + rs.getString("mid") +
+                            ", Movie title = " + rs.getString("title") +
+                            ", Director = " + rs.getString("director")
                     );
                 } while (rs.next());
             }

@@ -42,36 +42,28 @@ SELECT c.cid, c.name, m.mname
 
 -- Answer for 4)
 SELECT c1.cid, c1.name
-    FROM Customers c1,
-         Visit v1,
-         Museums m1
-    WHERE c1.cid = v1.cid
-      AND m1.mid = v1.mid
-      AND m1.mstate = 'NY'
+    FROM Customers c1
+         JOIN Visit v1 ON c1.cid = v1.cid
+         JOIN Museums m1 ON m1.mid = v1.mid
+    WHERE m1.mstate = 'NY'
 MINUS
 SELECT c2.cid, c2.name
-    FROM Customers c2,
-         Visit v2,
-         Museums m2
-    WHERE c2.cid = v2.cid
-      AND m2.mid = v2.mid
-      AND m2.mstate != 'NY';
+    FROM Customers c2
+         JOIN Visit v2 ON c2.cid = v2.cid
+         JOIN Museums m2 ON m2.mid = v2.mid
+    WHERE m2.mstate != 'NY';
 
 -- Answer for 5)
 SELECT m1.mid, m1.mname
-    FROM Customers c1,
-         Visit v1,
-         Museums m1
-    WHERE c1.cid = v1.cid
-      AND v1.mid = m1.mid
-      AND c1.city = 'Boston'
+    FROM Customers c1
+         JOIN Visit v1 ON c1.cid = v1.cid
+         JOIN Museums m1 ON v1.mid = m1.mid
+    WHERE c1.city = 'Boston'
       AND c1.state = 'MA'
 INTERSECT
 SELECT m2.mid, m2.mname
-    FROM Customers c2,
-         Visit v2,
-         Museums m2
-    WHERE c2.cid = v2.cid
-      AND v2.mid = m2.mid
-      AND c2.city = 'Burlington'
+    FROM Customers c2
+         JOIN Visit v2 ON c2.cid = v2.cid
+         JOIN Museums m2 ON v2.mid = m2.mid
+    WHERE c2.city = 'Burlington'
       AND c2.state = 'MA';

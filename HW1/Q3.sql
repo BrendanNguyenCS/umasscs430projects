@@ -74,3 +74,16 @@ SELECT b.bname
             FROM Reads r
             WHERE r.bid = b.bid
     );
+
+-- Answer for f)
+SELECT b.bname, b.pubyear, b.pubcompany
+    FROM Books b
+    WHERE NOT EXISTS (
+        SELECT s.sid
+            FROM Students s
+            WHERE s.state = 'MA'
+        MINUS
+        SELECT r.sid
+            FROM Reads r
+            WHERE r.bid = b.bid
+    );
