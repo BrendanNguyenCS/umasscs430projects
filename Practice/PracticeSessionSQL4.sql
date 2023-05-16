@@ -47,7 +47,6 @@ DESC Sailors;
 DESC Boats;
 DESC Sailors3;
 
-
 -- insert data into Sailors table
 INSERT INTO Sailors (sid, sname, rating, age)
     VALUES (22, 'dustin', 7, 45.0);

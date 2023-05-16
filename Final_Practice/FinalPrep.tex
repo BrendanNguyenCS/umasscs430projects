@@ -1,0 +1,150 @@
+\documentclass[letterpaper, 11pt]{article}
+\usepackage{nopageno} % For removing page numbers
+\usepackage[utf8]{inputenc}
+\usepackage{color, colortbl} % For table coloring
+\usepackage{titling} % For positioning of title preamble
+\usepackage[margin=0.75in]{geometry} % For margin width setting
+\usepackage{comment} % For block commenting
+\usepackage{float} % For table positioning
+% For math equation formatting
+\usepackage{amsmath, amssymb, amsfonts}
+\newcommand{\PMod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+\usepackage{parskip} % For automatic paragraph spacing/formatting
+\usepackage{relsize} % For increased math mode font sizing
+% For code blocks
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{lmodern}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{listings, minted}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keepspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color{blue},
+    commentstyle=\sffamily\itshape\color{Green}\scriptsize,
+    stringstyle = \color{red},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2
+}
+\tcbset{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    parbox=false,
+}
+\setlength{\extrarowheight}{2pt}
+\usepackage{titlesec} % Custom styling for section titles
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont}{\thesection}{1em}{}
+% For side by side figures
+\usepackage{multicol}
+\usepackage{makecell}
+% For horizontal lists
+\usepackage{enumitem, tasks, varwidth}
+% For custom page numbers
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\usepackage[skip=2pt]{caption}
+\usepackage{graphicx}
+\graphicspath{{../Images/}}
+
+% Move title area to the top of the page
+\setlength{\droptitle}{-4em}
+\addtolength{\droptitle}{-4pt} 
+\renewcommand{\arraystretch}{1.25}
+% Disable paragraph indenting
+\setlength{\parindent}{0pt}
+
+\usepackage[none]{hyphenat}
+\usepackage{times}
+\usepackage{soul}
+
+\title{Final Prep}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\vspace{-4em}
+
+\section*{Question 1}
+
+Given the following DB schema:
+\begin{itemize}
+    \item \textit{Students} (\ul{\texttt{sid}: int}, \texttt{name}: string, \texttt{city}: string, \texttt{state}: string, \texttt{age}: int)
+    \item \textit{Rents} (\ul{\texttt{cid}: int, \texttt{sid}: int}, \texttt{price}: int, \texttt{rentdate}: date)
+    \item \textit{Cars} (\ul{\texttt{cid}: int}, \texttt{make}: string, \texttt{model}: string, \texttt{myear}: int)
+\end{itemize}
+
+\begin{enumerate}[leftmargin=*]
+    \item Write the SQL statement that extracts how many students are in state MA.
+    \item Write the SQL statement that extracts how many students are in each state.
+    \item Write the SQL statement that finds the id and name of students who rented both a Honda Accord and a Toyota Prius. 
+    \item Write the SQL statement that finds the id and name of students who only rented a Toyota Prius.
+    \item Write the SQL Statement that extracts the students who rented all cars.
+    \item Write the SQL statement to create a view called \textit{Cars2020} that contains information about all cars manufactured in 2020.
+    \item Write the SQL to create a \textit{Cars} table with the constraints that all cars must be newer than 2010 (including 2010).
+    \item Write the SQL to extract the average age of students by state, for those states that have at least 100 students.
+    \item Write the SQL statement to extract the number of cars each student whose name starts with the letter `a’  rented. Make the query case insensitive with regard to the name of the student.
+    \item Write the SQL statement to extract the id and name of students who only rented cars in 2018.
+    \item Write the relational algebra to extract all Honda Accord cars older than 2018.
+    \begin{tcolorbox}[oversize]
+    \[\sigma_{(\textit{make}=\textit{`Honda'}) \wedge (\textit{model}=\textit{`Accord'}) \wedge (\textit{myear} < 2018)}\textit{Cars}\]
+    \end{tcolorbox}
+    \item Write the relational algebra to extract only the cid for all Honda Accord cars older than 2018.
+    \begin{tcolorbox}[oversize]
+    \[\pi_{\textit{cid}}(\sigma_{(\textit{make}=\textit{`Honda'}) \wedge (\textit{model}=\textit{`Accord'}) \wedge (\textit{myear} < 2018)}\textit{Cars})\]
+    \end{tcolorbox}
+    \item Write the relational algebra to extract the name of students who rented cards Hondas only in 2018.
+    \begin{tcolorbox}[oversize]
+    \[\rho(\textit{StudentsRent2018}, \pi_{\textit{sid,name}}(\textit{Students} \bowtie (\sigma_{\textit{make}=\textit{`Honda'}}\textit{Cars}) \bowtie (\sigma_{\textit{rentdate}=2018}\textit{Rents})))\]
+    \[\rho(\textit{StudentsRentOther}, \pi_{\textit{sid,name}}(\textit{Students} \bowtie (\sigma_{\textit{make}=\textit{`Honda'}}\textit{Cars}) \bowtie (\sigma_{\textit{rentdate}!=2018}\textit{Rents})))\]
+    \[\pi_{\textit{name}}(\textit{StudentsRent2018} - \textit{StudentsRentOther})\]
+    \end{tcolorbox}
+\end{enumerate}
+
+\section*{Question 2}
+
+Explain whether this relation is in BCNF. If not, decompose it to BCNF.
+\begin{itemize}
+    \item CSJDPQV
+    \item Key is C
+    \item Functional dependencies are: PQ $\to$ V, S $\to$ D
+\end{itemize}
+
+\begin{tcolorbox}
+Check condition S $\to$ D
+\begin{itemize}
+    \item D is not included or equal to S
+    \item S is not part of a key
+\end{itemize}
+
+S $\to$ D violates BCNF so we must decompose it.
+
+Check condition PQ $\to$ V
+\begin{itemize}
+    \item V is not included or equal to PQ
+    \item PQ is not included in a key
+\end{itemize}
+
+PQ $\to$ V violates BCNF so we must decompose it.
+
+Decomposition of CSJDPQV
+
+Decompose for PQ $\to$ V (PQV, CSJDPQ)
+
+Decompose for  S $\to$ D (PQV, SD, CSJPQ)
+
+Check if we lost any dependency. If yes, it means we need to try to do 3NF. In this case, no dependency was lost.
+\end{tcolorbox}
+
+\end{document}

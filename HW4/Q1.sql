@@ -107,7 +107,8 @@ ALTER TABLE Authors ADD (
 
 -- Answer for m)
 SELECT COUNT(name)
-    FROM Authors; -- This statement counts all the rows in the name column and excludes NULL values.
+    FROM Authors;
+-- This statement counts all the rows in the name column and excludes NULL values.
 SELECT COUNT(*)
     FROM Authors;
 -- This statement doesn't exclude NULL values.

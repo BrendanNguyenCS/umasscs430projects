@@ -30,20 +30,16 @@ CREATE TABLE Rents (
 -- Answer for d)
 -- Subquery version
 SELECT cust1.custid, cust1.name
-    FROM Customers cust1,
-         Cars car1,
-         Rents r
-    WHERE cust1.custid = r.custid
-      AND car1.carid = r.carid
-      AND car1.make = 'Honda'
+    FROM Customers cust1
+         JOIN Rents r1 ON cust1.custid = r1.custid
+         JOIN Cars car1 ON r1.carid = car1.carid
+    WHERE car1.make = 'Honda'
       AND cust1.custid IN (
         SELECT cust2.custid
-            FROM Customers cust2,
-                 Cars car2,
-                 Rents r2
-            WHERE cust2.custid = r2.custid
-              AND car2.carid = r2.carid
-              AND car2.make = 'Toyota'
+            FROM Customers cust2
+                 JOIN Rents r2 ON cust2.custid = r2.custid
+                 JOIN Cars car2 ON r2.carid = car2.carid
+            WHERE car2.make = 'Toyota'
     );
 
 -- Intersect version
@@ -62,30 +58,26 @@ SELECT cust2.custid, cust2.name
 -- Answers for e)
 -- Subquery version
 SELECT c1.carid, c1.make, c1.model
-    FROM Cars c1,
-         Rents r1
-    WHERE c1.carid = r1.carid
-      AND EXTRACT(YEAR FROM r1.rday) = 2020
+    FROM Cars c1
+         JOIN Rents r1 ON c1.carid = r1.carid
+    WHERE EXTRACT(YEAR FROM r1.rday) = 2020
       AND c1.carid NOT IN (
         SELECT *
-            FROM Cars c2,
-                 Rents r2
-            WHERE c2.carid = r2.carid
-              AND EXTRACT(YEAR FROM r2.rday) = 2022
+            FROM Cars c2
+                 JOIN Rents r2 ON c2.carid = r2.carid
+            WHERE EXTRACT(YEAR FROM r2.rday) = 2022
     );
 
 -- Intersect version
 SELECT c1.carid, c1.make, c1.model
-    FROM Cars c1,
-         Rents r1
-    WHERE c1.carid = r1.carid
-      AND EXTRACT(YEAR FROM r1.rday) = 2020
+    FROM Cars c1
+         JOIN Rents r1 ON c1.carid = r1.carid
+    WHERE EXTRACT(YEAR FROM r1.rday) = 2020
 INTERSECT
 SELECT c2.carid, c2.make, c2.model
-    FROM Cars c2,
-         Rents r2
-    WHERE c2.carid = r2.carid
-      AND EXTRACT(YEAR FROM r2.rday) != 2022;
+    FROM Cars c2
+         JOIN Rents r2 ON c2.carid = r2.carid
+    WHERE EXTRACT(YEAR FROM r2.rday) != 2022;
 
 -- Answer for f)
 INSERT INTO Cars

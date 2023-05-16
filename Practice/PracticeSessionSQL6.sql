@@ -239,3 +239,14 @@ CREATE TABLE Sailors5 (
 -- this will return an error because of the constraint on rating
 INSERT INTO Sailors5
     VALUES (100, 'joe', 11, 33);
+
+-- Using ALTER TABLE to add a constraint
+CREATE TABLE Sailors6 (
+    sid    NUMBER(9) PRIMARY KEY,
+    sname  VARCHAR(20),
+    rating NUMBER(2),
+    age    NUMBER(4, 2)
+);
+
+ALTER TABLE Sailors6
+ADD CONSTRAINT RatingRange CHECK (rating >= 1 AND rating <= 10);
