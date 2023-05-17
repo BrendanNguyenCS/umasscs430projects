@@ -55,7 +55,7 @@ SELECT s.sid, s.name
          JOIN Rents r ON s.sid = r.sid
          JOIN Cars c ON r.cid = c.cid
     WHERE c.make != 'Toyota'
-      AND c.model != 'Prius';
+      OR c.model != 'Prius';
 
 -- Answer for 5)
 SELECT s.sid, s.name
