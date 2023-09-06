@@ -3,7 +3,7 @@
  */
 
 /**
-  2. Write the SQL statements required to create the preceding relations, including appropriate versios of all primary and foreign key integrity constraints.
+  2. Write the SQL statements required to create the preceding relations, including appropriate versions of all primary and foreign key integrity constraints.
  */
 CREATE TABLE Emp (
     eid    INT PRIMARY KEY,
@@ -33,19 +33,19 @@ CREATE TABLE Dept (
 );
 
 /**
-  4. Write an SQL statement ot add John Doe as an employee with eid = 101, age = 32 ,and salary = 15,000.
+  4. Write an SQL statement to add John Doe as an employee with eid = 101, age = 32, and salary = 15,000.
  */
 INSERT INTO Emp
     VALUES (101, 'John Doe', 32, 15000);
 
 /**
-  5. Write an SQL statement to give every employee a 10% raise.
+  5. Write an SQL statement to give every employee a 10 percent raise.
  */
 UPDATE Emp
 SET salary = salary * 1.1;
 
 /**
-  6. Write an SQL statement to delete the Toy department. Given the referntial integrity constraints you chose for this schema, explain what happens when this statement is executed.
+  6. Write an SQL statement to delete the Toy department. Given the referential integrity constraints you chose for this schema, explain what happens when this statement is executed.
  */
 DELETE
     FROM Dept
