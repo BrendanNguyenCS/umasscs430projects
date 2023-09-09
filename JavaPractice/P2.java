@@ -14,8 +14,9 @@ public class P2 extends OJDBCConnection {
         // Establish connection to database
         Connection conn;
         conn = getConnection();
-        if (conn == null)
+        if (conn == null) {
             System.exit(1);
+        }
 
         // Now execute query
         Scanner input = new Scanner(System.in);
@@ -41,9 +42,9 @@ public class P2 extends OJDBCConnection {
                                 ", Age = " + rs.getString("age")
                         );
                     } while (rs.next());
-                }
-                else
+                } else {
                     System.out.println("No Records Retrieved");
+                }
             }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED");

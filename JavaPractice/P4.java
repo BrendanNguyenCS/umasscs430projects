@@ -9,10 +9,10 @@ public class P4 extends OJDBCConnection {
      */
     public static void main(String[] args) {
         // Establish connection to database
-        Connection conn;
-        conn = getConnection();
-        if (conn == null)
+        Connection conn = getConnection();
+        if (conn == null) {
             System.exit(1);
+        }
 
         // Set up command line input scanner
         Scanner input = new Scanner(System.in);
@@ -63,7 +63,6 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Prints out the ratings statistics of sailors of all age groups.
-     *
      * @param connection the database connection instance
      */
     private static void printRatingsPerAge(Connection connection) {
@@ -83,9 +82,9 @@ public class P4 extends OJDBCConnection {
                             ", Avg Rating = " + rs.getString("AVG(rating)")
                     );
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("No Records Retrieved");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting rating statistics for age groups");
             e.printStackTrace();
@@ -94,7 +93,6 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Prints out the average age of sailors for each rating.
-     *
      * @param connection the database connection instance
      */
     private static void printAverageAgePerRating(Connection connection) {
@@ -112,9 +110,9 @@ public class P4 extends OJDBCConnection {
                             ", Avg Age = " + rs.getString("AVG(age)")
                     );
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("No Records Retrieved");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting age statistics for rating groups");
             e.printStackTrace();
@@ -123,7 +121,6 @@ public class P4 extends OJDBCConnection {
 
     /**
      * Recursively prints the names of actors of the requested age.
-     *
      * @param connection the database connection instance
      * @param input      the command line input scanner
      */
@@ -147,9 +144,9 @@ public class P4 extends OJDBCConnection {
                     do {
                         System.out.println(rs.getString("name"));
                     } while (rs.next());
-                }
-                else
+                } else {
                     System.out.println("There are no actors of age " + age + " in this database.");
+                }
             }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting actors of the given age");
@@ -185,9 +182,9 @@ public class P4 extends OJDBCConnection {
                     do {
                         System.out.print(rs.getString("title"));
                     } while (rs.next());
-                }
-                else
+                } else {
                     System.out.println("There are no movies from the year " + year + "in this database.");
+                }
             }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting movies by the given year");
@@ -225,9 +222,9 @@ public class P4 extends OJDBCConnection {
                                 rs.getString("title") + " (" + rs.getString("year") + ")"
                         );
                     } while (rs.next());
-                }
-                else
+                } else {
                     System.out.println("There are no movies from " + studio + "in this database.");
+                }
             }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting movies from the given studio");
@@ -262,9 +259,9 @@ public class P4 extends OJDBCConnection {
                     do {
                         System.out.println("\t" + rs.getString("name") + " -> " + rs.getString("character"));
                     } while (rs.next());
-                }
-                else
+                } else {
                     System.out.println(movie + " does not exist in this database.");
+                }
             }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting the cast list for the given movie");
@@ -289,9 +286,9 @@ public class P4 extends OJDBCConnection {
                 do {
                     System.out.println(rs.getString("color") + " : " + rs.getString("COUNT(*)"));
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("No Records Retrieved");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting totals per boat color");
             e.printStackTrace();
@@ -315,9 +312,9 @@ public class P4 extends OJDBCConnection {
                 do {
                     System.out.println(rs.getString("sid") + ": " + rs.getString("COUNT(*)") + " boats");
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("No Records Retrieved");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting boat reservation history");
             e.printStackTrace();
@@ -343,9 +340,9 @@ public class P4 extends OJDBCConnection {
                             rs.getString("bname") + " (" + rs.getString("pubyear") + ") by " + rs.getString("name")
                     );
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("No Records Retrieved");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting authors and the books they wrote");
             e.printStackTrace();

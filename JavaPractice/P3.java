@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class P3 extends OJDBCConnection {
     /**
      * Practice code to show how to the column information for a given table in the database.
-     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -45,9 +44,9 @@ public class P3 extends OJDBCConnection {
                             );
                         }
                     } while (trs.next());
-                }
-                else
+                } else {
                     System.out.println("No Such Table");
+                }
             }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED");

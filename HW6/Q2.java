@@ -8,8 +8,7 @@ public class Q2 {
         Scanner input = new Scanner(System.in);
 
         // Establish connection to database
-        Connection conn;
-        conn = getConnection(input);
+        Connection conn = getConnection(input);
         if (conn == null) {
             System.out.println("Connection failed.");
             System.exit(1);
@@ -108,9 +107,9 @@ public class Q2 {
                             ", Age = " + rs.getString("age")
                     );
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("No Records Retrieved");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting customer information");
             e.printStackTrace();
@@ -136,9 +135,9 @@ public class Q2 {
                             ", Watched on = " + rs.getString("watchedon")
                     );
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("No Records Retrieved");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting customers and the movies they watched");
             e.printStackTrace();
@@ -158,9 +157,9 @@ public class Q2 {
                 do {
                     System.out.println("There are " + rs.getString("COUNT(*)") + " movies in this database.");
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("There are no movies in this database.");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting the number of movies in the database");
             e.printStackTrace();
@@ -191,9 +190,9 @@ public class Q2 {
                         );
                     }
                 } while (trs.next());
-            }
-            else
+            } else {
                 System.out.println("The CUSTOMER table doesn't exist");
+            }
         } catch (SQLException e) {
             System.out.println("ERROR OCCURRED while getting getting Customer table metadata");
             e.printStackTrace();
@@ -221,9 +220,9 @@ public class Q2 {
                             ", Director = " + rs.getString("director")
                     );
                 } while (rs.next());
-            }
-            else
+            } else {
                 System.out.println("There were no records for the year " + year);
+            }
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED while getting ");
         }
